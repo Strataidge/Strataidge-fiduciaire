@@ -195,7 +195,7 @@ function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-strataidge-blue-night/75 backdrop-blur-md shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-strataidge-blue-night/85 backdrop-blur-md shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-start gap-3">
@@ -382,7 +382,7 @@ function HeroSection() {
         Votre navigateur ne supporte pas la balise vidéo.
       </video>
       <SparkleAnimation />
-      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/60 via-strataidge-blue-night/75 to-strataidge-blue-night" />
+      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
