@@ -372,10 +372,11 @@ function HeroSection() {
         autoPlay
         muted
         playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_50%] lg:object-center"
       >
         <source
-          src="https://www.dropbox.com/scl/fi/zy1orbr30hxac9c7vo5c4/5433700_Coll_wavebreak_People_3840x2160.mp4?rlkey=bxqib9g0ll056g1eeqggf3v16&dl=1"
+          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_3840x2160.mp4"
           type="video/mp4"
         />
         Votre navigateur ne supporte pas la balise vidéo.
@@ -1421,6 +1422,7 @@ function Footer() {
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3 w-fit">
               <Image src="/logo.png" alt="Strataidge Fiduciaire & Conseils Logo" width={40} height={40} />
+
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg text-white text-left">Strataidge</span>
                 <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
