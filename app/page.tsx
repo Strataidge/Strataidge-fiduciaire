@@ -21,6 +21,8 @@ import {
   Instagram,
   Lock,
   Network,
+  Volume2,
+  VolumeX,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -38,8 +40,30 @@ import { SparkleAnimation } from "@/components/sparkle-animation"
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [isMuted, setIsMuted] = useState(false)
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      const currentlyMuted = !audioRef.current.muted
+      audioRef.current.muted = currentlyMuted
+      setIsMuted(currentlyMuted)
+    }
+  }
   return (
     <div className="bg-strataidge-blue-night text-strataidge-light-gray antialiased font-sans">
+      <audio ref={audioRef} src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ambiance%20l%C3%A9g%C3%A8re-AagsFrMGavlUJ3PUJZBNv9CxX6vSue.mp3" loop autoPlay />
+      <div className="fixed bottom-5 right-5 z-[101]">
+        <Button
+          onClick={toggleMute}
+          variant="outline"
+          size="icon"
+          className="bg-strataidge-blue-night/50 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white rounded-full"
+          aria-label={isMuted ? "Activer le son" : "Désactiver le son"}
+        >
+          {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+        </Button>
+      </div>
       <Header />
       <main>
         <HeroSection />
