@@ -114,10 +114,10 @@ function Header() {
   const [loginError, setLoginError] = useState<string | null>(null)
 
   const navLinks = [
-    { name: "La Vision", href: "#about" },
-    { name: "Les Solutions", href: "#services" },
-    { name: "L'Approche", href: "#methodology" },
-    { name: "Les Analyses", href: "#blog" },
+    { name: "Vision", href: "#about" },
+    { name: "Solutions", href: "#services" },
+    { name: "Approche", href: "#methodology" },
+    { name: "Analyses", href: "#blog" },
     { name: "Contact", href: "#contact" },
   ]
 
@@ -230,7 +230,7 @@ function Header() {
                 asChild
                 className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold shadow-lg shadow-strataidge-turquoise/20"
               >
-                <Link href="#offers">Les Offres</Link>
+                <Link href="#offers">Offres</Link>
               </Button>
             </div>
             <div className="lg:hidden">
@@ -297,7 +297,7 @@ function Header() {
               className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-6 text-base"
             >
               <Link href="#offers" onClick={() => setIsMenuOpen(false)}>
-                Les Offres
+                Offres
               </Link>
             </Button>
           </motion.div>
@@ -440,7 +440,7 @@ function AboutSection() {
             </div>
           </FadeIn>
           <FadeIn>
-            <span className="font-semibold text-strataidge-turquoise">La Vision</span>
+            <span className="font-semibold text-strataidge-turquoise">Vision</span>
             <AnimatedTitle>Plus que des chiffres, une compréhension profonde de votre réalité.</AnimatedTitle>
           </FadeIn>
         </div>
@@ -506,7 +506,7 @@ function ServicesSection() {
     <section id="services" className="py-24 sm:py-32 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
-          <span className="font-semibold text-strataidge-turquoise">Les Solutions</span>
+          <span className="font-semibold text-strataidge-turquoise">Solutions</span>
           <AnimatedTitle>Global dans l'approche, unique dans le conseil</AnimatedTitle>
           <FadeIn>
             <p className="mt-4 text-lg text-gray-600">
@@ -558,28 +558,28 @@ function MethodologySection() {
   ]
 
   return (
-    <section id="methodology" className="py-24 sm:py-32">
+    <section id="methodology" className="py-24 sm:py-32 bg-strataidge-blue-night">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
-          <span className="font-semibold text-strataidge-turquoise">L'Approche</span>
-          <AnimatedTitle>4 étapes pour transformer votre gestion</AnimatedTitle>
+          <span className="font-semibold text-strataidge-turquoise">Approche</span>
+          <AnimatedTitle className="text-white">4 étapes pour transformer votre gestion</AnimatedTitle>
           <FadeIn>
-            <p className="mt-4 text-lg text-gray-600">Avec l'humain au cœur et le digital au service.</p>
+            <p className="mt-4 text-lg text-gray-300">Avec l'humain au cœur et le digital au service.</p>
           </FadeIn>
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
           <div className="relative">
-            <div className="absolute left-4 top-4 h-full w-0.5 bg-gray-200" aria-hidden="true" />
+            <div className="absolute left-4 top-4 h-full w-0.5 bg-white/10" aria-hidden="true" />
             {steps.map((step) => (
               <FadeIn key={step.title}>
                 <div className="relative pl-12 pb-12">
                   <div className="absolute left-0 top-4">
-                    <div className="w-8 h-8 bg-white rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
+                    <div className="w-8 h-8 bg-strataidge-blue-night rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 text-strataidge-turquoise" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
-                  <p className="mt-2 text-gray-600">{step.description}</p>
+                  <h3 className="text-xl font-bold text-white">{step.title}</h3>
+                  <p className="mt-2 text-gray-300">{step.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -718,7 +718,7 @@ function OffersSection() {
       <section id="offers" className="py-24 sm:py-32 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="font-semibold text-strataidge-turquoise">Les Offres</span>
+            <span className="font-semibold text-strataidge-turquoise">Offres</span>
             <AnimatedTitle>Des offres adaptées à chaque besoin</AnimatedTitle>
             <FadeIn>
               <p className="mt-4 text-lg text-gray-600">
@@ -1246,7 +1246,7 @@ function BlogSection() {
     <section id="blog" className="py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
-          <span className="font-semibold text-strataidge-turquoise">Les Analyses</span>
+          <span className="font-semibold text-strataidge-turquoise">Analyses</span>
           <AnimatedTitle>Actualité décryptée par nos experts</AnimatedTitle>
         </div>
       </div>
@@ -1346,26 +1346,26 @@ function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-24 sm:py-32 bg-gray-50">
+    <section id="contact" className="py-24 sm:py-32 bg-strataidge-blue-night">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-200">
+        <div className="max-w-4xl mx-auto bg-white/5 rounded-2xl p-8 md:p-12 shadow-lg border border-white/10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Un projet ? Parlons-en.</h2>
-              <p className="mt-4 text-gray-600">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">Un projet ? Parlons-en.</h2>
+              <p className="mt-4 text-gray-300">
                 Discutons de votre projet. Remplissez le formulaire ou prenez rendez-vous directement en ligne.
               </p>
               <div className="mt-8 space-y-4">
                 <a
                   href="mailto:contact@strataidge.com"
-                  className="flex items-center gap-3 text-gray-600 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
+                  className="flex items-center gap-3 text-gray-300 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
                 >
                   <Mail className="h-5 w-5 text-strataidge-turquoise" />
                   <span>contact@strataidge-fiduciaire.com</span>
                 </a>
                 <a
                   href="tel:+33123456789"
-                  className="flex items-center gap-3 text-gray-600 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
+                  className="flex items-center gap-3 text-gray-300 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
                 >
                   <Phone className="h-5 w-5 text-strataidge-turquoise" />
                   <span>+32 499 47 02 98 </span>
@@ -1378,21 +1378,21 @@ function ContactSection() {
                 type="text"
                 placeholder="Votre nom"
                 required
-                className="bg-gray-50 border-gray-300 placeholder:text-gray-500 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
               />
               <Input
                 name="email"
                 type="email"
                 placeholder="Votre email"
                 required
-                className="bg-gray-50 border-gray-300 placeholder:text-gray-500 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
               />
               <Textarea
                 name="message"
                 placeholder="Votre message"
                 rows={4}
                 required
-                className="bg-gray-50 border-gray-300 placeholder:text-gray-500 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
               />
               <Button
                 type="submit"
@@ -1412,11 +1412,11 @@ function ContactSection() {
 
 function Footer() {
   const navLinks = [
-    { name: "La Vision", href: "#about" },
-    { name: "Les Solutions", href: "#services" },
-    { name: "L'Approche", href: "#methodology" },
-    { name: "Les Analyses", href: "#blog" },
-    { name: "Les Offres", href: "#offers" },
+    { name: "Vision", href: "#about" },
+    { name: "Solutions", href: "#services" },
+    { name: "Approche", href: "#methodology" },
+    { name: "Analyses", href: "#blog" },
+    { name: "Offres", href: "#offers" },
     { name: "Contact", href: "#contact" },
   ]
 
