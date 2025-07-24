@@ -306,7 +306,7 @@ function Header() {
 
       {/* Login Dialog */}
       <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white max-w-md">
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
           <DialogHeader>
             <DialogTitle className="text-2xl text-strataidge-turquoise text-center">
               Connexion à votre espace
@@ -900,10 +900,12 @@ function OffersSection() {
 
       {/* Details Dialog for Full Digital */}
       <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white max-w-2xl">
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-bold text-strataidge-turquoise">Offre Full Digital</DialogTitle>
-            <DialogDescription className="text-lg text-gray-300 pt-2">
+            <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+              Offre Full Digital
+            </DialogTitle>
+            <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
               L’efficacité du tout digital, la rigueur d’un bureau complet
             </DialogDescription>
           </DialogHeader>
@@ -983,10 +985,12 @@ function OffersSection() {
 
       {/* Details Dialog for Standard */}
       <Dialog open={isStandardDetailsOpen} onOpenChange={setIsStandardDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white max-w-2xl">
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-bold text-strataidge-turquoise">Offre Standard</DialogTitle>
-            <DialogDescription className="text-lg text-gray-300 pt-2">
+            <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+              Offre Standard
+            </DialogTitle>
+            <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
               L’équilibre parfait entre digital et accompagnement renforcé
             </DialogDescription>
           </DialogHeader>
@@ -1061,9 +1065,11 @@ function OffersSection() {
 
       {/* Details Dialog for Strataidge */}
       <Dialog open={isStrataidgeDetailsOpen} onOpenChange={setIsStrataidgeDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white max-w-2xl">
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-bold text-strataidge-turquoise">Offre Strataidge</DialogTitle>
+            <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+              Offre Strataidge
+            </DialogTitle>
           </DialogHeader>
           <div className="py-4 space-y-6 max-h-[70vh] overflow-y-auto pr-4">
             <div>
@@ -1149,7 +1155,7 @@ function OffersSection() {
       </Dialog>
 
       <Dialog open={!!selectedPlan} onOpenChange={(isOpen) => !isOpen && setSelectedPlan(null)}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white max-w-md">
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
           <DialogHeader>
             <DialogTitle className="text-2xl text-strataidge-turquoise">Demande d'offre : {selectedPlan}</DialogTitle>
             <DialogDescription className="text-gray-400 pt-2">
@@ -1284,7 +1290,7 @@ function BlogSection() {
       </div>
 
       <Dialog open={!!selectedPost} onOpenChange={(isOpen) => !isOpen && setSelectedPost(null)}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white max-w-md">
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
           <DialogHeader>
             <DialogTitle className="text-2xl text-strataidge-turquoise">{selectedPost?.title}</DialogTitle>
             <DialogDescription className="text-gray-400 pt-2">
