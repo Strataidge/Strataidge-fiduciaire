@@ -900,8 +900,8 @@ function OffersSection() {
 
       {/* Details Dialog for Full Digital */}
       <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl flex flex-col max-h-[90vh]">
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
               Offre Full Digital
             </DialogTitle>
@@ -909,7 +909,7 @@ function OffersSection() {
               L’efficacité du tout digital, la rigueur d’un bureau complet
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4 space-y-6 max-h-[70vh] overflow-y-auto pr-4">
+          <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
             <div>
               <p className="text-gray-300">
                 Full Digital s’adresse à ceux qui veulent une gestion comptable et fiscale complète tout en gagnant du
@@ -972,7 +972,7 @@ function OffersSection() {
               </ul>
             </div>
           </div>
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-4 flex-shrink-0">
             <Button
               onClick={openIaConfigurator}
               className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
@@ -985,8 +985,8 @@ function OffersSection() {
 
       {/* Details Dialog for Standard */}
       <Dialog open={isStandardDetailsOpen} onOpenChange={setIsStandardDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl flex flex-col max-h-[90vh]">
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
               Offre Standard
             </DialogTitle>
@@ -994,7 +994,7 @@ function OffersSection() {
               L’équilibre parfait entre digital et accompagnement renforcé
             </DialogDescription>
           </DialogHeader>
-          <div className="py-4 space-y-6 max-h-[70vh] overflow-y-auto pr-4">
+          <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
             <div>
               <p className="text-gray-300">
                 L’offre Standard combine la simplicité digitale du Full Digital avec un accompagnement humain renforcé.
@@ -1052,7 +1052,7 @@ function OffersSection() {
               </ul>
             </div>
           </div>
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-4 flex-shrink-0">
             <Button
               onClick={openIaConfigurator}
               className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
@@ -1065,13 +1065,13 @@ function OffersSection() {
 
       {/* Details Dialog for Strataidge */}
       <Dialog open={isStrataidgeDetailsOpen} onOpenChange={setIsStrataidgeDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl">
-          <DialogHeader>
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl flex flex-col max-h-[90vh]">
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
               Offre Strataidge
             </DialogTitle>
           </DialogHeader>
-          <div className="py-4 space-y-6 max-h-[70vh] overflow-y-auto pr-4">
+          <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
             <div>
               <h4 className="font-bold text-xl text-white mb-3">Objectif</h4>
               <p className="text-gray-300">
@@ -1143,7 +1143,7 @@ function OffersSection() {
               </ul>
             </div>
           </div>
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-4 flex-shrink-0">
             <Button
               onClick={openIaConfigurator}
               className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
