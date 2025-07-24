@@ -97,7 +97,7 @@ function AboutSection() {
               }
             </p>
             <div className="mt-8 border-strataidge-turquoise border-t-0 border-l-4 text-right border-r-[5px] pr-0 pl-2 ml-0">
-              <p className="text-lg italic text-gray-700">
+              <p className="text-lg italic text-gray-700 text-center">
                 Chaque optimisation est pensée pour votre réalité. Chaque conseil est conçu pour votre avenir.
               </p>
             </div>
