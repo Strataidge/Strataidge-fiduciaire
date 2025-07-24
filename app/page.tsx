@@ -39,7 +39,7 @@ import { SparkleAnimation } from "@/components/sparkle-animation"
 // Main Component
 export default function StrataidgeLandingPageV2() {
   return (
-    <div className="bg-strataidge-blue-night text-strataidge-light-gray antialiased font-sans">
+    <div className="bg-white text-gray-800 antialiased font-sans">
       <Header />
       <main>
         <HeroSection />
@@ -65,7 +65,7 @@ function AnimatedTitle({ children, className }: { children: ReactNode; className
     <h2
       ref={ref}
       className={cn(
-        "text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl overflow-hidden py-2",
+        "text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl overflow-hidden py-2",
         className,
       )}
     >
@@ -424,7 +424,7 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section id="about" className="py-24 sm:py-32 bg-[#061224]">
+    <section id="about" className="py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
@@ -446,18 +446,18 @@ function AboutSection() {
         </div>
         <div className="mt-16 max-w-5xl mx-auto">
           <FadeIn>
-            <p className="text-lg text-gray-300 text-center">
+            <p className="text-lg text-gray-600 text-center">
               {
                 "Avec plus de 14 années d'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu'à siéger aux conseils d'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu'en comprenant les personnes derrière chaque entreprise."
               }
             </p>
-            <p className="mt-4 text-gray-400 text-center">
+            <p className="mt-4 text-gray-700 text-center">
               {
                 "Nous croyons qu'un conseil réellement pertinent ne se limite pas aux chiffres. Il repose sur l'écoute, la proximité et la compréhension des ambitions humaines qui façonnent chaque projet. Chez Strataidge, nous allions cette approche personnalisée à une expertise rigoureuse et exigeante pour transformer la complexité en opportunité et bâtir une réussite durable. Le digital vient soutenir cette vision en apportant fluidité, simplicité d'exécution et clarté dans chaque étape de votre accompagnement."
               }
             </p>
             <div className="mt-8 border-strataidge-turquoise border-t-0 border-l-4 text-right border-r-[5px] pr-0 pl-2 ml-0">
-              <p className="text-lg italic text-gray-200 text-center">
+              <p className="text-lg italic text-gray-800 text-center">
                 Chaque optimisation est pensée pour votre réalité. Chaque conseil est conçu pour votre avenir.
               </p>
             </div>
@@ -503,13 +503,13 @@ const services = [
 
 function ServicesSection() {
   return (
-    <section id="services" className="py-24 sm:py-32 bg-strataidge-blue-night">
+    <section id="services" className="py-24 sm:py-32 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Les Solutions</span>
           <AnimatedTitle>Global dans l'approche, unique dans le conseil</AnimatedTitle>
           <FadeIn>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-4 text-lg text-gray-600">
               Une expertise complète, humaine et digitale pour piloter votre entreprise avec agilité, clarté et
               anticipation.
             </p>
@@ -518,7 +518,7 @@ function ServicesSection() {
         <div className="mt-20 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {services.map((service, i) => (
             <FadeIn key={service.title} className={cn("md:col-span-2 lg:col-span-2", { "lg:col-start-2": i === 3 })}>
-              <div className="h-full p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-strataidge-turquoise/50 hover:bg-white/10 transition-all duration-300 group">
+              <div className="h-full p-8 rounded-2xl bg-strataidge-blue-night border border-white/10 hover:border-strataidge-turquoise/50 transition-all duration-300 group">
                 <div className="mb-6 w-12 h-12 rounded-lg bg-strataidge-turquoise/10 flex items-center justify-center">
                   <service.icon className="h-6 w-6 text-strataidge-turquoise" />
                 </div>
@@ -558,28 +558,28 @@ function MethodologySection() {
   ]
 
   return (
-    <section id="methodology" className="py-24 sm:py-32 bg-[#061224]">
+    <section id="methodology" className="py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">L'Approche</span>
           <AnimatedTitle>4 étapes pour transformer votre gestion</AnimatedTitle>
           <FadeIn>
-            <p className="mt-4 text-lg text-gray-300">Avec l'humain au cœur et le digital au service.</p>
+            <p className="mt-4 text-lg text-gray-600">Avec l'humain au cœur et le digital au service.</p>
           </FadeIn>
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
           <div className="relative">
-            <div className="absolute left-4 top-4 h-full w-0.5 bg-white/10" aria-hidden="true" />
+            <div className="absolute left-4 top-4 h-full w-0.5 bg-gray-200" aria-hidden="true" />
             {steps.map((step) => (
               <FadeIn key={step.title}>
                 <div className="relative pl-12 pb-12">
                   <div className="absolute left-0 top-4">
-                    <div className="w-8 h-8 bg-strataidge-blue-night rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
+                    <div className="w-8 h-8 bg-white rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 text-strataidge-turquoise" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white">{step.title}</h3>
-                  <p className="mt-2 text-gray-400">{step.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
+                  <p className="mt-2 text-gray-600">{step.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -715,13 +715,13 @@ function OffersSection() {
 
   return (
     <>
-      <section id="offers" className="py-24 sm:py-32 bg-strataidge-blue-night">
+      <section id="offers" className="py-24 sm:py-32 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Les Offres</span>
             <AnimatedTitle>Des offres adaptées à chaque besoin</AnimatedTitle>
             <FadeIn>
-              <p className="mt-4 text-lg text-gray-300">
+              <p className="mt-4 text-lg text-gray-600">
                 Que vous soyez en phase de création, de croissance ou de transmission, nous avons une solution pour
                 vous. Découvrez nos abonnements et nos missions spécifiques.
               </p>
@@ -738,7 +738,7 @@ function OffersSection() {
               >
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-white/5 border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/50 hover:shadow-2xl hover:shadow-strataidge-turquoise/10",
+                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/50 hover:shadow-2xl hover:shadow-strataidge-turquoise/10",
                   )}
                 >
                   <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
@@ -804,7 +804,7 @@ function OffersSection() {
 
           <FadeIn>
             <div className="my-16 text-center max-w-3xl mx-auto">
-              <p className="text-lg text-gray-300 mb-8">
+              <p className="text-lg text-gray-600 mb-8">
                 Vous n'êtes pas certain de l'offre qui vous correspond le mieux ? Chaque parcours est unique. C'est
                 pourquoi nous vous invitons à un échange personnalisé pour construire ensemble la solution qui servira
                 au mieux vos ambitions.
@@ -832,7 +832,7 @@ function OffersSection() {
               >
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-white/5 border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/50 hover:shadow-2xl hover:shadow-strataidge-turquoise/10",
+                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/50 hover:shadow-2xl hover:shadow-strataidge-turquoise/10",
                   )}
                 >
                   <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
@@ -1243,7 +1243,7 @@ function BlogSection() {
   const [selectedPost, setSelectedPost] = useState<(typeof blogPosts)[0] | null>(null)
 
   return (
-    <section id="blog" className="py-24 sm:py-32 bg-strataidge-blue-night">
+    <section id="blog" className="py-24 sm:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Les Analyses</span>
@@ -1266,7 +1266,7 @@ function BlogSection() {
                 className="block group h-full w-full text-left"
                 aria-label={`Lire l'article : ${post.title}`}
               >
-                <div className="h-full flex flex-col bg-white/5 rounded-xl overflow-hidden hover:border-strataidge-turquoise/50 border border-transparent transition-all duration-300 shadow-lg">
+                <div className="h-full flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-strataidge-turquoise/50 transition-all duration-300 shadow-lg">
                   <div className="overflow-hidden">
                     <Image
                       src={post.img || "/placeholder.svg"}
@@ -1278,7 +1278,7 @@ function BlogSection() {
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
                     <span className="text-sm font-semibold text-strataidge-turquoise">{post.category}</span>
-                    <h3 className="mt-1 text-lg font-bold text-white group-hover:text-strataidge-turquoise transition-colors flex-grow">
+                    <h3 className="mt-1 text-lg font-bold text-gray-900 group-hover:text-strataidge-turquoise transition-colors flex-grow">
                       {post.title}
                     </h3>
                   </div>
@@ -1346,26 +1346,26 @@ function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-24 sm:py-32 bg-[#061224]">
+    <section id="contact" className="py-24 sm:py-32 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-strataidge-blue-night rounded-2xl p-8 md:p-12 shadow-2xl shadow-black/20">
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-200">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">Un projet ? Parlons-en.</h2>
-              <p className="mt-4 text-gray-300">
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Un projet ? Parlons-en.</h2>
+              <p className="mt-4 text-gray-600">
                 Discutons de votre projet. Remplissez le formulaire ou prenez rendez-vous directement en ligne.
               </p>
               <div className="mt-8 space-y-4">
                 <a
                   href="mailto:contact@strataidge.com"
-                  className="flex items-center gap-3 text-gray-300 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
+                  className="flex items-center gap-3 text-gray-600 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
                 >
                   <Mail className="h-5 w-5 text-strataidge-turquoise" />
                   <span>contact@strataidge-fiduciaire.com</span>
                 </a>
                 <a
                   href="tel:+33123456789"
-                  className="flex items-center gap-3 text-gray-300 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
+                  className="flex items-center gap-3 text-gray-600 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
                 >
                   <Phone className="h-5 w-5 text-strataidge-turquoise" />
                   <span>+32 499 47 02 98 </span>
@@ -1378,21 +1378,21 @@ function ContactSection() {
                 type="text"
                 placeholder="Votre nom"
                 required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                className="bg-gray-50 border-gray-300 placeholder:text-gray-500 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
               />
               <Input
                 name="email"
                 type="email"
                 placeholder="Votre email"
                 required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                className="bg-gray-50 border-gray-300 placeholder:text-gray-500 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
               />
               <Textarea
                 name="message"
                 placeholder="Votre message"
                 rows={4}
                 required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                className="bg-gray-50 border-gray-300 placeholder:text-gray-500 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
               />
               <Button
                 type="submit"
