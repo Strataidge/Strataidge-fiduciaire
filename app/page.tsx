@@ -2,13 +2,10 @@
 
 import type React from "react"
 
-import { useState, useRef, type ReactNode, useEffect } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useInView } from "framer-motion"
 import {
-  Menu,
-  X,
   TrendingUp,
   Shield,
   LineChart,
@@ -35,6 +32,10 @@ import {
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import { SparkleAnimation } from "@/components/sparkle-animation"
+import { Header } from "@/components/header"
+import { HeroSection } from "@/components/hero-section"
+import { FadeIn } from "@/components/fade-in"
+import { AnimatedTitle } from "@/components/animated-title"
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
@@ -55,376 +56,11 @@ export default function StrataidgeLandingPageV2() {
   )
 }
 
-// --- SHARED COMPONENTS ---
-
-function AnimatedTitle({ children, className }: { children: ReactNode; className?: string }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-  return (
-    <h2
-      ref={ref}
-      className={cn(
-        "text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl overflow-hidden py-2",
-        className,
-      )}
-    >
-      <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: isInView ? 0 : "100%" }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.div>
-    </h2>
-  )
-}
-
-const FadeIn = ({
-  children,
-  className,
-  ...rest
-}: {
-  children: ReactNode
-  className?: string
-  [key: string]: any
-}) => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={className}
-      {...rest}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// --- SECTIONS ---
-
-function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isLoginOpen, setIsLoginOpen] = useState(false)
-  const [isLoginSubmitting, setIsLoginSubmitting] = useState(false)
-  const [loginError, setLoginError] = useState<string | null>(null)
-
-  const navLinks = [
-    { name: "Vision", href: "#about" },
-    { name: "Solutions", href: "#services" },
-    { name: "Approche", href: "#methodology" },
-    { name: "Analyses", href: "#blog" },
-    { name: "Contact", href: "#contact" },
-  ]
-
-  const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoginSubmitting(true)
-    setLoginError(null)
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    // To-Do: Replace with actual login logic
-    setLoginError("Email ou mot de passe incorrect.")
-    setIsLoginSubmitting(false)
-  }
-
-  const menuVariants = {
-    open: {
-      opacity: 1,
-      transition: { duration: 0.2, ease: "easeOut" },
-      display: "block",
-    },
-    closed: {
-      opacity: 0,
-      transition: { duration: 0.3, ease: "easeIn", delay: 0.5 },
-      transitionEnd: {
-        display: "none",
-      },
-    },
-  }
-
-  const navContainerVariants = {
-    open: {
-      transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-    },
-    closed: {
-      transition: { staggerChildren: 0.05, staggerDirection: -1 },
-    },
-  }
-
-  const navLinkVariants = {
-    open: {
-      y: 0,
-      opacity: 1,
-      transition: { y: { stiffness: 1000, velocity: -100 } },
-    },
-    closed: {
-      y: 50,
-      opacity: 0,
-      transition: { y: { stiffness: 1000 } },
-    },
-  }
-
-  const footerVariants = {
-    open: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut", delay: 0.5 },
-    },
-    closed: {
-      opacity: 0,
-      y: 20,
-      transition: { duration: 0.2, ease: "easeIn" },
-    },
-  }
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [isMenuOpen])
-
-  return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-strataidge-blue-night/90 backdrop-blur-md shadow-lg">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-start gap-3">
-              <Image src="/logo.png" alt="Strataidge Fiduciaire & Conseils Logo" width={40} height={40} />
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
-                  FIDUCIAIRE & CONSEILS
-                </span>
-              </div>
-            </Link>
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium hover:text-strataidge-turquoise transition-colors text-white"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-            <div className="hidden lg:flex items-center space-x-4">
-              <Button
-                onClick={() => setIsLoginOpen(true)}
-                variant="ghost"
-                className="text-white hover:bg-white/10 hover:text-white"
-              >
-                Connexion
-              </Button>
-              <Button
-                asChild
-                className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold shadow-lg shadow-strataidge-turquoise/20"
-              >
-                <Link href="#offers">Offres</Link>
-              </Button>
-            </div>
-            <div className="lg:hidden">
-              <button onClick={() => setIsMenuOpen(true)} aria-label="Ouvrir le menu">
-                <Menu className="h-6 w-6 text-white" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Menu Mobile */}
-      <motion.div
-        variants={menuVariants}
-        initial="closed"
-        animate={isMenuOpen ? "open" : "closed"}
-        className="fixed inset-0 bg-strataidge-blue-night z-[100] lg:hidden"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-start gap-3" onClick={() => setIsMenuOpen(false)}>
-              <Image src="/logo.png" alt="Strataidge Fiduciaire & Conseils Logo" width={40} height={40} />
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
-                  FIDUCIAIRE & CONSEILS
-                </span>
-              </div>
-            </Link>
-            <button onClick={() => setIsMenuOpen(false)} aria-label="Fermer le menu">
-              <X className="h-7 w-7 text-white" />
-            </button>
-          </div>
-
-          <motion.nav variants={navContainerVariants} className="flex flex-col items-center justify-center flex-grow">
-            <ul className="space-y-6 text-center">
-              {navLinks.map((link) => (
-                <motion.li key={link.name} variants={navLinkVariants}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-3xl font-bold text-white hover:text-strataidge-turquoise transition-colors duration-300"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.nav>
-
-          <motion.div variants={footerVariants} className="py-8 flex flex-col space-y-4">
-            <Button
-              onClick={() => {
-                setIsLoginOpen(true)
-                setIsMenuOpen(false)
-              }}
-              variant="outline"
-              className="w-full border-white/20 text-white hover:bg-white/10 bg-transparent py-6 text-base"
-            >
-              Connexion
-            </Button>
-            <Button
-              asChild
-              className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-6 text-base"
-            >
-              <Link href="#offers" onClick={() => setIsMenuOpen(false)}>
-                Offres
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Login Dialog */}
-      <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl text-strataidge-turquoise text-center">
-              Connexion à votre espace
-            </DialogTitle>
-            <DialogDescription className="text-gray-400 pt-2 text-center">
-              Accédez à vos tableaux de bord et documents.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleLoginSubmit} className="space-y-4 py-4">
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                name="email"
-                type="email"
-                placeholder="Votre adresse email"
-                required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10"
-              />
-            </div>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                name="password"
-                type="password"
-                placeholder="Votre mot de passe"
-                required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10"
-              />
-            </div>
-            {loginError && <p className="text-sm text-strataidge-coral text-center">{loginError}</p>}
-            <DialogFooter className="flex flex-col gap-2 sm:flex-col sm:space-x-0">
-              <Button
-                type="submit"
-                disabled={isLoginSubmitting}
-                className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3 disabled:opacity-50"
-              >
-                {isLoginSubmitting ? "Connexion en cours..." : "Se connecter"}
-              </Button>
-              <Button variant="link" className="text-strataidge-turquoise/80 hover:text-strataidge-turquoise">
-                Mot de passe oublié ?
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-    </>
-  )
-}
-
-function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 1.5
-    }
-  }, [])
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_50%] lg:object-center"
-      >
-        <source
-          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_3840x2160.mp4"
-          type="video/mp4"
-        />
-        Votre navigateur ne supporte pas la balise vidéo.
-      </video>
-      <SparkleAnimation />
-      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90" />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-8xl"
-        >
-          L'humain derrière les chiffres.
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-6 max-w-3xl mx-auto text-lg text-gray-300 md:text-xl"
-        >
-          {
-            "Strataidge Fiduciaire et Conseil : expertise comptable, fiscale et humaine au service d'une réussite sereine. "
-          }
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-10 flex justify-center items-center gap-4"
-        >
-          <Link href="#about">
-            <Button
-              size="lg"
-              className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold text-base px-8 py-6 rounded-full shadow-lg shadow-strataidge-turquoise/20 hover:shadow-xl hover:shadow-strataidge-turquoise/30 transition-all duration-300"
-            >
-              Qui sommes-nous ? <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
+// --- SECTIONS MISES À JOUR ---
 
 function AboutSection() {
   return (
-    <section id="about" className="py-24 sm:py-32">
+    <section id="about" className="py-24 sm:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
@@ -439,25 +75,29 @@ function AboutSection() {
               />
             </div>
           </FadeIn>
+          {/* Le texte utilise mix-blend-difference pour rester lisible */}
           <FadeIn>
             <span className="font-semibold text-strataidge-turquoise">Vision</span>
-            <AnimatedTitle>Plus que des chiffres, une compréhension profonde de votre réalité.</AnimatedTitle>
+            <AnimatedTitle className="text-gray-900">
+              Plus que des chiffres, une compréhension profonde de votre réalité.
+            </AnimatedTitle>
           </FadeIn>
         </div>
         <div className="mt-16 max-w-5xl mx-auto">
+          {/* Le texte utilise mix-blend-difference pour rester lisible */}
           <FadeIn>
-            <p className="text-lg text-gray-600 text-center">
+            <p className="text-lg text-gray-700">
               {
                 "Avec plus de 14 années d'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu'à siéger aux conseils d'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu'en comprenant les personnes derrière chaque entreprise."
               }
             </p>
-            <p className="mt-4 text-gray-700 text-center">
+            <p className="mt-4 text-gray-700">
               {
                 "Nous croyons qu'un conseil réellement pertinent ne se limite pas aux chiffres. Il repose sur l'écoute, la proximité et la compréhension des ambitions humaines qui façonnent chaque projet. Chez Strataidge, nous allions cette approche personnalisée à une expertise rigoureuse et exigeante pour transformer la complexité en opportunité et bâtir une réussite durable. Le digital vient soutenir cette vision en apportant fluidité, simplicité d'exécution et clarté dans chaque étape de votre accompagnement."
               }
             </p>
             <div className="mt-8 border-strataidge-turquoise border-t-0 border-l-4 text-right border-r-[5px] pr-0 pl-2 ml-0">
-              <p className="text-lg italic text-gray-800 text-center">
+              <p className="text-lg italic text-gray-700">
                 Chaque optimisation est pensée pour votre réalité. Chaque conseil est conçu pour votre avenir.
               </p>
             </div>
@@ -503,13 +143,14 @@ const services = [
 
 function ServicesSection() {
   return (
-    <section id="services" className="py-24 sm:py-32 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative py-24 sm:py-32 bg-strataidge-blue-night">
+      <SparkleAnimation />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Solutions</span>
-          <AnimatedTitle>Global dans l'approche, unique dans le conseil</AnimatedTitle>
+          <AnimatedTitle className="text-white">Global dans l'approche, unique dans le conseil</AnimatedTitle>
           <FadeIn>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-300">
               Une expertise complète, humaine et digitale pour piloter votre entreprise avec agilité, clarté et
               anticipation.
             </p>
@@ -518,7 +159,7 @@ function ServicesSection() {
         <div className="mt-20 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {services.map((service, i) => (
             <FadeIn key={service.title} className={cn("md:col-span-2 lg:col-span-2", { "lg:col-start-2": i === 3 })}>
-              <div className="h-full p-8 rounded-2xl bg-strataidge-blue-night border border-white/10 hover:border-strataidge-turquoise/50 transition-all duration-300 group">
+              <div className="h-full p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-strataidge-turquoise/50 transition-all duration-300 group backdrop-blur-sm">
                 <div className="mb-6 w-12 h-12 rounded-lg bg-strataidge-turquoise/10 flex items-center justify-center">
                   <service.icon className="h-6 w-6 text-strataidge-turquoise" />
                 </div>
@@ -586,6 +227,118 @@ function MethodologySection() {
           </div>
         </div>
       </div>
+    </section>
+  )
+}
+
+function BlogSection() {
+  const blogPosts = [
+    {
+      img: "/gouvernement_de_wever.jpg",
+      category: "Fiscalité",
+      title: "Réforme fiscale 2025 : ce que prévoit le nouveau gouvernement belge",
+    },
+    {
+      img: "/charges-sociales-pme.jpg",
+      category: "Entreprise",
+      title: "Charges sociales : nouvelles réductions ciblées pour les PME en 2025",
+    },
+    {
+      img: "/vue-de-dessus-femme-tapant-sur-ordinateur-portable.jpg",
+      category: "Digitalisation",
+      title: "Facturation électronique : les grands changements à venir",
+    },
+    {
+      img: "/piles-de-pieces-disposees-dans-un-graphique-a-barres.jpg",
+      category: "Fiscalité",
+      title: "Fiscalité verte : les changements majeurs prévus en 2025",
+    },
+    {
+      img: "/des-couples-ages-discutent-de-finances-avec-une-tirelire.jpg",
+      category: "Social",
+      title: "Réforme des pensions 2025 : l'âge légal passe à 66 ans, bonus et conditions renforcées",
+    },
+    {
+      img: "/gens-d-affaires-travaillant-avec-des-documents-commerciaux-au-bureau.jpg",
+      category: "Innovation",
+      title: "L'écosystème belge des start‑ups en plein essor : technologie, santé et durabilité en tête",
+    },
+  ]
+
+  const [selectedPost, setSelectedPost] = useState<(typeof blogPosts)[0] | null>(null)
+
+  return (
+    <section id="blog" className="py-24 sm:py-32 bg-gray-200">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="font-semibold text-strataidge-turquoise">Analyses</span>
+          <AnimatedTitle>Actualité décryptée par nos experts</AnimatedTitle>
+        </div>
+      </div>
+      <div className="mt-20">
+        <div
+          className="flex gap-8 overflow-x-auto pb-8 horizontal-scrollbar pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {blogPosts.map((post) => (
+            <FadeIn
+              key={post.title}
+              className="flex-shrink-0 w-[90vw] max-w-sm sm:w-[350px]"
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <button
+                onClick={() => setSelectedPost(post)}
+                className="block group h-full w-full text-left"
+                aria-label={`Lire l'article : ${post.title}`}
+              >
+                <div className="h-full flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-strataidge-turquoise/50 transition-all duration-300 shadow-lg">
+                  <div className="overflow-hidden">
+                    <Image
+                      src={post.img || "/placeholder.svg"}
+                      alt={post.title}
+                      width={400}
+                      height={250}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <span className="text-sm font-semibold text-strataidge-turquoise">{post.category}</span>
+                    <h3 className="mt-1 text-lg font-bold text-gray-900 group-hover:text-strataidge-turquoise transition-colors flex-grow">
+                      {post.title}
+                    </h3>
+                  </div>
+                </div>
+              </button>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+
+      <Dialog open={!!selectedPost} onOpenChange={(isOpen) => !isOpen && setSelectedPost(null)}>
+        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl text-strataidge-turquoise">{selectedPost?.title}</DialogTitle>
+            <DialogDescription className="text-gray-400 pt-2">
+              Cet article est réservé à nos membres. Connectez-vous pour accéder à l'analyse complète de nos experts.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4 text-center">
+            <Lock className="h-16 w-16 mx-auto text-strataidge-yellow/50" />
+          </div>
+          <DialogFooter>
+            <Button
+              onClick={() => setSelectedPost(null)}
+              variant="outline"
+              className="border-white/20 text-white hover:bg-white/10 bg-transparent"
+            >
+              Fermer
+            </Button>
+            <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold">
+              Se connecter
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }
@@ -733,29 +486,29 @@ function OffersSection() {
               <FadeIn key={plan.name} className="flex h-full">
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-gray-200 border border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-2",
+                    "w-full flex flex-col p-8 rounded-2xl bg-white/5 border border-white/20 transition-all duration-300 shadow-lg hover:shadow-strataidge-turquoise/25 hover:border-strataidge-turquoise/60 hover:-translate-y-2 backdrop-blur-sm",
                   )}
                 >
-                  <h3 className="text-2xl font-bold text-gray-900 text-center min-h-[3em] flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
                     {plan.name}
                   </h3>
                   {plan.price && (
                     <div className="mt-4 text-center">
-                      <span className="text-gray-500">{plan.price}</span>
+                      <span className="text-gray-400">{plan.price}</span>
                       {plan.amount && (
-                        <p className="text-5xl font-extrabold text-gray-900">
+                        <p className="text-5xl font-extrabold text-white">
                           {plan.amount}
-                          <span className="text-lg font-medium text-gray-500">/mois</span>
+                          <span className="text-lg font-medium text-gray-400">/mois</span>
                         </p>
                       )}
                     </div>
                   )}
-                  <p className="mt-6 text-gray-600 text-center">{plan.description}</p>
+                  <p className="mt-6 text-gray-300 text-center">{plan.description}</p>
                   <ul className="mt-8 space-y-4">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start">
                         <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-600">{feature}</span>
+                        <span className="text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -777,7 +530,7 @@ function OffersSection() {
                               if (plan.name === "Strataidge") setIsStrataidgeDetailsOpen(true)
                             }}
                             variant="outline"
-                            className="w-full font-bold py-3 text-base border-gray-400 text-gray-700 hover:bg-gray-300 bg-transparent"
+                            className="w-full font-bold py-3 text-base border-white/20 text-white hover:bg-white/10 hover:border-strataidge-turquoise/60 bg-transparent"
                           >
                             Détails de l’offre
                           </Button>
@@ -800,8 +553,8 @@ function OffersSection() {
           </div>
 
           <FadeIn>
-            <div className="my-16 text-center max-w-4xl mx-auto bg-gray-200 rounded-2xl p-10 border border-gray-300 shadow-xl">
-              <p className="text-xl text-gray-700 font-medium mb-8">
+            <div className="my-16 text-center max-w-4xl mx-auto bg-white/5 rounded-2xl p-10 border border-white/20 shadow-xl backdrop-blur-sm">
+              <p className="text-xl text-gray-200 font-medium mb-8">
                 Vous n'êtes pas certain de l'offre qui vous correspond le mieux ? Chaque parcours est unique. C'est
                 pourquoi nous vous invitons à un échange personnalisé pour construire ensemble la solution qui servira
                 au mieux vos ambitions.
@@ -824,29 +577,29 @@ function OffersSection() {
               <FadeIn key={plan.name} className="flex h-full">
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-gray-200 border border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-2",
+                    "w-full flex flex-col p-8 rounded-2xl bg-white/5 border border-white/20 transition-all duration-300 shadow-lg hover:shadow-strataidge-turquoise/25 hover:border-strataidge-turquoise/60 hover:-translate-y-2 backdrop-blur-sm",
                   )}
                 >
-                  <h3 className="text-2xl font-bold text-gray-900 text-center min-h-[3em] flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
                     {plan.name}
                   </h3>
                   {plan.price && (
                     <div className="mt-4 text-center">
-                      <span className="text-gray-500">{plan.price}</span>
+                      <span className="text-gray-400">{plan.price}</span>
                       {plan.amount && (
-                        <p className="text-5xl font-extrabold text-gray-900">
+                        <p className="text-5xl font-extrabold text-white">
                           {plan.amount}
-                          <span className="text-lg font-medium text-gray-500">/mois</span>
+                          <span className="text-lg font-medium text-gray-400">/mois</span>
                         </p>
                       )}
                     </div>
                   )}
-                  <p className="mt-6 text-gray-600 text-center">{plan.description}</p>
+                  <p className="mt-6 text-gray-300 text-center">{plan.description}</p>
                   <ul className="mt-8 space-y-4">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start">
                         <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-600">{feature}</span>
+                        <span className="text-gray-300">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -868,7 +621,7 @@ function OffersSection() {
                               if (plan.name === "Strataidge") setIsStrataidgeDetailsOpen(true)
                             }}
                             variant="outline"
-                            className="w-full font-bold py-3 text-base border-gray-400 text-gray-700 hover:bg-gray-300 bg-transparent"
+                            className="w-full font-bold py-3 text-base border-white/20 text-white hover:bg-white/10 hover:border-strataidge-turquoise/60 bg-transparent"
                           >
                             Détails de l’offre
                           </Button>
@@ -1197,118 +950,6 @@ function OffersSection() {
         </DialogContent>
       </Dialog>
     </>
-  )
-}
-
-function BlogSection() {
-  const blogPosts = [
-    {
-      img: "/gouvernement_de_wever.jpg",
-      category: "Fiscalité",
-      title: "Réforme fiscale 2025 : ce que prévoit le nouveau gouvernement belge",
-    },
-    {
-      img: "/charges-sociales-pme.jpg",
-      category: "Entreprise",
-      title: "Charges sociales : nouvelles réductions ciblées pour les PME en 2025",
-    },
-    {
-      img: "/vue-de-dessus-femme-tapant-sur-ordinateur-portable.jpg",
-      category: "Digitalisation",
-      title: "Facturation électronique : les grands changements à venir",
-    },
-    {
-      img: "/piles-de-pieces-disposees-dans-un-graphique-a-barres.jpg",
-      category: "Fiscalité",
-      title: "Fiscalité verte : les changements majeurs prévus en 2025",
-    },
-    {
-      img: "/des-couples-ages-discutent-de-finances-avec-une-tirelire.jpg",
-      category: "Social",
-      title: "Réforme des pensions 2025 : l'âge légal passe à 66 ans, bonus et conditions renforcées",
-    },
-    {
-      img: "/gens-d-affaires-travaillant-avec-des-documents-commerciaux-au-bureau.jpg",
-      category: "Innovation",
-      title: "L'écosystème belge des start‑ups en plein essor : technologie, santé et durabilité en tête",
-    },
-  ]
-
-  const [selectedPost, setSelectedPost] = useState<(typeof blogPosts)[0] | null>(null)
-
-  return (
-    <section id="blog" className="py-24 sm:py-32 bg-gray-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="font-semibold text-strataidge-turquoise">Analyses</span>
-          <AnimatedTitle>Actualité décryptée par nos experts</AnimatedTitle>
-        </div>
-      </div>
-      <div className="mt-20">
-        <div
-          className="flex gap-8 overflow-x-auto pb-8 horizontal-scrollbar pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8"
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          {blogPosts.map((post) => (
-            <FadeIn
-              key={post.title}
-              className="flex-shrink-0 w-[90vw] max-w-sm sm:w-[350px]"
-              style={{ scrollSnapAlign: "start" }}
-            >
-              <button
-                onClick={() => setSelectedPost(post)}
-                className="block group h-full w-full text-left"
-                aria-label={`Lire l'article : ${post.title}`}
-              >
-                <div className="h-full flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-strataidge-turquoise/50 transition-all duration-300 shadow-lg">
-                  <div className="overflow-hidden">
-                    <Image
-                      src={post.img || "/placeholder.svg"}
-                      alt={post.title}
-                      width={400}
-                      height={250}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <span className="text-sm font-semibold text-strataidge-turquoise">{post.category}</span>
-                    <h3 className="mt-1 text-lg font-bold text-gray-900 group-hover:text-strataidge-turquoise transition-colors flex-grow">
-                      {post.title}
-                    </h3>
-                  </div>
-                </div>
-              </button>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-
-      <Dialog open={!!selectedPost} onOpenChange={(isOpen) => !isOpen && setSelectedPost(null)}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl text-strataidge-turquoise">{selectedPost?.title}</DialogTitle>
-            <DialogDescription className="text-gray-400 pt-2">
-              Cet article est réservé à nos membres. Connectez-vous pour accéder à l'analyse complète de nos experts.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="py-4 text-center">
-            <Lock className="h-16 w-16 mx-auto text-strataidge-yellow/50" />
-          </div>
-          <DialogFooter>
-            <Button
-              onClick={() => setSelectedPost(null)}
-              variant="outline"
-              className="border-white/20 text-white hover:bg-white/10 bg-transparent"
-            >
-              Fermer
-            </Button>
-            <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold">
-              Se connecter
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </section>
   )
 }
 
