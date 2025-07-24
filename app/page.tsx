@@ -86,17 +86,17 @@ function AboutSection() {
         <div className="mt-16 max-w-5xl mx-auto">
           {/* Le texte utilise mix-blend-difference pour rester lisible */}
           <FadeIn>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 text-center">
               {
                 "Avec plus de 14 années d'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu'à siéger aux conseils d'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu'en comprenant les personnes derrière chaque entreprise."
               }
             </p>
-            <p className="mt-4 text-gray-700">
+            <p className="mt-4 text-gray-700 text-center">
               {
                 "Nous croyons qu'un conseil réellement pertinent ne se limite pas aux chiffres. Il repose sur l'écoute, la proximité et la compréhension des ambitions humaines qui façonnent chaque projet. Chez Strataidge, nous allions cette approche personnalisée à une expertise rigoureuse et exigeante pour transformer la complexité en opportunité et bâtir une réussite durable. Le digital vient soutenir cette vision en apportant fluidité, simplicité d'exécution et clarté dans chaque étape de votre accompagnement."
               }
             </p>
-            <div className="mt-8 border-strataidge-turquoise border-t-0 border-l-4 text-right border-r-[5px] pr-0 pl-2 ml-0">
+            <div className="mt-8 border-strataidge-turquoise border-t-0 text-right pr-0 pl-2 ml-0 border-l-4 border-r-[px]">
               <p className="text-lg italic text-gray-700 text-center">
                 Chaque optimisation est pensée pour votre réalité. Chaque conseil est conçu pour votre avenir.
               </p>
