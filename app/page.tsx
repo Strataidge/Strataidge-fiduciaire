@@ -715,13 +715,13 @@ function OffersSection() {
 
   return (
     <>
-      <section id="offers" className="py-24 sm:py-32 bg-gray-200">
+      <section id="offers" className="py-24 sm:py-32 bg-strataidge-blue-night">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Offres</span>
-            <AnimatedTitle>Des offres adaptées à chaque besoin</AnimatedTitle>
+            <AnimatedTitle className="text-white">Des offres adaptées à chaque besoin</AnimatedTitle>
             <FadeIn>
-              <p className="mt-4 text-lg text-gray-600">
+              <p className="mt-4 text-lg text-gray-300">
                 Que vous soyez en phase de création, de croissance ou de transmission, nous avons une solution pour
                 vous. Découvrez nos abonnements et nos missions spécifiques.
               </p>
@@ -730,37 +730,32 @@ function OffersSection() {
 
           <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
             {mainPlans.map((plan) => (
-              <FadeIn
-                key={plan.name}
-                className="flex h-full"
-                whileHover={{ y: -10 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
+              <FadeIn key={plan.name} className="flex h-full">
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/70 hover:shadow-[0_0_35px_rgba(0,201,167,0.4)]",
+                    "w-full flex flex-col p-8 rounded-2xl bg-gray-200 border border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-2",
                   )}
                 >
-                  <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-gray-900 text-center min-h-[3em] flex items-center justify-center">
                     {plan.name}
                   </h3>
                   {plan.price && (
                     <div className="mt-4 text-center">
-                      <span className="text-gray-400">{plan.price}</span>
+                      <span className="text-gray-500">{plan.price}</span>
                       {plan.amount && (
-                        <p className="text-5xl font-extrabold text-white">
+                        <p className="text-5xl font-extrabold text-gray-900">
                           {plan.amount}
-                          <span className="text-lg font-medium text-gray-400">/mois</span>
+                          <span className="text-lg font-medium text-gray-500">/mois</span>
                         </p>
                       )}
                     </div>
                   )}
-                  <p className="mt-6 text-gray-300 text-center">{plan.description}</p>
+                  <p className="mt-6 text-gray-600 text-center">{plan.description}</p>
                   <ul className="mt-8 space-y-4">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start">
                         <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">{feature}</span>
+                        <span className="text-gray-600">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -782,7 +777,7 @@ function OffersSection() {
                               if (plan.name === "Strataidge") setIsStrataidgeDetailsOpen(true)
                             }}
                             variant="outline"
-                            className="w-full font-bold py-3 text-base border-white/20 text-white hover:bg-white/10 bg-transparent"
+                            className="w-full font-bold py-3 text-base border-gray-400 text-gray-700 hover:bg-gray-300 bg-transparent"
                           >
                             Détails de l’offre
                           </Button>
@@ -790,7 +785,9 @@ function OffersSection() {
                       ) : (
                         <Button
                           onClick={() => handleSelectPlan(plan.name)}
-                          className={cn("w-full font-bold py-3 text-base bg-white/10 hover:bg-white/20 text-white")}
+                          className={cn(
+                            "w-full font-bold py-3 text-base bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night",
+                          )}
                         >
                           Recevoir mon offre
                         </Button>
@@ -803,8 +800,8 @@ function OffersSection() {
           </div>
 
           <FadeIn>
-            <div className="my-16 text-center max-w-4xl mx-auto bg-strataidge-blue-night rounded-2xl p-10 border border-white/10 transition-all duration-300 hover:border-strataidge-turquoise/70 hover:shadow-[0_0_35px_rgba(0,201,167,0.4)]">
-              <p className="text-xl text-gray-300 font-medium mb-8">
+            <div className="my-16 text-center max-w-4xl mx-auto bg-gray-200 rounded-2xl p-10 border border-gray-300 shadow-xl">
+              <p className="text-xl text-gray-700 font-medium mb-8">
                 Vous n'êtes pas certain de l'offre qui vous correspond le mieux ? Chaque parcours est unique. C'est
                 pourquoi nous vous invitons à un échange personnalisé pour construire ensemble la solution qui servira
                 au mieux vos ambitions.
@@ -824,37 +821,32 @@ function OffersSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
             {specificPlans.map((plan) => (
-              <FadeIn
-                key={plan.name}
-                className="flex h-full"
-                whileHover={{ y: -10 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
+              <FadeIn key={plan.name} className="flex h-full">
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/70 hover:shadow-[0_0_35px_rgba(0,201,167,0.4)]",
+                    "w-full flex flex-col p-8 rounded-2xl bg-gray-200 border border-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-2",
                   )}
                 >
-                  <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-gray-900 text-center min-h-[3em] flex items-center justify-center">
                     {plan.name}
                   </h3>
                   {plan.price && (
                     <div className="mt-4 text-center">
-                      <span className="text-gray-400">{plan.price}</span>
+                      <span className="text-gray-500">{plan.price}</span>
                       {plan.amount && (
-                        <p className="text-5xl font-extrabold text-white">
+                        <p className="text-5xl font-extrabold text-gray-900">
                           {plan.amount}
-                          <span className="text-lg font-medium text-gray-400">/mois</span>
+                          <span className="text-lg font-medium text-gray-500">/mois</span>
                         </p>
                       )}
                     </div>
                   )}
-                  <p className="mt-6 text-gray-300 text-center">{plan.description}</p>
+                  <p className="mt-6 text-gray-600 text-center">{plan.description}</p>
                   <ul className="mt-8 space-y-4">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start">
                         <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">{feature}</span>
+                        <span className="text-gray-600">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -876,7 +868,7 @@ function OffersSection() {
                               if (plan.name === "Strataidge") setIsStrataidgeDetailsOpen(true)
                             }}
                             variant="outline"
-                            className="w-full font-bold py-3 text-base border-white/20 text-white hover:bg-white/10 bg-transparent"
+                            className="w-full font-bold py-3 text-base border-gray-400 text-gray-700 hover:bg-gray-300 bg-transparent"
                           >
                             Détails de l’offre
                           </Button>
@@ -884,7 +876,9 @@ function OffersSection() {
                       ) : (
                         <Button
                           onClick={() => handleSelectPlan(plan.name)}
-                          className={cn("w-full font-bold py-3 text-base bg-white/10 hover:bg-white/20 text-white")}
+                          className={cn(
+                            "w-full font-bold py-3 text-base bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night",
+                          )}
                         >
                           Recevoir mon offre
                         </Button>
