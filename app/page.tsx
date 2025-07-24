@@ -195,7 +195,7 @@ function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-strataidge-blue-night/85 backdrop-blur-md shadow-lg">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-strataidge-blue-night/90 backdrop-blur-md shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex items-start gap-3">
@@ -715,7 +715,7 @@ function OffersSection() {
 
   return (
     <>
-      <section id="offers" className="py-24 sm:py-32 bg-gray-50">
+      <section id="offers" className="py-24 sm:py-32 bg-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Offres</span>
@@ -738,7 +738,7 @@ function OffersSection() {
               >
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/50 hover:shadow-2xl hover:shadow-strataidge-turquoise/10",
+                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/70 hover:shadow-[0_0_35px_rgba(0,201,167,0.4)]",
                   )}
                 >
                   <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
@@ -803,8 +803,8 @@ function OffersSection() {
           </div>
 
           <FadeIn>
-            <div className="my-16 text-center max-w-3xl mx-auto">
-              <p className="text-lg text-gray-600 mb-8">
+            <div className="my-16 text-center max-w-4xl mx-auto bg-strataidge-blue-night rounded-2xl p-10 border border-white/10 transition-all duration-300 hover:border-strataidge-turquoise/70 hover:shadow-[0_0_35px_rgba(0,201,167,0.4)]">
+              <p className="text-xl text-gray-300 font-medium mb-8">
                 Vous n'êtes pas certain de l'offre qui vous correspond le mieux ? Chaque parcours est unique. C'est
                 pourquoi nous vous invitons à un échange personnalisé pour construire ensemble la solution qui servira
                 au mieux vos ambitions.
@@ -812,7 +812,7 @@ function OffersSection() {
               <Button
                 asChild
                 size="lg"
-                className="bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold shadow-lg shadow-strataidge-coral/20 px-8 py-6 rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-strataidge-coral/30"
+                className="bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold shadow-xl shadow-strataidge-coral/30 px-8 py-6 rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-strataidge-coral/40 hover:scale-105"
               >
                 <Link href="#contact">
                   Prendre rendez-vous
@@ -832,7 +832,7 @@ function OffersSection() {
               >
                 <div
                   className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/50 hover:shadow-2xl hover:shadow-strataidge-turquoise/10",
+                    "w-full flex flex-col p-8 rounded-2xl bg-strataidge-blue-night border transition-all duration-300 border-white/10 hover:border-strataidge-turquoise/70 hover:shadow-[0_0_35px_rgba(0,201,167,0.4)]",
                   )}
                 >
                   <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
@@ -1243,7 +1243,7 @@ function BlogSection() {
   const [selectedPost, setSelectedPost] = useState<(typeof blogPosts)[0] | null>(null)
 
   return (
-    <section id="blog" className="py-24 sm:py-32">
+    <section id="blog" className="py-24 sm:py-32 bg-gray-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Analyses</span>

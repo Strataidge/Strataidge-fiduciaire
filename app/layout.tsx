@@ -5,9 +5,9 @@ import "./globals.css"
 import { cn } from "@/lib/utils"
 
 const siteConfig = {
-  name: "Strataidge | Fiduciaire & Conseils",
+  name: "Strataidge Fiduciaire – Conseil et Accompagnement Stratégique",
   description:
-    "Strataidge Fiduciaire et Conseil : expertise comptable, fiscale et humaine au service d'une réussite sereine.",
+    "Strataidge Fiduciaire : votre partenaire en stratégie d’entreprise et accompagnement fiduciaire, pour développer et optimiser votre business.",
   url: "https://strataidge-fiduciaire.com",
   ogImage: "https://strataidge-fiduciaire.com/hero-background.jpg",
 }
@@ -15,22 +15,13 @@ const siteConfig = {
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `%s - Strataidge Fiduciaire`,
   },
   description: siteConfig.description,
-  keywords: [
-    "fiduciaire",
-    "comptable",
-    "fiscalité",
-    "conseil",
-    "entreprise",
-    "Belgique",
-    "Strataidge",
-    "PME",
-    "indépendant",
-  ],
+  keywords: ["Strataidge", "fiduciaire", "stratégie", "business", "conseil", "PME", "optimisation"],
   authors: [{ name: "Strataidge" }],
   creator: "Strataidge",
+  robots: "index, follow",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -43,7 +34,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
-    siteName: siteConfig.name,
+    siteName: "Strataidge Fiduciaire",
     images: [
       {
         url: siteConfig.ogImage,
@@ -56,9 +47,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
-    description: siteConfig.description,
+    description: "Accompagnement stratégique et fiduciaire pour les PME.",
     images: [siteConfig.ogImage],
-    creator: "@strataidge", // Remplacez par votre handle Twitter si vous en avez un
   },
     generator: 'v0.dev'
 }
