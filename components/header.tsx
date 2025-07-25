@@ -217,50 +217,55 @@ export function Header() {
 
       {/* Login Dialog */}
       <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl text-strataidge-turquoise text-center">
-              Connexion à votre espace
-            </DialogTitle>
-            <DialogDescription className="text-gray-400 pt-2 text-center">
-              Accédez à vos tableaux de bord et documents.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleLoginSubmit} className="space-y-4 py-4">
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                name="email"
-                type="email"
-                placeholder="Votre adresse email"
-                required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10"
-              />
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8">
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-strataidge-turquoise text-center">
+                  Connexion à votre espace
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2 text-center">
+                  Accédez à vos tableaux de bord et documents.
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleLoginSubmit} className="space-y-4 py-4">
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    name="email"
+                    type="email"
+                    placeholder="Votre adresse email"
+                    required
+                    className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10"
+                  />
+                </div>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    name="password"
+                    type="password"
+                    placeholder="Votre mot de passe"
+                    required
+                    className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10"
+                  />
+                </div>
+                {loginError && <p className="text-sm text-strataidge-coral text-center">{loginError}</p>}
+                <DialogFooter className="flex flex-col gap-2 sm:flex-col sm:space-x-0">
+                  <Button
+                    type="submit"
+                    disabled={isLoginSubmitting}
+                    className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3 disabled:opacity-50"
+                  >
+                    {isLoginSubmitting ? "Connexion en cours..." : "Se connecter"}
+                  </Button>
+                  <Button variant="link" className="text-strataidge-turquoise/80 hover:text-strataidge-turquoise">
+                    Mot de passe oublié ?
+                  </Button>
+                </DialogFooter>
+              </form>
             </div>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                name="password"
-                type="password"
-                placeholder="Votre mot de passe"
-                required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10"
-              />
-            </div>
-            {loginError && <p className="text-sm text-strataidge-coral text-center">{loginError}</p>}
-            <DialogFooter className="flex flex-col gap-2 sm:flex-col sm:space-x-0">
-              <Button
-                type="submit"
-                disabled={isLoginSubmitting}
-                className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3 disabled:opacity-50"
-              >
-                {isLoginSubmitting ? "Connexion en cours..." : "Se connecter"}
-              </Button>
-              <Button variant="link" className="text-strataidge-turquoise/80 hover:text-strataidge-turquoise">
-                Mot de passe oublié ?
-              </Button>
-            </DialogFooter>
-          </form>
+          </div>
         </DialogContent>
       </Dialog>
     </>

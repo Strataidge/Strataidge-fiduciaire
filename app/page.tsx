@@ -18,6 +18,19 @@ import {
   Instagram,
   Lock,
   Network,
+  HandCoins,
+  GraduationCap,
+  Briefcase,
+  FileText,
+  Scale,
+  Landmark,
+  Banknote,
+  Rocket,
+  FolderKanban,
+  Handshake,
+  ClipboardCheck,
+  Target,
+  ClipboardList,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -30,17 +43,28 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
-import { cn } from "@/lib/utils"
 import { SparkleAnimation } from "@/components/sparkle-animation"
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { FadeIn } from "@/components/fade-in"
 import { AnimatedTitle } from "@/components/animated-title"
+import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
+import { RecruitmentBanner } from "@/components/recruitment-banner"
+import { RecruitmentPopup } from "@/components/recruitment-popup"
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
+  const [isBannerVisible, setIsBannerVisible] = useState(true)
+  const [isRecruitmentPopupOpen, setIsRecruitmentPopupOpen] = useState(false)
+
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
+      <RecruitmentBanner
+        isVisible={isBannerVisible}
+        onClose={() => setIsBannerVisible(false)}
+        onOpenPopup={() => setIsRecruitmentPopupOpen(true)}
+      />
+      <RecruitmentPopup isOpen={isRecruitmentPopupOpen} onOpenChange={setIsRecruitmentPopupOpen} />
       <Header />
       <main>
         <HeroSection />
@@ -56,7 +80,7 @@ export default function StrataidgeLandingPageV2() {
   )
 }
 
-// --- SECTIONS MISES À JOUR ---
+// --- SECTIONS ---
 
 function AboutSection() {
   return (
@@ -75,7 +99,6 @@ function AboutSection() {
               />
             </div>
           </FadeIn>
-          {/* Le texte utilise mix-blend-difference pour rester lisible */}
           <FadeIn>
             <span className="font-semibold text-strataidge-turquoise">Vision</span>
             <AnimatedTitle className="text-gray-900">
@@ -84,7 +107,6 @@ function AboutSection() {
           </FadeIn>
         </div>
         <div className="mt-16 max-w-5xl mx-auto">
-          {/* Le texte utilise mix-blend-difference pour rester lisible */}
           <FadeIn>
             <p className="text-lg text-gray-700 text-center">
               {
@@ -112,65 +134,236 @@ const services = [
   {
     icon: TrendingUp,
     title: "Pilotage comptable digitalisé",
-    description:
-      "Nous assurons une gestion continue et innovante de vos flux financiers. Grâce à des outils digitaux performants et une analyse proactive, vous bénéficiez d'une vision claire et anticipative pour guider vos décisions stratégiques.",
+    description: "Une gestion continue et innovante de vos flux financiers pour une vision claire et anticipative.",
+    details: {
+      intro:
+        "Allez au-delà de la simple tenue de livres. Nous transformons votre comptabilité en un outil de pilotage stratégique grâce à des technologies de pointe et une expertise proactive.",
+      points: [
+        "**Tableaux de bord en temps réel :** Suivez vos indicateurs de performance clés (KPIs) via une plateforme intuitive, accessible 24/7.",
+        "**Automatisation des flux :** Gagnez un temps précieux et réduisez les risques d'erreur grâce à la synchronisation bancaire et l'encodage intelligent.",
+        "**Reporting proactif :** Recevez des rapports clairs et des alertes personnalisées pour anticiper les opportunités et les risques.",
+        "**Conformité assurée :** Gestion complète de vos déclarations TVA, bilans et autres obligations légales belges.",
+      ],
+      conclusion: "Avec notre pilotage digitalisé, vous ne subissez plus votre comptabilité, vous la maîtrisez.",
+    },
   },
   {
     icon: Shield,
     title: "Stratégies fiscales sur mesure",
-    description:
-      "Nous construisons des stratégies fiscales adaptées à vos enjeux, alliant anticipation et rigueur réglementaire. Nos méthodes garantissent une fiscalité optimisée et une conformité totale, tout en maximisant vos marges de manœuvre.",
+    description: "Des stratégies adaptées à vos enjeux, alliant anticipation et rigueur pour une fiscalité optimisée.",
+    details: {
+      intro:
+        "La fiscalité est un levier de croissance, pas une fatalité. Notre approche sur mesure vise à optimiser votre charge fiscale en toute légalité et à sécuriser votre avenir.",
+      points: [
+        "**Audit fiscal complet :** Analyse de votre situation actuelle pour identifier les zones de risque et les opportunités d'optimisation.",
+        "**Planification fiscale :** Mise en place de stratégies pour vos revenus, investissements, et rémunérations de dirigeant.",
+        "**Optimisation des structures :** Conseils sur le choix et l'évolution de votre forme juridique (SRL, SA...) pour un impact fiscal maîtrisé.",
+        "**Veille réglementaire active :** Nous anticipons les changements législatifs pour ajuster votre stratégie et garantir une conformité sans faille.",
+      ],
+      conclusion: "Transformez la complexité fiscale en avantage concurrentiel et protégez la valeur que vous créez.",
+    },
   },
   {
     icon: LineChart,
     title: "Analyses financières avancées",
     description:
-      "Nous réalisons des analyses précises pour renforcer la solidité financière de votre entreprise, orienter vos choix d'investissement et identifier les leviers de performance les plus rentables.",
+      "Des analyses précises pour renforcer votre solidité financière et identifier les leviers de performance.",
+    details: {
+      intro:
+        "Vos chiffres racontent une histoire. Nous vous aidons à la déchiffrer pour renforcer la santé financière de votre entreprise et éclairer vos décisions d'investissement.",
+      points: [
+        "**Analyse de rentabilité :** Identification de vos produits, services ou clients les plus rentables pour concentrer vos efforts.",
+        "**Gestion de trésorerie prévisionnelle :** Modélisation de vos flux de trésorerie pour anticiper les besoins et éviter les tensions.",
+        "**Diagnostic de la structure de coûts :** Optimisation de vos charges fixes et variables pour améliorer vos marges.",
+        "**Simulation d'investissements :** Évaluation de la pertinence et de l'impact financier de vos futurs projets d'expansion.",
+      ],
+      conclusion:
+        "Prenez des décisions basées sur des données fiables et des analyses profondes, pas sur des intuitions.",
+    },
+  },
+  {
+    icon: HandCoins,
+    title: "Accompagnement au financement",
+    description:
+      "Nous montons des dossiers solides pour obtenir crédits et subsides, maximisant vos chances de succès.",
+    details: {
+      intro:
+        "Un projet de croissance a besoin de carburant. Nous vous aidons à structurer vos demandes de financement pour convaincre les banques, les investisseurs et les organismes publics.",
+      points: [
+        "**Montage de dossiers de crédit :** Préparation de business plans et de prévisionnels financiers robustes et crédibles.",
+        "**Recherche de subsides et aides publiques :** Identification des aides régionales, fédérales et européennes auxquelles vous êtes éligible.",
+        "**Négociation avec les partenaires financiers :** Nous vous conseillons et pouvons vous assister lors des rendez-vous pour défendre votre projet.",
+        "**Solutions de financement alternatives :** Exploration des options de crowdfunding, business angels ou capital-risque.",
+      ],
+      conclusion: "Mettez toutes les chances de votre côté pour obtenir les fonds nécessaires à vos ambitions.",
+    },
   },
   {
     icon: Network,
-    title: "Management et structuration stratégique",
+    title: "Management et structuration",
     description:
-      "Nous aidons votre entreprise à se structurer et à développer un management performant : organisation des équipes, optimisation des processus et pilotage vers une croissance durable.",
+      "Nous aidons à structurer votre entreprise et développer un management performant pour une croissance durable.",
+    details: {
+      intro:
+        "La croissance désorganisée est un risque. Nous vous aidons à bâtir des fondations solides pour scaler votre entreprise de manière saine et durable.",
+      points: [
+        "**Optimisation des processus internes :** Cartographie et amélioration de vos flux de travail pour plus d'efficacité et de clarté.",
+        "**Définition des rôles et responsabilités :** Mise en place d'organigrammes clairs et de fiches de fonction pour aligner vos équipes.",
+        "**Mise en place d'outils de pilotage :** Déploiement de tableaux de bord de management pour suivre la performance opérationnelle.",
+        "**Accompagnement au changement :** Nous aidons vos équipes à adopter les nouvelles structures et les nouveaux outils.",
+      ],
+      conclusion:
+        "Structurez votre entreprise pour la croissance, libérez votre potentiel et celui de vos collaborateurs.",
+    },
   },
   {
     icon: Combine,
-    title: "Optimisation globale d'entreprise",
+    title: "Optimisation globale",
+    description: "Une vision transversale qui combine expertise humaine et tech pour maximiser chaque opportunité.",
+    details: {
+      intro:
+        "Votre entreprise est un écosystème. Notre vision à 360° décloisonne les expertises (comptable, fiscale, sociale, stratégique) pour créer des synergies et maximiser votre performance globale.",
+      points: [
+        "**Audit transversal :** Analyse complète de votre entreprise, de la structure de coûts à la stratégie commerciale.",
+        "**Optimisation de la rémunération du dirigeant :** Stratégie globale alliant salaire, dividendes, avantages en nature et planification patrimoniale.",
+        "**Alignement stratégique et financier :** Nous nous assurons que vos décisions opérationnelles servent votre vision à long terme.",
+        "**Intégration technologique :** Conseils sur les outils digitaux qui peuvent optimiser l'ensemble de votre chaîne de valeur.",
+      ],
+      conclusion: "Ne pensez plus en silos. Adoptez une approche intégrée pour une performance démultipliée.",
+    },
+  },
+  {
+    icon: Briefcase,
+    title: "Création d'entreprise",
+    description: "De l'idée à la réalité, nous vous guidons pour lancer votre entreprise sur des bases solides.",
+    details: {
+      intro:
+        "Transformer une idée en une entreprise prospère est un parcours exigeant. Nous sommes votre co-pilote à chaque étape pour un lancement sécurisé et optimisé.",
+      points: [
+        "**Validation du projet et business plan :** Nous challengeons votre idée et la traduisons en un plan financier solide.",
+        "**Choix de la structure juridique :** Analyse comparative (indépendant, SRL, SA...) pour trouver la forme la plus adaptée fiscalement et socialement.",
+        "**Démarches administratives simplifiées :** Coordination avec le notaire, inscription à la BCE, activation de la TVA... Nous gérons la complexité.",
+        "**Mise en place des fondations :** Installation de vos outils comptables et formation à vos premières obligations.",
+      ],
+      conclusion: "Lancez-vous sur des bases saines et concentrez-vous sur ce que vous faites de mieux : votre métier.",
+    },
+  },
+  {
+    icon: Handshake,
+    title: "Transmission & Acquisition",
     description:
-      "Nous adoptons une vision transversale qui combine expertise humaine et solutions technologiques pour maximiser chaque opportunité, du quotidien opérationnel jusqu'à la stratégie long terme.",
+      "Un accompagnement stratégique pour sécuriser et valoriser la vente ou l'acquisition d'une entreprise.",
+    details: {
+      intro:
+        "Vendre, transmettre ou acquérir une entreprise est un moment clé. Notre accompagnement stratégique vise à sécuriser la transaction et à en maximiser la valeur pour vous.",
+      points: [
+        "**Valorisation d'entreprise :** Évaluation objective de la valeur de l'entreprise pour définir un prix juste.",
+        "**Préparation à la vente (Due Diligence) :** Nous préparons votre entreprise à l'audit de l'acquéreur pour une transaction fluide.",
+        "**Optimisation fiscale de la cession :** Mise en place de la structure la plus avantageuse pour minimiser l'impôt sur la plus-value.",
+        "**Assistance à la négociation :** Nous vous conseillons à chaque étape des discussions pour défendre vos intérêts.",
+      ],
+      conclusion: "Abordez cette étape cruciale avec sérénité, stratégie et le soutien d'experts dédiés.",
+    },
   },
 ]
 
+type Service = (typeof services)[0]
+
 function ServicesSection() {
+  const [selectedService, setSelectedService] = useState<Service | null>(null)
+
   return (
-    <section id="services" className="relative py-24 sm:py-32 bg-strataidge-blue-night">
-      <SparkleAnimation />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="font-semibold text-strataidge-turquoise">Solutions</span>
-          <AnimatedTitle className="text-white">Global dans l'approche, unique dans le conseil</AnimatedTitle>
-          <FadeIn>
-            <p className="mt-4 text-lg text-gray-300">
-              Une expertise complète, humaine et digitale pour piloter votre entreprise avec agilité, clarté et
-              anticipation.
-            </p>
-          </FadeIn>
-        </div>
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8">
-          {services.map((service, i) => (
-            <FadeIn key={service.title} className={cn("md:col-span-2 lg:col-span-2", { "lg:col-start-2": i === 3 })}>
-              <div className="h-full p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-strataidge-turquoise/50 transition-all duration-300 group backdrop-blur-sm">
-                <div className="mb-6 w-12 h-12 rounded-lg bg-strataidge-turquoise/10 flex items-center justify-center">
-                  <service.icon className="h-6 w-6 text-strataidge-turquoise" />
-                </div>
-                <h3 className="text-xl font-bold text-white">{service.title}</h3>
-                <p className="mt-2 text-gray-400">{service.description}</p>
-              </div>
+    <>
+      <section id="services" className="relative py-24 sm:py-32 bg-strataidge-blue-night">
+        <SparkleAnimation className="opacity-50" />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="font-semibold text-strataidge-turquoise">Solutions</span>
+            <AnimatedTitle className="text-white">Global dans l'approche, unique dans le conseil</AnimatedTitle>
+            <FadeIn>
+              <p className="mt-4 text-lg text-gray-300">
+                Une expertise complète, humaine et digitale pour piloter votre entreprise avec agilité, clarté et
+                anticipation.
+              </p>
             </FadeIn>
-          ))}
+          </div>
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {services.map((service) => (
+              <FadeIn key={service.title}>
+                <button
+                  onClick={() => setSelectedService(service)}
+                  className="text-left h-full w-full p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 group transition-all duration-300 hover:border-strataidge-turquoise/50 hover:bg-white/[.08] cursor-pointer"
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="mb-6 w-12 h-12 rounded-lg bg-strataidge-turquoise/10 flex items-center justify-center flex-shrink-0">
+                      <service.icon className="h-6 w-6 text-strataidge-turquoise" />
+                    </div>
+                    <div className="flex-grow">
+                      <h3 className="text-xl font-bold text-white">{service.title}</h3>
+                      <p className="mt-2 text-gray-400">{service.description}</p>
+                    </div>
+                  </div>
+                </button>
+              </FadeIn>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              {selectedService && (
+                <>
+                  <DialogHeader className="flex-shrink-0 text-left">
+                    <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise flex items-center gap-4">
+                      <selectedService.icon className="h-8 w-8" />
+                      {selectedService.title}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                    <p className="text-gray-300">{selectedService.details.intro}</p>
+                    <div>
+                      <h4 className="font-bold text-lg text-white mb-3">Nos engagements :</h4>
+                      <ul className="space-y-3">
+                        {selectedService.details.points.map((item, index) => (
+                          <li key={index} className="flex items-start">
+                            <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                            <span
+                              className="text-gray-300"
+                              dangerouslySetInnerHTML={{
+                                __html: item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>'),
+                              }}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <p className="text-strataidge-turquoise/80 italic pt-2 border-t border-white/10">
+                      {selectedService.details.conclusion}
+                    </p>
+                  </div>
+                  <DialogFooter className="mt-4 flex-shrink-0">
+                    <Button
+                      onClick={() => setSelectedService(null)}
+                      variant="outline"
+                      className="border-white/20 text-white hover:bg-white/10 bg-transparent"
+                    >
+                      Fermer
+                    </Button>
+                    <Button asChild className="bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold">
+                      <Link href="#contact">Discutons de cette solution</Link>
+                    </Button>
+                  </DialogFooter>
+                </>
+              )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 
@@ -199,7 +392,10 @@ function MethodologySection() {
   ]
 
   return (
-    <section id="methodology" className="py-24 sm:py-32 bg-strataidge-blue-night">
+    <section
+      id="methodology"
+      className="relative py-24 sm:py-32 bg-slate-800 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 to-transparent"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Approche</span>
@@ -210,12 +406,12 @@ function MethodologySection() {
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
           <div className="relative">
-            <div className="absolute left-4 top-4 h-full w-0.5 bg-white/10" aria-hidden="true" />
+            <div className="absolute left-4 top-4 h-full w-0.5 bg-white/20" aria-hidden="true" />
             {steps.map((step) => (
               <FadeIn key={step.title}>
                 <div className="relative pl-12 pb-12">
                   <div className="absolute left-0 top-4">
-                    <div className="w-8 h-8 bg-strataidge-blue-night rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
+                    <div className="w-8 h-8 bg-slate-800 rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 text-strataidge-turquoise" />
                     </div>
                   </div>
@@ -315,28 +511,34 @@ function BlogSection() {
       </div>
 
       <Dialog open={!!selectedPost} onOpenChange={(isOpen) => !isOpen && setSelectedPost(null)}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl text-strataidge-turquoise">{selectedPost?.title}</DialogTitle>
-            <DialogDescription className="text-gray-400 pt-2">
-              Cet article est réservé à nos membres. Connectez-vous pour accéder à l'analyse complète de nos experts.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="py-4 text-center">
-            <Lock className="h-16 w-16 mx-auto text-strataidge-yellow/50" />
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8">
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-strataidge-turquoise">{selectedPost?.title}</DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Cet article est réservé à nos membres. Connectez-vous pour accéder à l'analyse complète de nos
+                  experts.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 text-center">
+                <Lock className="h-16 w-16 mx-auto text-strataidge-yellow/50" />
+              </div>
+              <DialogFooter>
+                <Button
+                  onClick={() => setSelectedPost(null)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent"
+                >
+                  Fermer
+                </Button>
+                <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold">
+                  Se connecter
+                </Button>
+              </DialogFooter>
+            </div>
           </div>
-          <DialogFooter>
-            <Button
-              onClick={() => setSelectedPost(null)}
-              variant="outline"
-              className="border-white/20 text-white hover:bg-white/10 bg-transparent"
-            >
-              Fermer
-            </Button>
-            <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold">
-              Se connecter
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </section>
@@ -348,8 +550,11 @@ function OffersSection() {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
   const [isStandardDetailsOpen, setIsStandardDetailsOpen] = useState(false)
   const [isStrataidgeDetailsOpen, setIsStrataidgeDetailsOpen] = useState(false)
+  const [isCreationDetailsOpen, setIsCreationDetailsOpen] = useState(false)
+  const [isTransmissionDetailsOpen, setIsTransmissionDetailsOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formMessage, setFormMessage] = useState<string | null>(null)
+  const [isCarteDetailsOpen, setIsCarteDetailsOpen] = useState(false)
 
   const handleSelectPlan = (plan: string) => {
     setSelectedPlan(plan)
@@ -367,7 +572,6 @@ function OffersSection() {
     event.preventDefault()
     setIsSubmitting(true)
     setFormMessage(null)
-
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500))
       setFormMessage("Votre demande d'offre a été envoyée. Nous vous contacterons très prochainement !")
@@ -380,26 +584,46 @@ function OffersSection() {
     }
   }
 
+  const openCarteRequest = () => {
+    setIsCarteDetailsOpen(false)
+    handleSelectPlan("À la carte")
+  }
+
+  const openCreationRequest = () => {
+    setIsCreationDetailsOpen(false)
+    handleSelectPlan("Création d’entreprise")
+  }
+
+  const openTransmissionRequest = () => {
+    setIsTransmissionDetailsOpen(false)
+    handleSelectPlan("Transmission & Acquisition")
+  }
+
   const plans = [
     {
       name: "Full Digital",
       price: "À partir de",
       amount: "50€",
-      description: "Tous les services comptables et fiscaux d’un bureau, 100 % en ligne.",
+      description: "La gestion comptable et fiscale complète, 100% en ligne.",
       features: [
-        "Comptabilité et fiscalité complètes (Belgique)",
-        "Optimisation fiscale et conformité légale garanties",
-        "Suivi trimestriel des chiffres",
-        "Plateforme sécurisée et transmission 100 % numérique",
-        "Réponse à vos questions uniquement par mail",
+        "Gestion comptable et déclarations fiscales",
+        "Optimisation fiscale et conformité légale belge",
+        "Suivi trimestriel des chiffres avec rapport",
+        "Plateforme sécurisée pour envoi et stockage des documents",
       ],
-      note: "Options additionnelles disponibles dans l’offre À la carte",
+      notIncluded: [
+        "Rendez-vous conseils (visio ou présentiel)",
+        "Assistance en cas de contrôle fiscal",
+        "Conseils stratégiques, business plans, ou management",
+        "Montages fiscaux complexes ou optimisations ciblées",
+        "Accompagnements spécifiques (création, transmission, financement)",
+      ],
     },
     {
       name: "Standard",
       price: "À partir de",
       amount: "250€",
-      description: "L’équilibre parfait entre autonomie digitale et accompagnement humain renforcé.",
+      description: "L’équilibre entre autonomie digitale et accompagnement humain.",
       features: [
         "Tout le contenu de l’offre Full Digital",
         "Rendez-vous de mise en place de la collaboration",
@@ -409,70 +633,285 @@ function OffersSection() {
         "Conseils personnalisés sur les factures encodées",
         "Permanence pour toutes vos questions",
       ],
-      note: "Obligation de transmettre tous les documents et pièces scannés dans les délais (pénalités en cas de retard).",
+      notIncluded: [
+        "Conseil stratégique avancé ou management d’entreprise",
+        "Élaboration de business plans ou plans stratégiques",
+        "Montages fiscaux complexes et optimisations poussées",
+        "Accompagnement spécifique (création, transmission, financement)",
+        "Audit et diagnostic complet de l'entreprise",
+      ],
     },
     {
       name: "Strataidge",
       price: "À partir de",
       amount: "500€",
-      description: "Une immersion stratégique pour transformer votre business et l’aligner avec votre ambition.",
+      description: "Une immersion stratégique pour transformer votre business.",
       features: [
-        "Nous combinons analyse pointue, plan d’action sur mesure et suivi intelligent afin de révéler les leviers cachés de votre croissance.",
-        "Une offre haut de gamme, conçue pour ceux qui veulent dépasser les objectifs visibles et atteindre leur véritable potentiel.",
+        "Diagnostic stratégique approfondi et analyse complète",
+        "Plan de développement sur mesure avec feuille de route",
+        "Accompagnement personnalisé et coaching stratégique",
+        "Accès à notre écosystème premium de partenaires",
+        "Mesure et optimisation continue des performances (KPIs)",
+      ],
+      notIncluded: [
+        "La gestion comptable et fiscale de base (Offre Full Digital) n'est pas incluse par défaut et peut être ajoutée.",
+        "Des missions très spécifiques comme la recherche de financement ou l'accompagnement à la transmission peuvent faire l'objet d'un devis séparé.",
       ],
     },
     {
-      name: "Création d'entreprise",
+      name: "À la carte",
+      price: "Sur demande",
+      amount: "",
+      description: "Des services ponctuels pour vos besoins spécifiques.",
+      features: [
+        "Rendez-vous conseils (comptable, financier, stratégique et fiscale)",
+        "Recherche et montage de crédits professionnels",
+        "Assistance en cas de contrôle fiscal",
+        "Optimisations fiscales ou comptables ciblées",
+        "Élaboration de business plans ou plans stratégiques",
+        "Audit et diagnostic d'entreprise (risques, opportunités, procédures)",
+        "Mise en place de l'internalisation de la comptabilité (diagnostic, écolage, etc.)",
+      ],
+    },
+    {
+      name: "Création d’entreprise",
       price: "Sur devis",
       amount: "",
       description:
-        "Nous vous guidons à chaque étape de la création de votre entreprise, du business plan à l'immatriculation.",
+        "De l’idée au lancement officiel : un accompagnement clé en main pour créer votre société sereinement.",
       features: [
-        "Analyse de la viabilité du projet",
-        "Choix de la forme juridique",
-        "Rédaction des statuts",
-        "Accompagnement administratif",
+        "Analyse et validation du projet",
+        "Rédaction et accompagnement du business plan",
+        "Choix de la forme juridique et fiscalité adaptée",
+        "Préparation et coordination avec le notaire",
       ],
+      fullDetails: {
+        included: {
+          preparation: {
+            title: "Analyse et préparation du projet",
+            icon: Briefcase,
+            items: [
+              "Évaluation de la faisabilité et du potentiel",
+              "Analyse du marché et des besoins financiers",
+              "Définition des objectifs et stratégie de lancement",
+            ],
+          },
+          businessPlan: {
+            title: "Business plan complet",
+            icon: FileText,
+            items: [
+              "Rédaction des prévisions financières et analyses de rentabilité",
+              "Présentation claire pour banquiers et investisseurs",
+              "Conseils sur les aides et subsides disponibles",
+            ],
+          },
+          structure: {
+            title: "Choix de la structure juridique et fiscale",
+            icon: Scale,
+            items: [
+              "Comparatif SRL, SA, SNC… adapté à votre projet",
+              "Conseils sur la fiscalité la plus avantageuse",
+              "Prévision des impacts sociaux et personnels (statut dirigeant, dividendes)",
+            ],
+          },
+          demarches: {
+            title: "Démarches administratives et notariales",
+            icon: Landmark,
+            items: [
+              "Coordination avec le notaire pour la création de la société",
+              "Assistance pour l’ouverture du compte bancaire professionnel",
+              "Aide pour l’inscription à la BCE et l’activation de la TVA",
+            ],
+          },
+          comptable: {
+            title: "Mise en place comptable",
+            icon: Banknote,
+            items: [
+              "Installation des outils de gestion adaptés",
+              "Mise en place des premiers processus (facturation, suivi, reporting)",
+              "Formation initiale à vos obligations comptables et fiscales",
+            ],
+          },
+          suivi: {
+            title: "Suivi post-création",
+            icon: Rocket,
+            items: [
+              "Contrôle des premiers mois de gestion",
+              "Conseils sur l’optimisation et l’organisation",
+              "Possibilité de basculer vers un pack Full Digital ou Standard",
+            ],
+          },
+        },
+        pourQui: [
+          "Porteurs de projet et futurs entrepreneurs",
+          "Indépendants souhaitant passer en société",
+          "Startups recherchant un accompagnement complet et professionnel",
+        ],
+        conditions: [
+          "Offre sur devis (personnalisée selon le projet et le niveau d’accompagnement souhaité)",
+          "Prestations modulables : business plan seul, démarches notariales uniquement ou accompagnement complet",
+          "Timeline claire : de la validation de l’idée jusqu’au lancement opérationnel",
+        ],
+        exemples: [
+          "Un indépendant qui veut passer en société et avoir une fiscalité optimisée dès la création",
+          "Une startup qui a besoin d’un business plan solide pour convaincre une banque ou des investisseurs",
+          "Un porteur de projet qui souhaite déléguer toute la partie administrative et se concentrer sur son activité",
+        ],
+      },
     },
     {
-      name: "Transmission d'entreprise",
-      price: "Sur devis",
-      amount: "",
-      description: "Préparez et optimisez la cession ou la reprise d'une entreprise avec notre expertise.",
-      features: [
-        "Évaluation de l'entreprise",
-        "Optimisation fiscale de la cession",
-        "Recherche de repreneurs/cédants",
-        "Négociation et closing",
-      ],
-    },
-    {
-      name: "Offre à la carte",
+      name: "Transmission & Acquisition",
       price: "Sur devis",
       amount: "",
       description:
-        "Composez votre accompagnement sur mesure en choisissant parmi nos services spécialisés pour répondre à des besoins ponctuels.",
+        "Préparez, valorisez et concrétisez la vente, la reprise ou la transmission de votre entreprise avec une approche stratégique et humaine.",
       features: [
-        "Rendez-vous conseil (visio ou présentiel)",
-        "Conseil stratégique et management",
-        "Montage fiscal complexe",
-        "Accompagnement spécifique (cession, etc.)",
-        "Assistance lors d'un contrôle fiscal",
+        "Valorisation et diagnostic stratégique",
+        "Optimisation fiscale et juridique préalable",
+        "Dossier de vente ou d’acquisition complet et professionnel",
+        "Conseil et assistance en négociation",
       ],
+      fullDetails: {
+        included: {
+          diagnostic: {
+            title: "Diagnostic et stratégie initiale",
+            icon: ClipboardList,
+            items: [
+              "Analyse financière et opérationnelle de l’entreprise concernée",
+              "Évaluation de la valeur (méthodes multiples) et identification des leviers d’optimisation",
+              "Définition d’une stratégie adaptée : transmission (vente ou familiale) ou acquisition",
+            ],
+          },
+          optimisation: {
+            title: "Optimisation fiscale et juridique",
+            icon: Shield,
+            items: [
+              "Mise en place des meilleures stratégies fiscales avant opération",
+              "Structuration juridique adaptée à la vente, reprise ou transmission",
+              "Anticipation des impacts patrimoniaux pour dirigeants et actionnaires",
+            ],
+          },
+          dossier: {
+            title: "Dossier et préparation transactionnelle",
+            icon: FolderKanban,
+            items: [
+              "Création du dossier de présentation ou dossier de reprise (pitch, mémo, business plan)",
+              "Préparation des documents financiers et prévisionnels",
+              "Mise en conformité comptable et légale",
+            ],
+          },
+          negociation: {
+            title: "Accompagnement dans les négociations",
+            icon: Handshake,
+            items: [
+              "Aide à la recherche d’acquéreurs ou d’entreprises cibles",
+              "Conseil stratégique dans les discussions et offres",
+              "Coordination avec les notaires, avocats et partenaires financiers",
+            ],
+          },
+          acquisition: {
+            title: "Acquisition (reprise d’entreprise)",
+            icon: Target,
+            items: [
+              "Analyse de la cible et due diligence",
+              "Assistance dans la négociation des conditions d’acquisition",
+              "Plan de financement et intégration post-rachat",
+            ],
+          },
+          suivi: {
+            title: "Suivi post-transaction",
+            icon: ClipboardCheck,
+            items: [
+              "Transition organisationnelle après la vente ou la reprise",
+              "Optimisation patrimoniale du dirigeant après cession ou acquisition",
+              "Support dans la mise en place des nouveaux processus",
+            ],
+          },
+        },
+        pourQui: [
+          "Chefs d’entreprise préparant la vente ou la transmission de leur société",
+          "Entreprises familiales organisant une succession sereine",
+          "Repreneurs et investisseurs cherchant à acquérir une société avec un accompagnement stratégique",
+        ],
+        conditions: [
+          "Offre sur devis personnalisé selon l’ampleur du projet (taille, complexité, objectifs)",
+          "Mission cadrée : diagnostic initial, plan de préparation et accompagnement jusqu’à la conclusion",
+          "Possibilité de suivi post-opérationnel (intégration, optimisation patrimoniale)",
+        ],
+        exemples: [
+          "Vente d’une PME : préparer et valoriser l’entreprise 18 mois avant la vente",
+          "Transmission familiale : réduire l’impact fiscal et organiser la succession sereinement",
+          "Acquisition d’une société : analyser la cible, structurer le financement et négocier les conditions",
+        ],
+      },
     },
   ]
 
-  const mainPlans = plans.slice(0, 3)
-  const specificPlans = plans.slice(3)
-  const detailedPlans = ["Full Digital", "Standard", "Strataidge"]
+  const handlePlanClick = (planName: string) => {
+    switch (planName) {
+      case "Full Digital":
+        setIsDetailsOpen(true)
+        break
+      case "Standard":
+        setIsStandardDetailsOpen(true)
+        break
+      case "Strataidge":
+        setIsStrataidgeDetailsOpen(true)
+        break
+      case "À la carte":
+        setIsCarteDetailsOpen(true)
+        break
+      case "Création d’entreprise":
+        setIsCreationDetailsOpen(true)
+        break
+      case "Transmission & Acquisition":
+        setIsTransmissionDetailsOpen(true)
+        break
+      default:
+        handleSelectPlan(planName)
+        break
+    }
+  }
+
+  const InternalisationSection = () => (
+    <div className="mt-6 p-4 rounded-lg bg-strataidge-turquoise/10 border border-strataidge-turquoise/20">
+      <h4 className="font-bold text-xl text-white mb-3 flex items-center">
+        <GraduationCap className="h-6 w-6 text-strataidge-turquoise mr-3" />
+        Vers l'autonomie comptable : un levier de croissance
+      </h4>
+      <p className="text-gray-300 mb-2">
+        Internaliser votre comptabilité peut être un atout stratégique majeur, offrant plus de contrôle, de réactivité
+        et une meilleure vision financière. C'est une étape que nous encourageons lorsque c'est pertinent pour votre
+        structure.
+      </p>
+      <p className="text-gray-300">
+        Nous pouvons vous accompagner dans cette transition. Notre{" "}
+        <button
+          onClick={() => {
+            setIsDetailsOpen(false)
+            setIsStandardDetailsOpen(false)
+            setIsStrataidgeDetailsOpen(false)
+            setIsCarteDetailsOpen(true)
+          }}
+          className="font-bold text-strataidge-turquoise hover:underline"
+        >
+          "À la carte"
+        </button>{" "}
+        inclut un accompagnement complet pour la mise en place de votre comptabilité interne.
+      </p>
+    </div>
+  )
+
+  const creationPlan = plans.find((p) => p.name === "Création d’entreprise")
+  const transmissionPlan = plans.find((p) => p.name === "Transmission & Acquisition")
 
   return (
     <>
-      <section id="offers" className="py-24 sm:py-32 bg-strataidge-blue-night">
+      <section id="offers" className="py-24 sm:py-32 bg-strataidge-blue-night overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Offres</span>
-            <AnimatedTitle className="text-white">Des offres adaptées à chaque besoin</AnimatedTitle>
+            <AnimatedTitle className="text-white">Des solutions pour chaque étape de votre parcours</AnimatedTitle>
             <FadeIn>
               <p className="mt-4 text-lg text-gray-300">
                 Que vous soyez en phase de création, de croissance ou de transmission, nous avons une solution pour
@@ -480,80 +919,15 @@ function OffersSection() {
               </p>
             </FadeIn>
           </div>
+        </div>
 
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-            {mainPlans.map((plan) => (
-              <FadeIn key={plan.name} className="flex h-full">
-                <div
-                  className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-white/5 border border-white/20 transition-all duration-300 shadow-lg hover:shadow-strataidge-turquoise/25 hover:border-strataidge-turquoise/60 hover:-translate-y-2 backdrop-blur-sm",
-                  )}
-                >
-                  <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
-                    {plan.name}
-                  </h3>
-                  {plan.price && (
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400">{plan.price}</span>
-                      {plan.amount && (
-                        <p className="text-5xl font-extrabold text-white">
-                          {plan.amount}
-                          <span className="text-lg font-medium text-gray-400">/mois</span>
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  <p className="mt-6 text-gray-300 text-center">{plan.description}</p>
-                  <ul className="mt-8 space-y-4">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto pt-8">
-                    {plan.note && <p className="mt-6 text-xs text-gray-500 text-center">{plan.note}</p>}
-                    <div className="mt-2 flex flex-col gap-2">
-                      {detailedPlans.includes(plan.name) ? (
-                        <>
-                          <Button
-                            onClick={openIaConfigurator}
-                            className="w-full font-bold py-3 text-sm bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night text-center h-auto text-wrap"
-                          >
-                            Paramétrez votre offre et recevez un devis instantané
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              if (plan.name === "Full Digital") setIsDetailsOpen(true)
-                              if (plan.name === "Standard") setIsStandardDetailsOpen(true)
-                              if (plan.name === "Strataidge") setIsStrataidgeDetailsOpen(true)
-                            }}
-                            variant="outline"
-                            className="w-full font-bold py-3 text-base border-white/20 text-white hover:bg-white/10 hover:border-strataidge-turquoise/60 bg-transparent"
-                          >
-                            Détails de l’offre
-                          </Button>
-                        </>
-                      ) : (
-                        <Button
-                          onClick={() => handleSelectPlan(plan.name)}
-                          className={cn(
-                            "w-full font-bold py-3 text-base bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night",
-                          )}
-                        >
-                          Recevoir mon offre
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
+        <div className="mt-20">
+          <ModernOffersCarousel plans={plans} onPlanSelect={handlePlanClick} />
+        </div>
 
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <div className="my-16 text-center max-w-4xl mx-auto bg-white/5 rounded-2xl p-10 border border-white/20 shadow-xl backdrop-blur-sm">
+            <div className="mt-12 text-center max-w-4xl mx-auto bg-white/5 rounded-2xl p-10 border border-white/20 shadow-xl backdrop-blur-sm">
               <p className="text-xl text-gray-200 font-medium mb-8">
                 Vous n'êtes pas certain de l'offre qui vous correspond le mieux ? Chaque parcours est unique. C'est
                 pourquoi nous vous invitons à un échange personnalisé pour construire ensemble la solution qui servira
@@ -571,382 +945,491 @@ function OffersSection() {
               </Button>
             </div>
           </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-            {specificPlans.map((plan) => (
-              <FadeIn key={plan.name} className="flex h-full">
-                <div
-                  className={cn(
-                    "w-full flex flex-col p-8 rounded-2xl bg-white/5 border border-white/20 transition-all duration-300 shadow-lg hover:shadow-strataidge-turquoise/25 hover:border-strataidge-turquoise/60 hover:-translate-y-2 backdrop-blur-sm",
-                  )}
-                >
-                  <h3 className="text-2xl font-bold text-white text-center min-h-[3em] flex items-center justify-center">
-                    {plan.name}
-                  </h3>
-                  {plan.price && (
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400">{plan.price}</span>
-                      {plan.amount && (
-                        <p className="text-5xl font-extrabold text-white">
-                          {plan.amount}
-                          <span className="text-lg font-medium text-gray-400">/mois</span>
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  <p className="mt-6 text-gray-300 text-center">{plan.description}</p>
-                  <ul className="mt-8 space-y-4">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto pt-8">
-                    {plan.note && <p className="mt-6 text-xs text-gray-500 text-center">{plan.note}</p>}
-                    <div className="mt-2 flex flex-col gap-2">
-                      {detailedPlans.includes(plan.name) ? (
-                        <>
-                          <Button
-                            onClick={openIaConfigurator}
-                            className="w-full font-bold py-3 text-sm bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night text-center h-auto text-wrap"
-                          >
-                            Paramétrez votre offre et recevez un devis instantané
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              if (plan.name === "Full Digital") setIsDetailsOpen(true)
-                              if (plan.name === "Standard") setIsStandardDetailsOpen(true)
-                              if (plan.name === "Strataidge") setIsStrataidgeDetailsOpen(true)
-                            }}
-                            variant="outline"
-                            className="w-full font-bold py-3 text-base border-white/20 text-white hover:bg-white/10 hover:border-strataidge-turquoise/60 bg-transparent"
-                          >
-                            Détails de l’offre
-                          </Button>
-                        </>
-                      ) : (
-                        <Button
-                          onClick={() => handleSelectPlan(plan.name)}
-                          className={cn(
-                            "w-full font-bold py-3 text-base bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night",
-                          )}
-                        >
-                          Recevoir mon offre
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Details Dialog for Full Digital */}
+      {/* DIALOGS */}
       <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl flex flex-col max-h-[90vh]">
-          <DialogHeader className="flex-shrink-0">
-            <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-              Offre Full Digital
-            </DialogTitle>
-            <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
-              L’efficacité du tout digital, la rigueur d’un bureau complet
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
-            <div>
-              <p className="text-gray-300">
-                Full Digital s’adresse à ceux qui veulent une gestion comptable et fiscale complète tout en gagnant du
-                temps et en réduisant leurs coûts. Tout se fait en ligne : envoi des pièces, suivi des chiffres et
-                conseils via plateforme sécurisée et email.
-              </p>
-              <div className="mt-4 p-4 bg-strataidge-turquoise/10 rounded-lg border border-strataidge-turquoise/20">
-                <h4 className="font-bold text-strataidge-turquoise">L'humain avant tout</h4>
-                <p className="text-gray-300 mt-2">
-                  Même dans notre offre 100% digitale, nous tenons à comprendre qui vous êtes. Avant de démarrer, un
-                  échange nous permet de cerner vos attentes, vos ambitions et votre réalité. Cet ADN de notre relation
-                  garantit un service qui, bien que digital, vous ressemble vraiment.
-                </p>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Offre Full Digital
+                </DialogTitle>
+                <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
+                  L’efficacité du tout digital, la rigueur d’un bureau complet
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
+                <div>
+                  <p className="text-gray-300">
+                    Full Digital s’adresse à ceux qui veulent une gestion comptable et fiscale complète tout en gagnant
+                    du temps et en réduisant leurs coûts. Cette offre est idéale si vous souhaitez externaliser
+                    entièrement votre comptabilité, que vous partiez de zéro ou que vous ayez déjà un système en place.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">Ce qui est inclus</h4>
+                  <ul className="space-y-2">
+                    {plans
+                      .find((p) => p.name === "Full Digital")
+                      ?.features.map((item) => (
+                        <li key={item} className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">
+                    Ce qui n'est pas inclus (disponible "À la carte")
+                  </h4>
+                  <ul className="list-disc list-inside text-gray-400 mt-2 space-y-1">
+                    {plans
+                      .find((p) => p.name === "Full Digital")
+                      ?.notIncluded?.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                  </ul>
+                </div>
+                <InternalisationSection />
               </div>
-            </div>
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Ce qui est inclus</h4>
-              <ul className="space-y-2">
-                {[
-                  "Gestion comptable et déclarations fiscales",
-                  "Optimisation fiscale et conformité légale belge",
-                  "Suivi trimestriel des chiffres avec rapport",
-                  "Plateforme sécurisée pour envoi et stockage",
-                  "Manuel de bonne conduite pour ce qui est fiscalement et comptablement admis dans votre comptabilité",
-                  "Encodage de toutes les factures et paiements transmis (sans tri fiscal)",
-                ].map((item) => (
-                  <li key={item} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Ce qui est en supplément (“À la carte”)</h4>
-              <p className="text-gray-400">
-                Tout ce qui dépasse la gestion comptable/fiscale standard est proposé en option via notre offre ‘À la
-                carte’ :
-              </p>
-              <ul className="list-disc list-inside text-gray-400 mt-2 space-y-1">
-                <li>Rendez-vous visio ou présentiels</li>
-                <li>Conseils stratégiques et management</li>
-                <li>Montages fiscaux complexes</li>
-                <li>Accompagnements spécifiques (restructuration, cession...)</li>
-                <li>Assistance en cas de contrôle fiscal</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Conditions et prix</h4>
-              <ul className="list-disc list-inside text-gray-400 space-y-1">
-                <li>
-                  Prix à partir de <strong className="text-white">50 €/mois</strong>, calculé selon votre situation
-                </li>
-                <li>Pénalités en cas de retard de transmission des documents</li>
-                <li>Aucun rendez-vous inclus par défaut (100 % digital)</li>
-                <li>
-                  La responsabilité de la déductibilité des frais soumis vous incombe. Nous encodons toutes les pièces
-                  transmises sans effectuer de tri fiscal préalable.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <DialogFooter className="mt-4 flex-shrink-0">
-            <Button
-              onClick={openIaConfigurator}
-              className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
-            >
-              Paramétrez votre offre et recevez un devis instantané
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Details Dialog for Standard */}
-      <Dialog open={isStandardDetailsOpen} onOpenChange={setIsStandardDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl flex flex-col max-h-[90vh]">
-          <DialogHeader className="flex-shrink-0">
-            <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-              Offre Standard
-            </DialogTitle>
-            <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
-              L’équilibre parfait entre digital et accompagnement renforcé
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
-            <div>
-              <p className="text-gray-300">
-                L’offre Standard combine la simplicité digitale du Full Digital avec un accompagnement humain renforcé.
-                En plus des services comptables et fiscaux 100 % numériques, vous bénéficiez de rendez-vous réguliers et
-                d’un suivi plus proactif, idéal pour ceux qui veulent plus de conseils et d’interactions tout en restant
-                dans un budget maîtrisé.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Ce qui est inclus</h4>
-              <div className="space-y-4">
-                <div>
-                  <h5 className="font-semibold text-white mb-2">Tout le contenu de l’offre Full Digital :</h5>
-                  <ul className="list-disc list-inside text-gray-400 space-y-1 pl-4">
-                    <li>Comptabilité et fiscalité complètes</li>
-                    <li>Optimisation fiscale et conformité légale belge</li>
-                    <li>Suivi trimestriel des chiffres</li>
-                    <li>Plateforme sécurisée pour envoi et stockage</li>
-                    <li>Manuel de bonne conduite et encodage des pièces transmises</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-white mb-2">
-                    Services supplémentaires propres à l’offre Standard :
-                  </h5>
-                  <ul className="list-disc list-inside text-gray-300 space-y-1 pl-4">
-                    <li>
-                      Rendez-vous initial (visio ou présentiel) pour mettre en place la collaboration et définir vos
-                      objectifs.
-                    </li>
-                    <li>4 rendez-vous conseils/an (1 par trimestre – Teams ou présentiel)</li>
-                    <li>Accompagnement en cas de contrôle fiscal</li>
-                    <li>Priorité dans les réponses aux questions</li>
-                    <li>Conseils personnalisés sur les factures encodées</li>
-                    <li>Permanence pour toutes les questions courantes</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Conditions et fonctionnement</h4>
-              <ul className="list-disc list-inside text-gray-400 space-y-1">
-                <li>Prix à partir de 250 €/mois, ajusté selon votre situation et volume de pièces</li>
-                <li>Documents transmis obligatoirement scannés et dans les délais (pénalités en cas de retard)</li>
-                <li>L’encodage se fait tel que reçu : la responsabilité de la déductibilité reste celle du client</li>
-                <li>Rendez-vous planifiés chaque trimestre pour optimiser votre suivi et anticiper les ajustements</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Ce qui reste en supplément (“À la carte”)</h4>
-              <ul className="list-disc list-inside text-gray-400 mt-2 space-y-1">
-                <li>Montages fiscaux complexes</li>
-                <li>Conseil stratégique avancé ou management d’entreprise</li>
-                <li>Accompagnement spécifique (restructurations, cessions, levées de fonds)</li>
-              </ul>
-            </div>
-          </div>
-          <DialogFooter className="mt-4 flex-shrink-0">
-            <Button
-              onClick={openIaConfigurator}
-              className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
-            >
-              Paramétrez votre offre et recevez un devis instantané
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Details Dialog for Strataidge */}
-      <Dialog open={isStrataidgeDetailsOpen} onOpenChange={setIsStrataidgeDetailsOpen}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg sm:max-w-2xl flex flex-col max-h-[90vh]">
-          <DialogHeader className="flex-shrink-0">
-            <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-              Offre Strataidge
-            </DialogTitle>
-          </DialogHeader>
-          <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Objectif</h4>
-              <p className="text-gray-300">
-                Vous offrir une vision claire et un plan d’action stratégique pour développer votre activité, optimiser
-                vos ressources et vous positionner durablement sur votre marché.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Ce qui est inclus</h4>
-              <div className="space-y-4">
-                <div>
-                  <h5 className="font-semibold text-white mb-2">1. Diagnostic stratégique approfondi</h5>
-                  <ul className="list-disc list-inside text-gray-400 space-y-1 pl-4">
-                    <li>Analyse complète de votre activité (forces, faiblesses, opportunités, menaces).</li>
-                    <li>Identification des leviers cachés de croissance.</li>
-                    <li>Benchmark sectoriel pour vous situer face à la concurrence.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-white mb-2">2. Plan de développement sur mesure</h5>
-                  <ul className="list-disc list-inside text-gray-400 space-y-1 pl-4">
-                    <li>Définition de votre feuille de route stratégique.</li>
-                    <li>Priorisation des actions à fort impact.</li>
-                    <li>Proposition d’outils et de ressources adaptés à votre niveau d’évolution.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-white mb-2">3. Accompagnement personnalisé</h5>
-                  <ul className="list-disc list-inside text-gray-400 space-y-1 pl-4">
-                    <li>Séances de coaching stratégique (1:1 ou en équipe).</li>
-                    <li>Ajustement en continu de la stratégie en fonction de votre avancement.</li>
-                    <li>Support réactif et suivi par nos experts Strataidge.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-white mb-2">4. Accès à notre écosystème premium</h5>
-                  <ul className="list-disc list-inside text-gray-400 space-y-1 pl-4">
-                    <li>Mise en relation avec nos experts partenaires (marketing, finance, RH, digital).</li>
-                    <li>Accès privilégié aux contenus et méthodologies exclusives Strataidge.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-white mb-2">5. Mesure et optimisation continue</h5>
-                  <ul className="list-disc list-inside text-gray-400 space-y-1 pl-4">
-                    <li>Mise en place d’indicateurs de performance (KPI) clairs.</li>
-                    <li>Ajustements en temps réel pour maximiser votre retour sur investissement.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Tarif et évolutivité</h4>
-              <ul className="list-disc list-inside text-gray-400 space-y-1">
-                <li>
-                  À partir de <strong className="text-white">500 €</strong> pour le cycle d’accompagnement initial.
-                </li>
-                <li>Options évolutives : suivi mensuel, accompagnement intensif, accès à des experts spécialisés.</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-bold text-xl text-white mb-3">Pourquoi choisir cette offre ?</h4>
-              <ul className="list-disc list-inside text-gray-400 space-y-1">
-                <li>Stratégie sur mesure et hautement personnalisée.</li>
-                <li>Combinaison humaine + intelligence augmentée pour accélérer vos résultats.</li>
-                <li>Approche premium mais flexible, adaptée à chaque étape de votre développement.</li>
-              </ul>
-            </div>
-          </div>
-          <DialogFooter className="mt-4 flex-shrink-0">
-            <Button
-              onClick={openIaConfigurator}
-              className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
-            >
-              Paramétrez votre offre et recevez un devis instantané
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={!!selectedPlan} onOpenChange={(isOpen) => !isOpen && setSelectedPlan(null)}>
-        <DialogContent className="bg-strataidge-blue-night border-strataidge-turquoise/20 text-white w-[95vw] rounded-lg max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl text-strataidge-turquoise">Demande d'offre : {selectedPlan}</DialogTitle>
-            <DialogDescription className="text-gray-400 pt-2">
-              Remplissez ce court formulaire pour recevoir votre proposition personnalisée.
-            </DialogDescription>
-          </DialogHeader>
-          {formMessage ? (
-            <div className="py-8 text-center">
-              <CheckCircle className="h-16 w-16 mx-auto text-strataidge-turquoise" />
-              <p className="mt-4 text-white">{formMessage}</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 py-4">
-              <Input
-                name="name"
-                type="text"
-                placeholder="Votre nom complet"
-                required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
-              />
-              <Input
-                name="email"
-                type="email"
-                placeholder="Votre adresse email"
-                required
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
-              />
-              <Textarea
-                name="message"
-                placeholder="Décrivez brièvement votre projet ou vos besoins (facultatif)"
-                rows={3}
-                className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
-              />
-              <DialogFooter>
+              <DialogFooter className="mt-4 flex-shrink-0">
                 <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3 disabled:opacity-50"
+                  onClick={openIaConfigurator}
+                  className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
                 >
-                  {isSubmitting ? "Envoi en cours..." : "Recevoir mon offre"}
+                  Paramétrez votre offre et recevez un devis instantané
                 </Button>
               </DialogFooter>
-            </form>
-          )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isStandardDetailsOpen} onOpenChange={setIsStandardDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Offre Standard
+                </DialogTitle>
+                <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
+                  L’équilibre parfait entre autonomie digitale et accompagnement humain renforcé.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
+                <div>
+                  <p className="text-gray-300">
+                    L’offre Standard combine la simplicité digitale avec un accompagnement humain renforcé. Elle
+                    s'adapte que votre comptabilité soit gérée en interne par vos équipes ou externalisée.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">Ce qui est inclus</h4>
+                  <ul className="space-y-2">
+                    {plans
+                      .find((p) => p.name === "Standard")
+                      ?.features.map((item) => (
+                        <li key={item} className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">
+                    Ce qui n'est pas inclus (disponible "À la carte")
+                  </h4>
+                  <ul className="list-disc list-inside text-gray-400 mt-2 space-y-1">
+                    {plans
+                      .find((p) => p.name === "Standard")
+                      ?.notIncluded?.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                  </ul>
+                </div>
+                <InternalisationSection />
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={openIaConfigurator}
+                  className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
+                >
+                  Paramétrez votre offre et recevez un devis instantané
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isStrataidgeDetailsOpen} onOpenChange={setIsStrataidgeDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Offre Strataidge
+                </DialogTitle>
+                <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
+                  Une offre haut de gamme pour transformer votre business et l’aligner avec votre ambition.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
+                <div>
+                  <p className="text-gray-300">
+                    L’offre Strataidge est conçue pour les entreprises ambitieuses qui cherchent à dépasser les
+                    objectifs visibles. Elle s'adapte que votre comptabilité soit gérée en interne par vos équipes ou
+                    externalisée, car notre focus est la stratégie globale.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">Ce qui est inclus</h4>
+                  <ul className="space-y-2">
+                    {plans
+                      .find((p) => p.name === "Strataidge")
+                      ?.features.map((item) => (
+                        <li key={item} className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">
+                    Ce qui n'est pas inclus (disponible "À la carte")
+                  </h4>
+                  <p className="text-gray-400">{plans.find((p) => p.name === "Strataidge")?.notIncluded?.join(" ")}</p>
+                </div>
+                <InternalisationSection />
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={openIaConfigurator}
+                  className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3"
+                >
+                  Paramétrez votre offre et recevez un devis instantané
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isCarteDetailsOpen} onOpenChange={setIsCarteDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Offre À la carte
+                </DialogTitle>
+                <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
+                  Flexibilité totale pour vos besoins spécifiques
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">Services ponctuels</h4>
+                  <ul className="space-y-2">
+                    {plans
+                      .find((p) => p.name === "À la carte")
+                      ?.features.filter((f) => !f.includes("internalisation"))
+                      .map((item) => (
+                        <li key={item} className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+
+                <div className="mt-6 p-4 rounded-lg bg-strataidge-turquoise/10 border border-strataidge-turquoise/20">
+                  <h4 className="font-bold text-xl text-white mb-3 flex items-center">
+                    <GraduationCap className="h-6 w-6 text-strataidge-turquoise mr-3" />
+                    NOUVEAU : Accompagnement à l'internalisation de la comptabilité
+                  </h4>
+                  <p className="text-gray-300 mb-3">
+                    Prenez le contrôle de votre comptabilité. Nous vous accompagnons pour structurer, former et
+                    superviser vos équipes, transformant votre service comptable en un centre de performance.
+                  </p>
+                  <div className="space-y-2">
+                    <h5 className="font-semibold text-lg text-strataidge-turquoise mb-1">
+                      Nos modules d'intervention :
+                    </h5>
+                    <ul className="list-disc list-inside text-gray-300 space-y-1 pl-4">
+                      <li>
+                        <strong>Structuration & Mise en place :</strong> Audit, choix des outils, création des
+                        procédures.
+                      </li>
+                      <li>
+                        <strong>Formation & Écolage des équipes :</strong> Montée en compétence sur les outils et les
+                        obligations légales.
+                      </li>
+                      <li>
+                        <strong>Supervision & Validation :</strong> Revue périodique de votre comptabilité pour garantir
+                        la conformité.
+                      </li>
+                      <li>
+                        <strong>Audit & Optimisation :</strong> Analyse de l'existant pour identifier risques et
+                        améliorations.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-xl text-white mb-3">Pour qui ?</h4>
+                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+                    <li>Clients actuels ayant besoin de services supplémentaires en dehors de leur pack</li>
+                    <li>Futurs clients souhaitant une mission unique (exemple : assistance contrôle fiscal)</li>
+                    <li>Entreprises souhaitant internaliser leur comptabilité avec un accompagnement expert</li>
+                  </ul>
+                </div>
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={openCarteRequest}
+                  className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
+                >
+                  Demander une mission sur mesure et obtenir un devis rapidement
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {creationPlan && (
+        <Dialog open={isCreationDetailsOpen} onOpenChange={setIsCreationDetailsOpen}>
+          <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-3xl">
+            <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+              <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+              <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+                <DialogHeader className="flex-shrink-0">
+                  <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                    Offre Création d’entreprise
+                  </DialogTitle>
+                  <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
+                    Un accompagnement complet pour transformer votre idée en société
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
+                  <div>
+                    <p className="text-gray-300">
+                      Créer une entreprise est une étape clé qui demande rigueur et vision stratégique. L’offre Création
+                      d’entreprise de Strataidge couvre toutes les étapes : de l’analyse de votre projet à la signature
+                      chez le notaire, en passant par la rédaction de votre business plan et la mise en place de votre
+                      structure comptable et fiscale. Nous vous guidons pas à pas, pour que chaque décision soit
+                      éclairée et conforme aux exigences légales belges.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-4">Ce qui est inclus</h4>
+                    <div className="space-y-6">
+                      {Object.values(creationPlan.fullDetails.included).map((section) => (
+                        <div key={section.title}>
+                          <h5 className="font-semibold text-lg text-strataidge-turquoise mb-3 flex items-center">
+                            <section.icon className="h-5 w-5 mr-3" />
+                            {section.title}
+                          </h5>
+                          <ul className="space-y-2 pl-8">
+                            {section.items.map((item) => (
+                              <li key={item} className="flex items-start">
+                                <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                                <span className="text-gray-300">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-3">Pour qui ?</h4>
+                    <ul className="list-disc list-inside text-gray-300 mt-2 space-y-1">
+                      {creationPlan.fullDetails.pourQui.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-3">Conditions et fonctionnement</h4>
+                    <ul className="list-disc list-inside text-gray-300 mt-2 space-y-1">
+                      {creationPlan.fullDetails.conditions.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-3">Exemples concrets</h4>
+                    <ul className="list-disc list-inside text-gray-300 mt-2 space-y-1">
+                      {creationPlan.fullDetails.exemples.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <DialogFooter className="mt-4 flex-shrink-0">
+                  <Button
+                    onClick={openCreationRequest}
+                    className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
+                  >
+                    Démarrer mon projet d’entreprise avec Strataidge
+                  </Button>
+                </DialogFooter>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {transmissionPlan && (
+        <Dialog open={isTransmissionDetailsOpen} onOpenChange={setIsTransmissionDetailsOpen}>
+          <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-3xl">
+            <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+              <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+              <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+                <DialogHeader className="flex-shrink-0">
+                  <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                    Offre Transmission et Acquisition d’entreprise
+                  </DialogTitle>
+                  <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
+                    Un accompagnement complet pour chaque étape clé
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
+                  <div>
+                    <p className="text-gray-300">
+                      Que vous soyez transmetteur (vente ou familial) ou acquéreur (repreneur), chaque opération de ce
+                      type demande une préparation rigoureuse et une vision globale. Strataidge vous accompagne de la
+                      réflexion à la signature, en mettant l’accent sur la valorisation de l’entreprise, l’optimisation
+                      fiscale et juridique, et une négociation équilibrée et sécurisée.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-4">Ce qui est inclus</h4>
+                    <div className="space-y-6">
+                      {Object.values(transmissionPlan.fullDetails.included).map((section) => (
+                        <div key={section.title}>
+                          <h5 className="font-semibold text-lg text-strataidge-turquoise mb-3 flex items-center">
+                            <section.icon className="h-5 w-5 mr-3" />
+                            {section.title}
+                          </h5>
+                          <ul className="space-y-2 pl-8">
+                            {section.items.map((item) => (
+                              <li key={item} className="flex items-start">
+                                <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                                <span className="text-gray-300">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-3">Pour qui ?</h4>
+                    <ul className="list-disc list-inside text-gray-300 mt-2 space-y-1">
+                      {transmissionPlan.fullDetails.pourQui.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-3">Conditions et fonctionnement</h4>
+                    <ul className="list-disc list-inside text-gray-300 mt-2 space-y-1">
+                      {transmissionPlan.fullDetails.conditions.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-white mb-3">Exemples concrets</h4>
+                    <ul className="list-disc list-inside text-gray-300 mt-2 space-y-1">
+                      {transmissionPlan.fullDetails.exemples.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <DialogFooter className="mt-4 flex-shrink-0">
+                  <Button
+                    onClick={openTransmissionRequest}
+                    className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
+                  >
+                    Préparer ma transmission ou acquisition avec Strataidge
+                  </Button>
+                </DialogFooter>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      <Dialog open={!!selectedPlan} onOpenChange={(isOpen) => !isOpen && setSelectedPlan(null)}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8">
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-strataidge-turquoise">
+                  Demande d'offre : {selectedPlan}
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Remplissez ce court formulaire pour recevoir votre proposition personnalisée.
+                </DialogDescription>
+              </DialogHeader>
+              {formMessage ? (
+                <div className="py-8 text-center">
+                  <CheckCircle className="h-16 w-16 mx-auto text-strataidge-turquoise" />
+                  <p className="mt-4 text-white">{formMessage}</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 py-4">
+                  <Input
+                    name="name"
+                    type="text"
+                    placeholder="Votre nom complet"
+                    required
+                    className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                  />
+                  <Input
+                    name="email"
+                    type="email"
+                    placeholder="Votre adresse email"
+                    required
+                    className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                  />
+                  <Textarea
+                    name="message"
+                    placeholder="Décrivez brièvement votre projet ou vos besoins (facultatif)"
+                    rows={3}
+                    className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise"
+                  />
+                  <DialogFooter>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3 disabled:opacity-50"
+                    >
+                      {isSubmitting ? "Envoi en cours..." : "Recevoir mon offre"}
+                    </Button>
+                  </DialogFooter>
+                </form>
+              )}
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </>
@@ -956,25 +1439,44 @@ function OffersSection() {
 function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formMessage, setFormMessage] = useState<string | null>(null)
+  const [formError, setFormError] = useState<boolean>(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsSubmitting(true)
     setFormMessage(null)
+    setFormError(false)
+
+    const formData = new FormData(event.currentTarget)
+    const data = {
+      nom: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    }
+
+    const webhookUrl = "https://buck-able-curiously.ngrok-free.app/webhook/13387ff2-fae9-48d1-80b5-4ce7fb39e895"
 
     try {
-      // Simulate a network request
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
 
-      // Here you would typically handle the rest of the form submission,
-      // e.g., sending the form data to your backend.
-      console.log("Form submitted.")
-
-      setFormMessage("Votre message a été envoyé avec succès !")
-      ;(event.target as HTMLFormElement).reset() // Reset form fields
+      if (response.ok) {
+        setFormMessage("Votre message a bien été envoyé, nous vous répondrons rapidement.")
+        setFormError(false)
+        ;(event.target as HTMLFormElement).reset()
+      } else {
+        setFormMessage("Une erreur est survenue, merci de réessayer.")
+        setFormError(true)
+      }
     } catch (error) {
       console.error("Submission error:", error)
-      setFormMessage("Une erreur est survenue lors de l'envoi. Veuillez réessayer.")
+      setFormMessage("Une erreur est survenue, merci de réessayer.")
+      setFormError(true)
     } finally {
       setIsSubmitting(false)
     }
@@ -1036,7 +1538,13 @@ function ContactSection() {
               >
                 {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
               </Button>
-              {formMessage && <p className="text-center text-sm text-strataidge-turquoise">{formMessage}</p>}
+              {formMessage && (
+                <p
+                  className={`text-center text-sm ${formError ? "text-strataidge-coral" : "text-strataidge-turquoise"}`}
+                >
+                  {formMessage}
+                </p>
+              )}
             </form>
           </div>
         </div>
@@ -1059,11 +1567,9 @@ function Footer() {
     <footer className="bg-strataidge-blue-night border-t border-white/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          {/* Column 1: Logo & Brand */}
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3 w-fit">
               <Image src="/logo.png" alt="Strataidge Fiduciaire & Conseils Logo" width={40} height={40} />
-
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg text-white text-left">Strataidge</span>
                 <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
@@ -1073,11 +1579,7 @@ function Footer() {
             </Link>
             <p className="mt-4 text-sm text-left ml-2.5 text-white">L'humain derrière les chiffres.</p>
           </div>
-
-          {/* Spacer */}
           <div className="hidden md:block md:col-span-2"></div>
-
-          {/* Column 2: Site Links */}
           <div className="md:col-span-3">
             <h3 className="font-semibold text-white tracking-wider">PLAN DU SITE</h3>
             <ul className="mt-4 space-y-2 columns-2">
@@ -1093,8 +1595,6 @@ function Footer() {
               ))}
             </ul>
           </div>
-
-          {/* Column 3: Socials */}
           <div className="md:col-span-3">
             <h3 className="font-semibold text-white tracking-wider">SUIVEZ-NOUS</h3>
             <div className="mt-4 flex items-center gap-4">
@@ -1115,7 +1615,6 @@ function Footer() {
             </div>
           </div>
         </div>
-
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-400">
           &copy; {new Date().getFullYear()} Strataidge. Tous droits réservés.
         </div>

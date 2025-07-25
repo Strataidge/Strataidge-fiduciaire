@@ -78,11 +78,22 @@ const config = {
           "0%": { transform: "translate(0, 100%)" },
           "100%": { transform: "translate(0, 0)" },
         },
+        tilt: {
+          "0%, 50%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(0.5deg)" },
+          "75%": { transform: "rotate(-0.5deg)" },
+        },
+        "modal-in": {
+          "0%": { opacity: "0", transform: "translateY(1rem) scale(0.98)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "text-reveal": "text-reveal 1s cubic-bezier(0.77, 0, 0.175, 1)",
+        tilt: "tilt 10s infinite linear",
+        "modal-in": "modal-in 0.3s ease-out",
       },
     },
   },
