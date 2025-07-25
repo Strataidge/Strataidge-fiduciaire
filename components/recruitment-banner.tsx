@@ -57,7 +57,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
                     animate={{ opacity: 1, width: "auto", marginRight: "2.5rem" }}
                     exit={{ opacity: 0, width: 0, marginRight: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
+                    className="overflow-hidden hidden sm:block"
                   >
                     <span className="pl-2 text-sm font-medium text-white whitespace-nowrap">
                       Rejoignez notre équipe
@@ -74,7 +74,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
                     exit={{ opacity: 0, scale: 0.5 }}
                     onClick={handleCloseClick}
                     aria-label="Fermer la notification de recrutement"
-                    className="absolute right-2 p-1 rounded-full hover:bg-white/20 transition-colors z-10"
+                    className="absolute right-2 p-1 rounded-full hover:bg-white/20 transition-colors z-10 hidden sm:block"
                   >
                     <X className="h-4 w-4 text-gray-300" />
                   </motion.button>

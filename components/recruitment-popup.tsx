@@ -46,7 +46,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
       <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
         <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
           <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
-          <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+          <div className="relative p-4 sm:p-8 flex flex-col max-h-[90vh]">
             <AnimatePresence mode="wait">
               {view === "details" ? (
                 <motion.div
@@ -56,13 +56,14 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="flex flex-col overflow-hidden"
                 >
                   <DialogHeader className="flex-shrink-0 text-left">
                     <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
                       Rejoignez l’aventure Strataidge !
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                  <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-2 sm:pr-4 text-left">
                     <div className="space-y-4 text-gray-300">
                       <p>Chez Strataidge, nous croyons que chaque profil peut apporter une valeur unique.</p>
                       <p>
@@ -99,6 +100,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-y-auto pr-2"
                 >
                   <RecruitmentForm onBack={() => setView("details")} />
                 </motion.div>

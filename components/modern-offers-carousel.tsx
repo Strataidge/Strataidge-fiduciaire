@@ -90,13 +90,13 @@ export function ModernOffersCarousel({
   return (
     <div className="w-full">
       <div
-        className="flex gap-8 overflow-x-auto pb-8 horizontal-scrollbar pl-8 sm:pl-16 lg:pl-24 pr-4 sm:pr-6 lg:pr-8"
+        className="flex gap-8 overflow-x-auto pb-8 horizontal-scrollbar px-[5vw] scroll-px-[5vw]"
         style={{ scrollSnapType: "x mandatory" }}
       >
         {plans.map((plan, i) => (
           <motion.div
             key={plan.name}
-            className="flex-shrink-0 w-[90vw] max-w-sm sm:w-[380px]"
+            className="flex-shrink-0 w-[85vw] max-w-sm sm:w-[380px]"
             style={{ scrollSnapAlign: "start" }}
             variants={cardVariants}
             initial="hidden"
