@@ -1593,7 +1593,7 @@ function Footer() {
             </Link>
             <p className="mt-4 text-sm text-left ml-2.5 text-white">L'humain derrière les chiffres.</p>
             <p className="mt-2 text-xs text-left ml-2.5 text-gray-400">
-              Votre expert-comptable pour PME à Bruxelles, Charleroi, et dans toute la Wallonie.
+              {"Strataidge, votre fiduciaire de confiance en Wallonie et à Bruxelles, vous accompagne dans le pilotage comptable, fiscal et stratégique de votre activité. Nous sommes également à vos côtés pour la création, la transmission ou l’acquisition de votre entreprise."}
             </p>
           </div>
           <div className="hidden md:block md:col-span-2"></div>

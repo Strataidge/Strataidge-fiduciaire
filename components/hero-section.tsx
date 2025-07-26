@@ -50,7 +50,7 @@ export function HeroSection() {
           className="mt-6 max-w-3xl mx-auto text-lg text-gray-300 md:text-xl"
         >
           {
-            "Strataidge Fiduciaire et Conseil : expertise comptable, fiscale et humaine au service d'une réussite sereine. "
+            "Strataidge Fiduciaire & Conseils : expertise comptable, fiscale et humaine au service d'une réussite sereine."
           }
         </motion.p>
         <motion.div
