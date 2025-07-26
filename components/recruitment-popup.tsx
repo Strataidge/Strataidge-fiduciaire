@@ -60,7 +60,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                 >
                   <DialogHeader className="flex-shrink-0 text-left">
                     <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-                      Rejoignez l’aventure Strataidge !
+                      Rejoignez l'équipe Strataidge !
                     </DialogTitle>
                   </DialogHeader>
                   <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-2 sm:pr-4 text-left">

@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -31,6 +31,7 @@ import {
   ClipboardCheck,
   Target,
   ClipboardList,
+  Paperclip,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -1440,6 +1441,8 @@ function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formMessage, setFormMessage] = useState<string | null>(null)
   const [formError, setFormError] = useState<boolean>(false)
+  const [fileName, setFileName] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -1448,27 +1451,19 @@ function ContactSection() {
     setFormError(false)
 
     const formData = new FormData(event.currentTarget)
-    const data = {
-      nom: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-    }
-
     const webhookUrl = "https://buck-able-curiously.ngrok-free.app/webhook/13387ff2-fae9-48d1-80b5-4ce7fb39e895"
 
     try {
       const response = await fetch(webhookUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       })
 
       if (response.ok) {
         setFormMessage("Votre message a bien été envoyé, nous vous répondrons rapidement.")
         setFormError(false)
         ;(event.target as HTMLFormElement).reset()
+        setFileName(null)
       } else {
         setFormMessage("Une erreur est survenue, merci de réessayer.")
         setFormError(true)
@@ -1531,6 +1526,25 @@ function ContactSection() {
                 required
                 className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
               />
+              <div>
+                <input
+                  type="file"
+                  name="file"
+                  ref={fileInputRef}
+                  onChange={(e) => setFileName(e.target.files?.[0]?.name || null)}
+                  className="hidden"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                />
+                <Button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  variant="outline"
+                  className="w-full justify-start text-left font-normal border-white/10 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white"
+                >
+                  <Paperclip className="mr-2 h-5 w-5" />
+                  {fileName || "Joindre un document (facultatif)"}
+                </Button>
+              </div>
               <Button
                 type="submit"
                 disabled={isSubmitting}
@@ -1578,6 +1592,9 @@ function Footer() {
               </div>
             </Link>
             <p className="mt-4 text-sm text-left ml-2.5 text-white">L'humain derrière les chiffres.</p>
+            <p className="mt-2 text-xs text-left ml-2.5 text-gray-400">
+              Votre expert-comptable pour PME à Bruxelles, Charleroi, et dans toute la Wallonie.
+            </p>
           </div>
           <div className="hidden md:block md:col-span-2"></div>
           <div className="md:col-span-3">

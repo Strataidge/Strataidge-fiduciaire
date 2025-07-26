@@ -18,38 +18,22 @@ export const metadata: Metadata = {
     template: `%s - Strataidge Fiduciaire`,
   },
   description: siteConfig.description,
-  keywords: ["Strataidge", "fiduciaire", "stratégie", "business", "conseil", "PME", "optimisation"],
+  keywords: [
+    "Strataidge",
+    "fiduciaire",
+    "stratégie",
+    "business",
+    "conseil",
+    "PME",
+    "optimisation",
+    "comptable",
+    "charleroi",
+    "bruxelles",
+    "wallonie",
+  ],
   authors: [{ name: "Strataidge" }],
   creator: "Strataidge",
   robots: "index, follow",
-  icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
-  },
-  metadataBase: new URL(siteConfig.url),
-  openGraph: {
-    type: "website",
-    locale: "fr_BE",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: "Strataidge Fiduciaire",
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: "Accompagnement stratégique et fiduciaire pour les PME.",
-    images: [siteConfig.ogImage],
-  },
     generator: 'v0.dev'
 }
 
