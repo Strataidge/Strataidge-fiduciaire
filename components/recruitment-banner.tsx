@@ -38,7 +38,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
           className="fixed top-24 right-4 sm:right-8 z-50"
         >
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-strataidge-coral/80 to-strataidge-yellow/80 rounded-full blur opacity-60 group-hover:opacity-90 transition duration-1000 group-hover:duration-200 animate-tilt" />
+            <div className="absolute -inset-1 bg-strataidge-turquoise rounded-full blur-lg opacity-60 group-hover:opacity-80 transition duration-1000 group-hover:duration-200 animate-tilt" />
             <motion.div
               layout
               transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -47,7 +47,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
               style={{ padding: "0.625rem" }}
             >
               <motion.div layout="position" className="flex items-center">
-                <Users className="h-5 w-5 text-strataidge-coral/90 flex-shrink-0" />
+                <Users className="h-5 w-5 flex-shrink-0 text-white" />
               </motion.div>
 
               <AnimatePresence>

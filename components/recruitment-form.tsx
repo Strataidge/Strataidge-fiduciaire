@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { User, Mail, MessageSquare, Loader, CheckCircle, ArrowLeft } from "lucide-react"
+import { User, Mail, MessageSquare, Loader, CheckCircle, ArrowLeft, Send } from "lucide-react"
 import { FileUpload } from "@/components/file-upload"
 
 interface RecruitmentFormProps {
@@ -61,7 +61,7 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
         <Button
           onClick={onBack}
           variant="outline"
-          className="mt-6 border-white/20 text-white hover:bg-white/10 bg-transparent"
+          className="mt-6 border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
         >
           Retour
         </Button>
@@ -73,7 +73,10 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
     <div>
       <DialogHeader className="text-left mb-4">
         <div className="flex items-center gap-3">
-          <button onClick={onBack} className="p-1 rounded-full hover:bg-white/10 transition-colors">
+          <button
+            onClick={onBack}
+            className="p-1 rounded-full hover:bg-white/10 transition-colors focus:outline-none focus:ring-0"
+          >
             <ArrowLeft className="h-5 w-5 text-gray-300" />
           </button>
           <DialogTitle className="text-2xl font-bold text-strataidge-turquoise">Votre candidature</DialogTitle>
@@ -121,14 +124,27 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
         />
 
         <div className="pt-2">
-          <Button
+          <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
+            className="group relative w-full h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-0"
           >
-            {isSubmitting && <Loader className="h-4 w-4 animate-spin" />}
-            {isSubmitting ? "Envoi en cours..." : "Envoyer ma candidature"}
-          </Button>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            <div className="relative flex items-center justify-center h-full px-6">
+              {isSubmitting ? (
+                <>
+                  <Loader className="h-5 w-5 animate-spin text-strataidge-turquoise mr-3" />
+                  <span className="text-white font-semibold text-lg tracking-wide">Envoi en cours...</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-white font-semibold text-lg tracking-wide">Envoyer ma candidature</span>
+                  <Send className="ml-3 h-5 w-5 text-strataidge-turquoise transition-all duration-300 group-hover:translate-x-1 group-hover:text-white" />
+                </>
+              )}
+            </div>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </button>
         </div>
       </form>
     </div>

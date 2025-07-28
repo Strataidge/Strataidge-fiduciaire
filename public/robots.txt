@@ -1,4 +1,27 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://strataidge-fiduciaire.com/sitemap.xml
+# Optimisation pour les moteurs de recherche
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Fichiers à ne pas indexer
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://www.strataidge-fiduciaire.com/sitemap.xml
+
+# Informations supplémentaires
+# Host: https://www.strataidge-fiduciaire.com

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, ArrowRight } from "lucide-react"
 import { RecruitmentForm } from "./recruitment-form"
 
 interface RecruitmentPopupProps {
@@ -26,7 +26,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
     "Une équipe dynamique et bienveillante",
     "Des missions variées et responsabilisantes",
     "Un accompagnement et des formations continues",
-    "Une culture d’entreprise orientée évolution, efficacité et esprit collaboratif",
+    "Une culture d'entreprise orientée évolution, efficacité et esprit collaboratif",
   ]
 
   const detailsVariants = {
@@ -67,8 +67,8 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                     <div className="space-y-4 text-gray-300">
                       <p>Chez Strataidge, nous croyons que chaque profil peut apporter une valeur unique.</p>
                       <p>
-                        Nous recherchons avant tout des personnes proactives, motivées et curieuses, qu’elles soient
-                        expertes confirmées ou débutantes désireuses d’apprendre.
+                        Nous recherchons avant tout des personnes proactives, motivées et curieuses, qu'elles soient
+                        expertes confirmées ou débutantes désireuses d'apprendre.
                       </p>
                     </div>
                     <div>
@@ -86,9 +86,14 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                   <div className="mt-4 flex-shrink-0">
                     <button
                       onClick={() => setView("form")}
-                      className="w-full text-center px-4 py-3 rounded-lg font-bold bg-strataidge-coral/90 hover:bg-strataidge-coral text-white transition-all duration-300 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40"
+                      className="group relative w-full h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] focus:outline-none focus:ring-0"
                     >
-                      Postulez dès maintenant
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      <div className="relative flex items-center justify-center h-full px-6">
+                        <span className="text-white font-semibold text-lg tracking-wide">Postulez dès maintenant</span>
+                        <ArrowRight className="ml-3 h-5 w-5 text-strataidge-turquoise transition-all duration-300 group-hover:translate-x-1 group-hover:text-white" />
+                      </div>
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </button>
                   </div>
                 </motion.div>

@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils"
 import { StructuredData } from "@/components/structured-data"
 
 const siteConfig = {
-  name: "Strataidge Fiduciaire – Conseil et Accompagnement Stratégique",
+  name: "Strataidge Fiduciaire – Expert-comptable et Conseil Fiscal en Belgique",
   description:
-    "Strataidge Fiduciaire : votre partenaire en stratégie d'entreprise et accompagnement fiduciaire, pour développer et optimiser votre business.",
+    "Strataidge Fiduciaire : expert-comptable et conseil fiscal en Belgique. Accompagnement comptable, fiscal et stratégique pour PME, indépendants et entreprises en Wallonie et Bruxelles.",
   url: "https://www.strataidge-fiduciaire.com",
   ogImage: "https://www.strataidge-fiduciaire.com/hero-background.jpg",
 }
@@ -17,40 +17,62 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
-    template: `%s - Strataidge Fiduciaire`,
+    template: `%s | Strataidge Fiduciaire - Expert-comptable Belgique`,
   },
   description: siteConfig.description,
   keywords: [
-    "Strataidge",
-    "fiduciaire",
-    "stratégie",
-    "business",
-    "conseil",
-    "PME",
-    "optimisation",
-    "fiduciaire Charleroi",
-    "comptable Bruxelles",
-    "fiduciaire Wallonie",
+    "expert-comptable Belgique",
+    "fiduciaire Belgique",
     "comptable Charleroi",
     "comptable Bruxelles",
+    "conseil fiscal Belgique",
+    "expert-comptable Wallonie",
+    "fiduciaire Charleroi",
     "fiduciaire Bruxelles",
+    "création entreprise Belgique",
+    "transmission entreprise",
+    "optimisation fiscale Belgique",
+    "gestion comptable PME",
+    "déclaration TVA Belgique",
+    "bilan comptable",
+    "stratégie fiscale",
+    "accompagnement entreprise",
+    "conseil en gestion",
+    "expertise comptable digitale",
+    "comptabilité en ligne",
+    "fiduciaire digitale",
   ],
-  authors: [{ name: "Strataidge" }],
-  creator: "Strataidge",
-  robots: "index, follow",
+  authors: [{ name: "Strataidge Fiduciaire & Conseils", url: "https://www.strataidge-fiduciaire.com" }],
+  creator: "Strataidge Fiduciaire & Conseils",
+  publisher: "Strataidge Fiduciaire & Conseils",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
     type: "website",
     locale: "fr_BE",
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
-    siteName: "Strataidge Fiduciaire",
+    siteName: "Strataidge Fiduciaire & Conseils",
     images: [
       {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Strataidge Fiduciaire & Conseils",
+        alt: "Strataidge Fiduciaire & Conseils - Expert-comptable en Belgique",
+        type: "image/jpeg",
       },
     ],
   },
@@ -59,6 +81,8 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
+    creator: "@strataidge",
+    site: "@strataidge",
   },
   icons: {
     icon: [
@@ -75,6 +99,18 @@ export const metadata: Metadata = {
   other: {
     "msapplication-TileColor": "#0A192F",
     "theme-color": "#00C9A7",
+    "format-detection": "telephone=no",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+    yahoo: "your-yahoo-verification-code",
+    other: {
+      "msvalidate.01": "your-bing-verification-code",
+    },
   },
     generator: 'v0.dev'
 }
@@ -85,15 +121,47 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={cn("antialiased", GeistSans.className)}>
+    <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
       <head>
         <StructuredData />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="google-site-verification" content="your-verification-code" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <meta name="geo.region" content="BE" />
+        <meta name="geo.placename" content="Belgique" />
+        <meta name="geo.position" content="50.8503;4.3517" />
+        <meta name="ICBM" content="50.8503, 4.3517" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Strataidge Fiduciaire & Conseils",
+              url: "https://www.strataidge-fiduciaire.com",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: "https://www.strataidge-fiduciaire.com/search?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
       </head>
-      <body>{children}</body>
+      <body>
+        <noscript>
+          <div style={{ padding: "20px", textAlign: "center", backgroundColor: "#f0f0f0" }}>
+            Ce site nécessite JavaScript pour fonctionner correctement. Veuillez l'activer dans votre navigateur.
+          </div>
+        </noscript>
+        {children}
+      </body>
     </html>
   )
 }
