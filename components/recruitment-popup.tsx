@@ -86,7 +86,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                   <div className="mt-4 flex-shrink-0">
                     <button
                       onClick={() => setView("form")}
-                      className="w-full text-center px-4 py-3 rounded-lg font-bold bg-strataidge-coral hover:bg-strataidge-coral/90 text-white transition-all duration-300"
+                      className="w-full text-center px-4 py-3 rounded-lg font-bold bg-strataidge-coral/90 hover:bg-strataidge-coral text-white transition-all duration-300 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40"
                     >
                       Postulez dès maintenant
                     </button>

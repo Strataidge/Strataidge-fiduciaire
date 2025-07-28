@@ -124,7 +124,7 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3 disabled:opacity-50 flex items-center gap-2"
+            className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
           >
             {isSubmitting && <Loader className="h-4 w-4 animate-spin" />}
             {isSubmitting ? "Envoi en cours..." : "Envoyer ma candidature"}

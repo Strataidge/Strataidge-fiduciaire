@@ -354,7 +354,10 @@ function ServicesSection() {
                     >
                       Fermer
                     </Button>
-                    <Button asChild className="bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold">
+                    <Button
+                      asChild
+                      className="bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
+                    >
                       <Link href="#contact">Discutons de cette solution</Link>
                     </Button>
                   </DialogFooter>
@@ -937,7 +940,7 @@ function OffersSection() {
               <Button
                 asChild
                 size="lg"
-                className="bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold shadow-xl shadow-strataidge-coral/30 px-8 py-6 rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-strataidge-coral/40 hover:scale-105"
+                className="bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold shadow-xl shadow-strataidge-coral/30 px-8 py-6 rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-strataidge-coral/50 hover:scale-105"
               >
                 <Link href="#contact">
                   Prendre rendez-vous
@@ -1200,7 +1203,7 @@ function OffersSection() {
               <DialogFooter className="mt-4 flex-shrink-0">
                 <Button
                   onClick={openCarteRequest}
-                  className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
+                  className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
                 >
                   Demander une mission sur mesure et obtenir un devis rapidement
                 </Button>
@@ -1283,7 +1286,7 @@ function OffersSection() {
                 <DialogFooter className="mt-4 flex-shrink-0">
                   <Button
                     onClick={openCreationRequest}
-                    className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
+                    className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
                   >
                     Démarrer mon projet d'entreprise avec Strataidge
                   </Button>
@@ -1366,7 +1369,7 @@ function OffersSection() {
                 <DialogFooter className="mt-4 flex-shrink-0">
                   <Button
                     onClick={openTransmissionRequest}
-                    className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
+                    className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
                   >
                     Préparer ma transmission ou acquisition avec Strataidge
                   </Button>
@@ -1421,7 +1424,7 @@ function OffersSection() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3 disabled:opacity-50"
+                      className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
                     >
                       {isSubmitting ? "Envoi en cours..." : "Recevoir mon offre"}
                     </Button>
@@ -1541,7 +1544,7 @@ function ContactSection() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-strataidge-coral/90 hover:bg-strataidge-coral text-white font-bold py-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-strataidge-coral/25 hover:shadow-xl hover:shadow-strataidge-coral/40 transition-all duration-300"
               >
                 {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
               </Button>
