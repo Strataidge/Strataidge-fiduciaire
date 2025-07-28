@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useRef, type FormEvent } from "react"
+import { useState, type FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { User, Mail, MessageSquare, Paperclip, Loader, CheckCircle, ArrowLeft } from "lucide-react"
+import { User, Mail, MessageSquare, Loader, CheckCircle, ArrowLeft } from "lucide-react"
+import { FileUpload } from "@/components/file-upload"
 
 interface RecruitmentFormProps {
   onBack: () => void
@@ -14,8 +15,7 @@ interface RecruitmentFormProps {
 export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formMessage, setFormMessage] = useState<string | null>(null)
-  const [fileName, setFileName] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -23,13 +23,18 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
     setFormMessage(null)
 
     const formData = new FormData(event.currentTarget)
+
+    // Ajouter le fichier sélectionné au FormData
+    if (selectedFile) {
+      formData.set("file", selectedFile)
+    }
+
     const webhookUrl = "https://buck-able-curiously.ngrok-free.app/webhook/formulaire-recrutement"
 
     try {
       const response = await fetch(webhookUrl, {
         method: "POST",
         body: formData,
-        // Headers are not needed; the browser sets the correct multipart/form-data header with boundary
       })
 
       if (response.ok) {
@@ -107,26 +112,14 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
             className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise pl-10 pt-2"
           />
         </div>
-        <div>
-          <input
-            type="file"
-            name="file"
-            ref={fileInputRef}
-            required
-            onChange={(e) => setFileName(e.target.files?.[0]?.name || null)}
-            className="hidden"
-            accept=".pdf,.doc,.docx"
-          />
-          <Button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            variant="outline"
-            className="w-full justify-start text-left font-normal border-white/10 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white"
-          >
-            <Paperclip className="mr-2 h-5 w-5" />
-            {fileName || "Joindre votre CV ou lettre de motivation"}
-          </Button>
-        </div>
+
+        <FileUpload
+          onFileSelect={setSelectedFile}
+          accept=".pdf,.doc,.docx"
+          placeholder="Joindre votre CV ou lettre de motivation"
+          required={true}
+        />
+
         <div className="pt-2">
           <Button
             type="submit"

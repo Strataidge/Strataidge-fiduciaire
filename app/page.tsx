@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -31,7 +31,6 @@ import {
   ClipboardCheck,
   Target,
   ClipboardList,
-  Paperclip,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -52,6 +51,7 @@ import { AnimatedTitle } from "@/components/animated-title"
 import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
 import { RecruitmentBanner } from "@/components/recruitment-banner"
 import { RecruitmentPopup } from "@/components/recruitment-popup"
+import { FileUpload } from "@/components/file-upload"
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
@@ -261,7 +261,7 @@ const services = [
         "**Valorisation d'entreprise :** Évaluation objective de la valeur de l'entreprise pour définir un prix juste.",
         "**Préparation à la vente (Due Diligence) :** Nous préparons votre entreprise à l'audit de l'acquéreur pour une transaction fluide.",
         "**Optimisation fiscale de la cession :** Mise en place de la structure la plus avantageuse pour minimiser l'impôt sur la plus-value.",
-        "**Assistance à la négociation :** Nous vous conseillons à chaque étape des discussions pour défendre vos intérêts.",
+        "**Assistance à la négociation :** Nous vous conseillons à chaque étape des discussions pour défendre votre projet.",
       ],
       conclusion: "Abordez cette étape cruciale avec sérénité, stratégie et le soutien d'experts dédiés.",
     },
@@ -592,7 +592,7 @@ function OffersSection() {
 
   const openCreationRequest = () => {
     setIsCreationDetailsOpen(false)
-    handleSelectPlan("Création d’entreprise")
+    handleSelectPlan("Création d'entreprise")
   }
 
   const openTransmissionRequest = () => {
@@ -624,9 +624,9 @@ function OffersSection() {
       name: "Standard",
       price: "À partir de",
       amount: "250€",
-      description: "L’équilibre entre autonomie digitale et accompagnement humain.",
+      description: "L'équilibre entre autonomie digitale et accompagnement humain.",
       features: [
-        "Tout le contenu de l’offre Full Digital",
+        "Tout le contenu de l'offre Full Digital",
         "Rendez-vous de mise en place de la collaboration",
         "4 rendez-vous conseils/an (un par trimestre, visio ou présentiel)",
         "Accompagnement en cas de contrôle fiscal",
@@ -635,7 +635,7 @@ function OffersSection() {
         "Permanence pour toutes vos questions",
       ],
       notIncluded: [
-        "Conseil stratégique avancé ou management d’entreprise",
+        "Conseil stratégique avancé ou management d'entreprise",
         "Élaboration de business plans ou plans stratégiques",
         "Montages fiscaux complexes et optimisations poussées",
         "Accompagnement spécifique (création, transmission, financement)",
@@ -675,11 +675,11 @@ function OffersSection() {
       ],
     },
     {
-      name: "Création d’entreprise",
+      name: "Création d'entreprise",
       price: "Sur devis",
       amount: "",
       description:
-        "De l’idée au lancement officiel : un accompagnement clé en main pour créer votre société sereinement.",
+        "De l'idée au lancement officiel : un accompagnement clé en main pour créer votre société sereinement.",
       features: [
         "Analyse et validation du projet",
         "Rédaction et accompagnement du business plan",
@@ -720,8 +720,8 @@ function OffersSection() {
             icon: Landmark,
             items: [
               "Coordination avec le notaire pour la création de la société",
-              "Assistance pour l’ouverture du compte bancaire professionnel",
-              "Aide pour l’inscription à la BCE et l’activation de la TVA",
+              "Assistance pour l'ouverture du compte bancaire professionnel",
+              "Aide pour l'inscription à la BCE et l'activation de la TVA",
             ],
           },
           comptable: {
@@ -738,7 +738,7 @@ function OffersSection() {
             icon: Rocket,
             items: [
               "Contrôle des premiers mois de gestion",
-              "Conseils sur l’optimisation et l’organisation",
+              "Conseils sur l'optimisation et l'organisation",
               "Possibilité de basculer vers un pack Full Digital ou Standard",
             ],
           },
@@ -749,13 +749,13 @@ function OffersSection() {
           "Startups recherchant un accompagnement complet et professionnel",
         ],
         conditions: [
-          "Offre sur devis (personnalisée selon le projet et le niveau d’accompagnement souhaité)",
+          "Offre sur devis (personnalisée selon le projet et le niveau d'accompagnement souhaité)",
           "Prestations modulables : business plan seul, démarches notariales uniquement ou accompagnement complet",
-          "Timeline claire : de la validation de l’idée jusqu’au lancement opérationnel",
+          "Timeline claire : de la validation de l'idée jusqu'au lancement opérationnel",
         ],
         exemples: [
           "Un indépendant qui veut passer en société et avoir une fiscalité optimisée dès la création",
-          "Une startup qui a besoin d’un business plan solide pour convaincre une banque ou des investisseurs",
+          "Une startup qui a besoin d'un business plan solide pour convaincre une banque ou des investisseurs",
           "Un porteur de projet qui souhaite déléguer toute la partie administrative et se concentrer sur son activité",
         ],
       },
@@ -769,7 +769,7 @@ function OffersSection() {
       features: [
         "Valorisation et diagnostic stratégique",
         "Optimisation fiscale et juridique préalable",
-        "Dossier de vente ou d’acquisition complet et professionnel",
+        "Dossier de vente ou d'acquisition complet et professionnel",
         "Conseil et assistance en négociation",
       ],
       fullDetails: {
@@ -778,9 +778,9 @@ function OffersSection() {
             title: "Diagnostic et stratégie initiale",
             icon: ClipboardList,
             items: [
-              "Analyse financière et opérationnelle de l’entreprise concernée",
-              "Évaluation de la valeur (méthodes multiples) et identification des leviers d’optimisation",
-              "Définition d’une stratégie adaptée : transmission (vente ou familiale) ou acquisition",
+              "Analyse financière et opérationnelle de l'entreprise concernée",
+              "Évaluation de la valeur (méthodes multiples) et identification des leviers d'optimisation",
+              "Définition d'une stratégie adaptée : transmission (vente ou familiale) ou acquisition",
             ],
           },
           optimisation: {
@@ -805,17 +805,17 @@ function OffersSection() {
             title: "Accompagnement dans les négociations",
             icon: Handshake,
             items: [
-              "Aide à la recherche d’acquéreurs ou d’entreprises cibles",
+              "Aide à la recherche d'acquéreurs ou d'entreprises cibles",
               "Conseil stratégique dans les discussions et offres",
               "Coordination avec les notaires, avocats et partenaires financiers",
             ],
           },
           acquisition: {
-            title: "Acquisition (reprise d’entreprise)",
+            title: "Acquisition (reprise d'entreprise)",
             icon: Target,
             items: [
               "Analyse de la cible et due diligence",
-              "Assistance dans la négociation des conditions d’acquisition",
+              "Assistance dans la négociation des conditions d'acquisition",
               "Plan de financement et intégration post-rachat",
             ],
           },
@@ -830,19 +830,19 @@ function OffersSection() {
           },
         },
         pourQui: [
-          "Chefs d’entreprise préparant la vente ou la transmission de leur société",
+          "Chefs d'entreprise préparant la vente ou la transmission de leur société",
           "Entreprises familiales organisant une succession sereine",
           "Repreneurs et investisseurs cherchant à acquérir une société avec un accompagnement stratégique",
         ],
         conditions: [
-          "Offre sur devis personnalisé selon l’ampleur du projet (taille, complexité, objectifs)",
-          "Mission cadrée : diagnostic initial, plan de préparation et accompagnement jusqu’à la conclusion",
+          "Offre sur devis personnalisé selon l'ampleur du projet (taille, complexité, objectifs)",
+          "Mission cadrée : diagnostic initial, plan de préparation et accompagnement jusqu'à la conclusion",
           "Possibilité de suivi post-opérationnel (intégration, optimisation patrimoniale)",
         ],
         exemples: [
-          "Vente d’une PME : préparer et valoriser l’entreprise 18 mois avant la vente",
-          "Transmission familiale : réduire l’impact fiscal et organiser la succession sereinement",
-          "Acquisition d’une société : analyser la cible, structurer le financement et négocier les conditions",
+          "Vente d'une PME : préparer et valoriser l'entreprise 18 mois avant la vente",
+          "Transmission familiale : réduire l'impact fiscal et organiser la succession sereinement",
+          "Acquisition d'une société : analyser la cible, structurer le financement et négocier les conditions",
         ],
       },
     },
@@ -862,7 +862,7 @@ function OffersSection() {
       case "À la carte":
         setIsCarteDetailsOpen(true)
         break
-      case "Création d’entreprise":
+      case "Création d'entreprise":
         setIsCreationDetailsOpen(true)
         break
       case "Transmission & Acquisition":
@@ -903,7 +903,7 @@ function OffersSection() {
     </div>
   )
 
-  const creationPlan = plans.find((p) => p.name === "Création d’entreprise")
+  const creationPlan = plans.find((p) => p.name === "Création d'entreprise")
   const transmissionPlan = plans.find((p) => p.name === "Transmission & Acquisition")
 
   return (
@@ -960,13 +960,13 @@ function OffersSection() {
                   Offre Full Digital
                 </DialogTitle>
                 <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
-                  L’efficacité du tout digital, la rigueur d’un bureau complet
+                  L'efficacité du tout digital, la rigueur d'un bureau complet
                 </DialogDescription>
               </DialogHeader>
               <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
                 <div>
                   <p className="text-gray-300">
-                    Full Digital s’adresse à ceux qui veulent une gestion comptable et fiscale complète tout en gagnant
+                    Full Digital s'adresse à ceux qui veulent une gestion comptable et fiscale complète tout en gagnant
                     du temps et en réduisant leurs coûts. Cette offre est idéale si vous souhaitez externaliser
                     entièrement votre comptabilité, que vous partiez de zéro ou que vous ayez déjà un système en place.
                   </p>
@@ -996,7 +996,6 @@ function OffersSection() {
                       ))}
                   </ul>
                 </div>
-                <InternalisationSection />
               </div>
               <DialogFooter className="mt-4 flex-shrink-0">
                 <Button
@@ -1021,13 +1020,13 @@ function OffersSection() {
                   Offre Standard
                 </DialogTitle>
                 <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
-                  L’équilibre parfait entre autonomie digitale et accompagnement humain renforcé.
+                  L'équilibre parfait entre autonomie digitale et accompagnement humain renforcé.
                 </DialogDescription>
               </DialogHeader>
               <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
                 <div>
                   <p className="text-gray-300">
-                    L’offre Standard combine la simplicité digitale avec un accompagnement humain renforcé. Elle
+                    L'offre Standard combine la simplicité digitale avec un accompagnement humain renforcé. Elle
                     s'adapte que votre comptabilité soit gérée en interne par vos équipes ou externalisée.
                   </p>
                 </div>
@@ -1081,13 +1080,13 @@ function OffersSection() {
                   Offre Strataidge
                 </DialogTitle>
                 <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
-                  Une offre haut de gamme pour transformer votre business et l’aligner avec votre ambition.
+                  Une offre haut de gamme pour transformer votre business et l'aligner avec votre ambition.
                 </DialogDescription>
               </DialogHeader>
               <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
                 <div>
                   <p className="text-gray-300">
-                    L’offre Strataidge est conçue pour les entreprises ambitieuses qui cherchent à dépasser les
+                    L'offre Strataidge est conçue pour les entreprises ambitieuses qui cherchent à dépasser les
                     objectifs visibles. Elle s'adapte que votre comptabilité soit gérée en interne par vos équipes ou
                     externalisée, car notre focus est la stratégie globale.
                   </p>
@@ -1219,7 +1218,7 @@ function OffersSection() {
               <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
                 <DialogHeader className="flex-shrink-0">
                   <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-                    Offre Création d’entreprise
+                    Offre Création d'entreprise
                   </DialogTitle>
                   <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
                     Un accompagnement complet pour transformer votre idée en société
@@ -1228,8 +1227,8 @@ function OffersSection() {
                 <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4">
                   <div>
                     <p className="text-gray-300">
-                      Créer une entreprise est une étape clé qui demande rigueur et vision stratégique. L’offre Création
-                      d’entreprise de Strataidge couvre toutes les étapes : de l’analyse de votre projet à la signature
+                      Créer une entreprise est une étape clé qui demande rigueur et vision stratégique. L'offre Création
+                      d'entreprise de Strataidge couvre toutes les étapes : de l'analyse de votre projet à la signature
                       chez le notaire, en passant par la rédaction de votre business plan et la mise en place de votre
                       structure comptable et fiscale. Nous vous guidons pas à pas, pour que chaque décision soit
                       éclairée et conforme aux exigences légales belges.
@@ -1286,7 +1285,7 @@ function OffersSection() {
                     onClick={openCreationRequest}
                     className="w-full bg-strataidge-coral hover:bg-strataidge-coral/90 text-white font-bold py-3"
                   >
-                    Démarrer mon projet d’entreprise avec Strataidge
+                    Démarrer mon projet d'entreprise avec Strataidge
                   </Button>
                 </DialogFooter>
               </div>
@@ -1303,7 +1302,7 @@ function OffersSection() {
               <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
                 <DialogHeader className="flex-shrink-0">
                   <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-                    Offre Transmission et Acquisition d’entreprise
+                    Offre Transmission et Acquisition d'entreprise
                   </DialogTitle>
                   <DialogDescription className="text-base sm:text-lg text-gray-300 pt-2">
                     Un accompagnement complet pour chaque étape clé
@@ -1314,7 +1313,7 @@ function OffersSection() {
                     <p className="text-gray-300">
                       Que vous soyez transmetteur (vente ou familial) ou acquéreur (repreneur), chaque opération de ce
                       type demande une préparation rigoureuse et une vision globale. Strataidge vous accompagne de la
-                      réflexion à la signature, en mettant l’accent sur la valorisation de l’entreprise, l’optimisation
+                      réflexion à la signature, en mettant l'accent sur la valorisation de l'entreprise, l'optimisation
                       fiscale et juridique, et une négociation équilibrée et sécurisée.
                     </p>
                   </div>
@@ -1441,8 +1440,7 @@ function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formMessage, setFormMessage] = useState<string | null>(null)
   const [formError, setFormError] = useState<boolean>(false)
-  const [fileName, setFileName] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -1451,6 +1449,12 @@ function ContactSection() {
     setFormError(false)
 
     const formData = new FormData(event.currentTarget)
+
+    // Ajouter le fichier sélectionné au FormData
+    if (selectedFile) {
+      formData.set("file", selectedFile)
+    }
+
     const webhookUrl = "https://buck-able-curiously.ngrok-free.app/webhook/13387ff2-fae9-48d1-80b5-4ce7fb39e895"
 
     try {
@@ -1463,7 +1467,7 @@ function ContactSection() {
         setFormMessage("Votre message a bien été envoyé, nous vous répondrons rapidement.")
         setFormError(false)
         ;(event.target as HTMLFormElement).reset()
-        setFileName(null)
+        setSelectedFile(null)
       } else {
         setFormMessage("Une erreur est survenue, merci de réessayer.")
         setFormError(true)
@@ -1526,25 +1530,14 @@ function ContactSection() {
                 required
                 className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
               />
-              <div>
-                <input
-                  type="file"
-                  name="file"
-                  ref={fileInputRef}
-                  onChange={(e) => setFileName(e.target.files?.[0]?.name || null)}
-                  className="hidden"
-                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                />
-                <Button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  variant="outline"
-                  className="w-full justify-start text-left font-normal border-white/10 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white"
-                >
-                  <Paperclip className="mr-2 h-5 w-5" />
-                  {fileName || "Joindre un document (facultatif)"}
-                </Button>
-              </div>
+
+              <FileUpload
+                onFileSelect={setSelectedFile}
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                placeholder="Joindre un document (facultatif)"
+                required={false}
+              />
+
               <Button
                 type="submit"
                 disabled={isSubmitting}
@@ -1593,7 +1586,9 @@ function Footer() {
             </Link>
             <p className="mt-4 text-sm text-left ml-2.5 text-white">L'humain derrière les chiffres.</p>
             <p className="mt-2 text-xs text-left ml-2.5 text-gray-400">
-              {"Strataidge, votre fiduciaire de confiance en Wallonie et à Bruxelles, vous accompagne dans le pilotage comptable, fiscal et stratégique de votre activité. Nous sommes également à vos côtés pour la création, la transmission ou l’acquisition de votre entreprise."}
+              {
+                "Strataidge, votre fiduciaire de confiance en Wallonie et à Bruxelles, vous accompagne dans le pilotage comptable, fiscal et stratégique de votre activité. Nous sommes également à vos côtés pour la création, la transmission ou l'acquisition de votre entreprise."
+              }
             </p>
           </div>
           <div className="hidden md:block md:col-span-2"></div>
