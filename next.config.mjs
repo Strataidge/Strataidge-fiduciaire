@@ -96,12 +96,10 @@ const nextConfig = {
 
   // Optimisation du bundle
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 
   // Configuration pour la production
-  output: 'standalone',
   trailingSlash: false,
 
   eslint: {
