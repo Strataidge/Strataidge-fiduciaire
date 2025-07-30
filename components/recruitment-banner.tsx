@@ -49,7 +49,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
               layout
               transition={{ duration: 0.3, ease: "easeInOut" }}
               onClick={onOpenPopup}
-              className="relative flex items-center justify-center rounded-full bg-strataidge-blue-night/70 backdrop-blur-lg border border-white/10 shadow-xl cursor-pointer hover:bg-strataidge-blue-night/80"
+              className="relative flex items-center justify-center rounded-full bg-strataidge-blue-night/70 backdrop-blur-lg border border-white/10 shadow-xl cursor-pointer hover:bg-strataidge-blue-night/80 leading-3 tracking-[-0.03em]"
               style={{ padding: "0.625rem" }}
             >
               <motion.div layout="position" className="flex items-center">
