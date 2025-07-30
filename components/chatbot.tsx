@@ -101,9 +101,10 @@ export function Chatbot() {
   useEffect(() => {
     // Initialiser la position en bas à droite (client-side only)
     if (typeof window !== "undefined") {
+      const iconSize = window.innerWidth < 768 ? 60 : 100
       setPosition({
-        x: window.innerWidth - 100,
-        y: window.innerHeight - 100,
+        x: window.innerWidth - iconSize,
+        y: window.innerHeight - iconSize,
       })
     }
   }, [])
@@ -121,8 +122,9 @@ export function Chatbot() {
 
   const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
-      const newX = Math.max(0, Math.min(window.innerWidth - 80, e.clientX - dragOffset.x))
-      const newY = Math.max(0, Math.min(window.innerHeight - 80, e.clientY - dragOffset.y))
+      const iconSize = isMobile ? 60 : 80
+      const newX = Math.max(0, Math.min(window.innerWidth - iconSize, e.clientX - dragOffset.x))
+      const newY = Math.max(0, Math.min(window.innerHeight - iconSize, e.clientY - dragOffset.y))
       setPosition({ x: newX, y: newY })
       checkEdgeProximity(newX, newY)
     }
@@ -370,19 +372,21 @@ export function Chatbot() {
 
   const checkEdgeProximity = (x: number, y: number) => {
     const edgeThreshold = 20 // Distance en pixels du bord
+    const iconSize = isMobile ? 60 : 80
     const nearEdge =
       x <= edgeThreshold ||
       y <= edgeThreshold ||
-      x >= window.innerWidth - 80 - edgeThreshold ||
-      y >= window.innerHeight - 80 - edgeThreshold
+      x >= window.innerWidth - iconSize - edgeThreshold ||
+      y >= window.innerHeight - iconSize - edgeThreshold
     setIsNearEdge(nearEdge)
   }
 
   const handleTouchMove = (e: TouchEvent) => {
     if (isDragging && e.touches[0]) {
       const touch = e.touches[0]
-      const newX = Math.max(0, Math.min(window.innerWidth - 80, touch.clientX - dragOffset.x))
-      const newY = Math.max(0, Math.min(window.innerHeight - 80, touch.clientY - dragOffset.y))
+      const iconSize = isMobile ? 60 : 80
+      const newX = Math.max(0, Math.min(window.innerWidth - iconSize, touch.clientX - dragOffset.x))
+      const newY = Math.max(0, Math.min(window.innerHeight - iconSize, touch.clientY - dragOffset.y))
       setPosition({ x: newX, y: newY })
       checkEdgeProximity(newX, newY)
     }
@@ -482,17 +486,17 @@ export function Chatbot() {
           <div
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
-            className={`relative w-16 h-16 bg-transparent hover:scale-110 transition-all duration-300 flex items-center justify-center cursor-move ${
+            className={`relative bg-transparent hover:scale-110 transition-all duration-300 flex items-center justify-center cursor-move ${
               isNearEdge ? "scale-75" : ""
-            }`}
+            } ${isMobile ? "w-12 h-12" : "w-16 h-16"}`}
             aria-label="Ouvrir le chat avec Charlie"
             style={{ touchAction: "none" }}
           >
             <Image
               src={showWelcomeBubble || (isOpen && !isMinimized) ? "/charlie-open.png" : "/charlie-closed.png"}
               alt="Charlie - Assistant virtuel"
-              width={64}
-              height={64}
+              width={isMobile ? 48 : 64}
+              height={isMobile ? 48 : 64}
               className={`group-hover:scale-110 transition-transform duration-300 pointer-events-none ${
                 isNearEdge ? "scale-90" : ""
               }`}
