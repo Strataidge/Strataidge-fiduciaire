@@ -22,7 +22,7 @@ export function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [position, setPosition] = useState({ x: window.innerWidth - 100, y: window.innerHeight - 100 })
+  const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
   const [dragStartPosition, setDragStartPosition] = useState({ x: 0, y: 0 })
@@ -85,11 +85,13 @@ export function Chatbot() {
   }, [isOpen, isMinimized, messages, userInteracted])
 
   useEffect(() => {
-    // Initialiser la position en bas à droite
-    setPosition({
-      x: window.innerWidth - 100,
-      y: window.innerHeight - 100,
-    })
+    // Initialiser la position en bas à droite (client-side only)
+    if (typeof window !== "undefined") {
+      setPosition({
+        x: window.innerWidth - 100,
+        y: window.innerHeight - 100,
+      })
+    }
   }, [])
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -267,6 +269,8 @@ export function Chatbot() {
 
   // Calculer la position du chat pour qu'il apparaisse au-dessus du chatbot
   const getChatPosition = () => {
+    if (typeof window === "undefined") return { x: 0, y: 0 }
+
     const chatWidth = 400
     const chatHeight = 500
 
@@ -283,6 +287,8 @@ export function Chatbot() {
 
   // Calculer la position de la bulle pour qu'elle reste dans l'écran
   const getBubblePosition = () => {
+    if (typeof window === "undefined") return { x: 0, y: 0 }
+
     const bubbleWidth = 200 // Estimation de la largeur de la bulle
     const bubbleHeight = 50 // Estimation de la hauteur de la bulle
 
