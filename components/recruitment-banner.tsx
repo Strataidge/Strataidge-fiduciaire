@@ -13,7 +13,6 @@ interface RecruitmentBannerProps {
 
 export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: RecruitmentBannerProps) {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +24,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
 
   useEffect(() => {
     // Set initial position after component mounts (client-side only)
-    setPosition({
-      x: window.innerWidth - 100,
-      y: window.innerHeight - 100,
-    })
+    // Position fixe en haut à droite, pas de calcul complexe
   }, [])
 
   const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,7 +41,7 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="fixed top-24 right-4 sm:right-8 z-50"
-          style={{ x: position.x, y: position.y }}
+          // Supprimer le style={{ x: position.x, y: position.y }}
         >
           <div className="relative group">
             <div className="absolute -inset-1 bg-strataidge-turquoise rounded-full blur-lg opacity-60 group-hover:opacity-80 transition duration-1000 group-hover:duration-200 animate-tilt" />
