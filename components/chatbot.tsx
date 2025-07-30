@@ -191,13 +191,85 @@ export function Chatbot() {
     setIsDragging(false)
   }
 
+  // Ajouter les gestionnaires tactiles après les gestionnaires de souris existants
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault()
+    const touch = e.touches[0]
+    setIsDragging(true)
+    setDragStartPosition({ x: touch.clientX, y: touch.clientY })
+    const rect = e.currentTarget.getBoundingClientRect()
+    setDragOffset({
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    })
+  }
+
+  const handleTouchMove = (e: TouchEvent) => {
+    if (isDragging && e.touches.length > 0) {
+      e.preventDefault()
+      const touch = e.touches[0]
+      const newX = Math.max(0, Math.min(window.innerWidth - 80, touch.clientX - dragOffset.x))
+      const newY = Math.max(0, Math.min(window.innerHeight - 80, touch.clientY - dragOffset.y))
+      const newPosition = { x: newX, y: newY }
+
+      setPosition(newPosition)
+
+      // Vérifier si on doit rétracter sur mobile
+      if (isMobile) {
+        const shouldRetract = checkRetraction(newPosition)
+        setIsRetracted(shouldRetract)
+      }
+    }
+  }
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (isDragging) {
+      const touch = e.changedTouches[0]
+      const dragDistance = Math.sqrt(
+        Math.pow(touch.clientX - dragStartPosition.x, 2) + Math.pow(touch.clientY - dragStartPosition.y, 2),
+      )
+
+      // Si rétracté sur mobile, aller à la position fixe sous le logo
+      if (isMobile && isRetracted) {
+        const retractedPos = getRetractedPosition()
+        setPosition(retractedPos)
+        // S'assurer que l'état rétracté reste actif
+        setTimeout(() => setIsRetracted(true), 100)
+      }
+
+      // Si la distance de déplacement est très petite, considérer comme un tap
+      if (dragDistance < 5) {
+        if (!isOpen) {
+          openChat()
+        } else if (isMinimized) {
+          setIsMinimized(false)
+          setUserInteracted(true)
+          clearInactivityTimer()
+        } else {
+          closeChat()
+        }
+      }
+    }
+    setIsDragging(false)
+  }
+
+  // Modifier le useEffect existant pour inclure les événements tactiles
   useEffect(() => {
     if (isDragging) {
+      // Événements souris
       document.addEventListener("mousemove", handleMouseMove)
       document.addEventListener("mouseup", handleMouseUp)
+
+      // Événements tactiles
+      document.addEventListener("touchmove", handleTouchMove, { passive: false })
+      document.addEventListener("touchend", handleTouchEnd)
+
       return () => {
         document.removeEventListener("mousemove", handleMouseMove)
         document.removeEventListener("mouseup", handleMouseUp)
+        document.removeEventListener("touchmove", handleTouchMove)
+        document.removeEventListener("touchend", handleTouchEnd)
       }
     }
   }, [isDragging, dragOffset, dragStartPosition, isOpen, isMinimized, isMobile, isRetracted])
@@ -445,10 +517,12 @@ export function Chatbot() {
 
           <div
             onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
             className="relative bg-transparent hover:scale-110 transition-all duration-300 flex items-center justify-center cursor-move"
             style={{
               width: chatbotSize,
               height: chatbotSize,
+              touchAction: "none", // Empêche le scroll pendant le drag
             }}
             aria-label="Ouvrir le chat avec Charlie"
           >
