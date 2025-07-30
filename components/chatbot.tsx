@@ -29,6 +29,7 @@ export function Chatbot() {
   const [userInteracted, setUserInteracted] = useState(false) // Track if user clicked on chatbot
   const [showWelcomeBubble, setShowWelcomeBubble] = useState(false)
   const [isNearEdge, setIsNearEdge] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const chatbotRef = useRef<HTMLDivElement>(null)
   const inactivityTimerRef = useRef<NodeJS.Timeout>()
@@ -41,6 +42,18 @@ export function Chatbot() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Détecter si on est sur mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   // Show welcome bubble after 5 seconds
   useEffect(() => {
@@ -278,6 +291,11 @@ export function Chatbot() {
   const getChatPosition = () => {
     if (typeof window === "undefined") return { x: 0, y: 0 }
 
+    // Sur mobile, prendre tout l'écran
+    if (isMobile) {
+      return { x: 0, y: 0 }
+    }
+
     const chatWidth = 400
     const chatHeight = 500
 
@@ -290,6 +308,20 @@ export function Chatbot() {
     chatY = Math.max(10, chatY)
 
     return { x: chatX, y: chatY }
+  }
+
+  // Calculer les dimensions du chat
+  const getChatDimensions = () => {
+    if (typeof window === "undefined") return { width: 400, height: 500 }
+
+    if (isMobile) {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      }
+    }
+
+    return { width: 400, height: 500 }
   }
 
   // Calculer la position de la bulle pour qu'elle reste dans l'écran
@@ -316,6 +348,7 @@ export function Chatbot() {
   }
 
   const chatPosition = getChatPosition()
+  const chatDimensions = getChatDimensions()
   const bubblePosition = getBubblePosition()
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -476,33 +509,47 @@ export function Chatbot() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed z-40 select-none"
-            style={{
-              left: chatPosition.x,
-              top: chatPosition.y,
-              width: "400px",
-              height: "500px",
-            }}
+            className={`fixed z-40 select-none ${isMobile ? "inset-0" : ""}`}
+            style={
+              isMobile
+                ? {}
+                : {
+                    left: chatPosition.x,
+                    top: chatPosition.y,
+                    width: `${chatDimensions.width}px`,
+                    height: `${chatDimensions.height}px`,
+                  }
+            }
             onClick={handleChatFrameClick}
           >
-            <div className="w-full h-full bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 flex flex-col overflow-hidden">
+            <div
+              className={`w-full h-full bg-white/95 backdrop-blur-md shadow-2xl border border-white/20 flex flex-col overflow-hidden ${
+                isMobile ? "rounded-none" : "rounded-2xl"
+              }`}
+            >
               {/* Header */}
-              <div className="bg-strataidge-blue-night/90 backdrop-blur-md text-white p-4 flex items-center justify-between">
+              <div
+                className={`bg-strataidge-blue-night/90 backdrop-blur-md text-white flex items-center justify-between ${
+                  isMobile ? "p-3 pt-safe-top" : "p-4"
+                }`}
+              >
                 <div className="flex items-center gap-3">
-                  <Image src="/charlie-open.png" alt="Charlie" width={32} height={32} />
+                  <Image src="/charlie-open.png" alt="Charlie" width={isMobile ? 28 : 32} height={isMobile ? 28 : 32} />
                   <div>
-                    <h3 className="font-bold text-sm">Charlie</h3>
-                    <p className="text-xs text-gray-300">Assistant IA Strataidge</p>
+                    <h3 className={`font-bold ${isMobile ? "text-sm" : "text-sm"}`}>Charlie</h3>
+                    <p className={`text-gray-300 ${isMobile ? "text-xs" : "text-xs"}`}>Assistant IA Strataidge</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={minimizeChat}
-                    className="p-1 hover:bg-white/10 rounded transition-colors"
-                    aria-label="Minimiser"
-                  >
-                    <Minimize2 className="w-4 h-4" />
-                  </button>
+                  {!isMobile && (
+                    <button
+                      onClick={minimizeChat}
+                      className="p-1 hover:bg-white/10 rounded transition-colors"
+                      aria-label="Minimiser"
+                    >
+                      <Minimize2 className="w-4 h-4" />
+                    </button>
+                  )}
                   <button
                     onClick={closeChat}
                     className="p-1 hover:bg-white/10 rounded transition-colors"
@@ -514,7 +561,11 @@ export function Chatbot() {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/80 backdrop-blur-sm flex flex-col-reverse">
+              <div
+                className={`flex-1 overflow-y-auto bg-gray-50/80 backdrop-blur-sm flex flex-col-reverse ${
+                  isMobile ? "p-3 pb-safe-bottom" : "p-4"
+                } space-y-4`}
+              >
                 <div ref={messagesEndRef} />
                 {isLoading && (
                   <div className="flex justify-start">
@@ -543,14 +594,16 @@ export function Chatbot() {
                     .map((message) => (
                       <div key={message.id} className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
                         <div
-                          className={`max-w-[80%] p-3 rounded-lg ${
+                          className={`max-w-[85%] p-3 rounded-lg ${
                             message.isUser
                               ? "bg-strataidge-turquoise text-white"
                               : "bg-white/90 backdrop-blur-sm text-gray-800 shadow-sm border border-white/20"
                           }`}
                         >
-                          <p className="text-sm">{message.text}</p>
-                          <p className={`text-xs mt-1 ${message.isUser ? "text-white/70" : "text-gray-500"}`}>
+                          <p className={`${isMobile ? "text-sm" : "text-sm"}`}>{message.text}</p>
+                          <p
+                            className={`mt-1 ${isMobile ? "text-xs" : "text-xs"} ${message.isUser ? "text-white/70" : "text-gray-500"}`}
+                          >
                             {message.timestamp.toLocaleTimeString("fr-FR", {
                               hour: "2-digit",
                               minute: "2-digit",
@@ -563,13 +616,19 @@ export function Chatbot() {
               </div>
 
               {/* Input */}
-              <div className="p-4 bg-white/90 backdrop-blur-md border-t border-white/20">
+              <div
+                className={`bg-white/90 backdrop-blur-md border-t border-white/20 ${
+                  isMobile ? "p-3 pb-safe-bottom" : "p-4"
+                }`}
+              >
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   <Input
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Tapez votre message..."
-                    className="flex-1 text-sm bg-white/80 backdrop-blur-sm border-white/30"
+                    className={`flex-1 bg-white/80 backdrop-blur-sm border-white/30 ${
+                      isMobile ? "text-base h-12" : "text-sm"
+                    }`}
                     disabled={isLoading}
                     onFocus={() => {
                       setUserInteracted(true)
@@ -582,11 +641,13 @@ export function Chatbot() {
                   />
                   <Button
                     type="submit"
-                    size="sm"
+                    size={isMobile ? "default" : "sm"}
                     disabled={isLoading || !inputValue.trim()}
-                    className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-white"
+                    className={`bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-white ${
+                      isMobile ? "h-12 px-4" : ""
+                    }`}
                   >
-                    <Send className="w-4 h-4" />
+                    <Send className={`${isMobile ? "w-5 h-5" : "w-4 h-4"}`} />
                   </Button>
                 </form>
               </div>
