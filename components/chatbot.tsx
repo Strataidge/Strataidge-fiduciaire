@@ -16,7 +16,12 @@ interface Message {
   timestamp: Date
 }
 
-export function Chatbot() {
+// Ajouter une interface pour les props
+interface ChatbotProps {
+  onChatStateChange?: (isOpen: boolean) => void
+}
+
+export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -256,9 +261,10 @@ export function Chatbot() {
   const openChat = () => {
     setIsOpen(true)
     setIsMinimized(false)
-    setUserInteracted(true) // User clicked on chatbot, stop auto-minimize
-    clearInactivityTimer() // Clear any existing timer
-    setShowWelcomeBubble(false) // Hide welcome bubble when opening chat
+    setUserInteracted(true)
+    clearInactivityTimer()
+    setShowWelcomeBubble(false)
+    onChatStateChange?.(true) // Notifier l'ouverture
     if (messages.length === 0) {
       const welcomeMessage: Message = {
         id: "welcome",
@@ -272,14 +278,16 @@ export function Chatbot() {
 
   const minimizeChat = () => {
     setIsMinimized(true)
-    setUserInteracted(false) // Reset user interaction when manually minimized
+    setUserInteracted(false)
+    onChatStateChange?.(false) // Notifier la minimisation
   }
 
   const closeChat = () => {
     setIsOpen(false)
     setIsMinimized(false)
-    setUserInteracted(false) // Reset user interaction when closed
+    setUserInteracted(false)
     clearInactivityTimer()
+    onChatStateChange?.(false) // Notifier la fermeture
   }
 
   // Handle click on chat window frame

@@ -62,6 +62,7 @@ import { CookiePolicyLink } from "@/components/cookie-policy-link"
 export default function StrataidgeLandingPageV2() {
   const [isBannerVisible, setIsBannerVisible] = useState(true)
   const [isRecruitmentPopupOpen, setIsRecruitmentPopupOpen] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false) // Nouvel état
 
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
@@ -92,11 +93,11 @@ export default function StrataidgeLandingPageV2() {
           }),
         }}
       />
-
       <RecruitmentBanner
         isVisible={isBannerVisible}
         onClose={() => setIsBannerVisible(false)}
         onOpenPopup={() => setIsRecruitmentPopupOpen(true)}
+        isChatOpen={isChatOpen} // Passer l'état du chat
       />
       <RecruitmentPopup isOpen={isRecruitmentPopupOpen} onOpenChange={setIsRecruitmentPopupOpen} />
       <Header />
@@ -110,7 +111,7 @@ export default function StrataidgeLandingPageV2() {
         <ContactSection />
       </main>
       <Footer />
-      <Chatbot />
+      <Chatbot onChatStateChange={setIsChatOpen} /> {/* Passer le callback */}
       <CookieBanner />
     </div>
   )

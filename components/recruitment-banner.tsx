@@ -9,10 +9,12 @@ interface RecruitmentBannerProps {
   isVisible: boolean
   onClose: () => void
   onOpenPopup: () => void
+  isChatOpen?: boolean // Nouvelle prop
 }
 
-export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: RecruitmentBannerProps) {
+export function RecruitmentBanner({ isVisible, onClose, onOpenPopup, isChatOpen = false }: RecruitmentBannerProps) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,8 +25,12 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
   }, [])
 
   useEffect(() => {
-    // Set initial position after component mounts (client-side only)
-    // Position fixe en haut à droite, pas de calcul complexe
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
   const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,9 +38,11 @@ export function RecruitmentBanner({ isVisible, onClose, onOpenPopup }: Recruitme
     onClose()
   }
 
+  const shouldShow = isVisible && !(isMobile && isChatOpen)
+
   return (
     <AnimatePresence>
-      {isVisible && (
+      {shouldShow && (
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
