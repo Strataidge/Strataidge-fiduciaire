@@ -55,6 +55,7 @@ import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
 import { RecruitmentBanner } from "@/components/recruitment-banner"
 import { RecruitmentPopup } from "@/components/recruitment-popup"
 import { FileUpload } from "@/components/file-upload"
+import { Chatbot } from "@/components/chatbot"
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
@@ -108,6 +109,7 @@ export default function StrataidgeLandingPageV2() {
         <ContactSection />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   )
 }
