@@ -332,19 +332,17 @@ export function Chatbot() {
 
     const bubbleWidth = 200 // Estimation de la largeur de la bulle
     const bubbleHeight = 50 // Estimation de la hauteur de la bulle
+    const iconSize = isMobile ? 48 : 64
 
-    // Position par défaut : au-dessus et centrée avec encore plus d'espace
-    let bubbleX = position.x + 32 - bubbleWidth / 2 // Centrer par rapport au logo
-    let bubbleY = position.y - bubbleHeight - 40 // Au-dessus avec 40px d'espace (encore plus haut)
+    // Position par défaut : au-dessus et centrée par rapport au centre de Charlie
+    let bubbleX = position.x + iconSize / 2 - bubbleWidth / 2 // Centrer par rapport au centre de Charlie
+    let bubbleY = position.y - bubbleHeight - 15 // Au-dessus avec 15px d'espace
 
     // Ajustements pour rester dans l'écran
     bubbleX = Math.max(10, Math.min(window.innerWidth - bubbleWidth - 10, bubbleX))
-    bubbleY = Math.max(10, bubbleY)
+    bubbleY = Math.max(10, bubbleY) // Garder au minimum 10px du haut
 
-    // Si pas assez de place au-dessus, mettre en dessous
-    if (position.y < bubbleHeight + 50) {
-      bubbleY = position.y + 80 // En dessous du logo
-    }
+    // La bulle reste TOUJOURS au-dessus, pas de repositionnement en dessous
 
     return { x: bubbleX, y: bubbleY }
   }
@@ -443,21 +441,12 @@ export function Chatbot() {
               <div
                 className="absolute w-0 h-0 border-l-4 border-r-4 border-transparent"
                 style={{
-                  left: "50%",
+                  left: `${position.x + (isMobile ? 24 : 32) - bubblePosition.x}px`, // Position exacte au centre de Charlie
                   transform: "translateX(-50%)",
-                  ...(position.y < 100
-                    ? {
-                        // Arrow pointing up (bubble is below)
-                        top: "-8px",
-                        borderBottomWidth: "8px",
-                        borderBottomColor: "#00C9A7",
-                      }
-                    : {
-                        // Arrow pointing down (bubble is above)
-                        bottom: "-8px",
-                        borderTopWidth: "8px",
-                        borderTopColor: "#00C9A7",
-                      }),
+                  // Toujours pointer vers le bas (bulle au-dessus)
+                  bottom: "-8px",
+                  borderTopWidth: "8px",
+                  borderTopColor: "#00C9A7",
                 }}
               />
             </div>
