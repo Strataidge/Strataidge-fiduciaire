@@ -320,6 +320,7 @@ export function Chatbot() {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     e.preventDefault()
+    e.stopPropagation() // Ajouter cette ligne
     setIsDragging(true)
     const touch = e.touches[0]
     setDragStartPosition({ x: touch.clientX, y: touch.clientY })
@@ -357,8 +358,8 @@ export function Chatbot() {
         Math.pow(touch.clientX - dragStartPosition.x, 2) + Math.pow(touch.clientY - dragStartPosition.y, 2),
       )
 
-      // Si la distance de déplacement est très petite (moins de 5 pixels), considérer comme un clic
-      if (dragDistance < 5) {
+      // Si la distance de déplacement est très petite (moins de 10 pixels pour le tactile), considérer comme un clic
+      if (dragDistance < 10) {
         if (!isOpen) {
           openChat()
         } else if (isMinimized) {
