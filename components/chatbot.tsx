@@ -26,12 +26,25 @@ export function Chatbot() {
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
   const [dragStartPosition, setDragStartPosition] = useState({ x: 0, y: 0 })
-  const [userInteracted, setUserInteracted] = useState(false) // Track if user clicked on chatbot
+  const [userInteracted, setUserInteracted] = useState(false)
   const [showWelcomeBubble, setShowWelcomeBubble] = useState(false)
+  const [isRetracted, setIsRetracted] = useState(false) // Nouveau state pour la rétraction
+  const [isMobile, setIsMobile] = useState(false)
 
   const chatbotRef = useRef<HTMLDivElement>(null)
   const inactivityTimerRef = useRef<NodeJS.Timeout>()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Détecter si on est sur mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -44,17 +57,46 @@ export function Chatbot() {
   // Show welcome bubble after 5 seconds
   useEffect(() => {
     const welcomeTimer = setTimeout(() => {
-      setShowWelcomeBubble(true)
-      // Hide the bubble after 5 seconds
-      setTimeout(() => {
-        setShowWelcomeBubble(false)
-      }, 5000)
+      if (!isRetracted) {
+        // Ne pas montrer la bulle si rétracté
+        setShowWelcomeBubble(true)
+        setTimeout(() => {
+          setShowWelcomeBubble(false)
+        }, 5000)
+      }
     }, 5000)
 
     return () => clearTimeout(welcomeTimer)
-  }, [])
+  }, [isRetracted])
 
-  // Auto-minimize after 5 seconds of inactivity (only if user hasn't clicked on chatbot)
+  // Fonction pour vérifier si le chatbot doit être rétracté
+  const checkRetraction = (newPosition: { x: number; y: number }) => {
+    if (!isMobile) return false
+
+    const threshold = 50 // Distance du bord pour déclencher la rétraction
+    const windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+
+    return (
+      newPosition.x < threshold || // Bord gauche
+      newPosition.x > windowWidth - threshold - 80 || // Bord droit
+      newPosition.y < threshold || // Bord haut
+      newPosition.y > windowHeight - threshold - 80 // Bord bas
+    )
+  }
+
+  // Position rétractée (sous le logo dans la bannière)
+  const getRetractedPosition = () => {
+    // Position du logo dans le header : flex items-center gap-3, le logo fait 40px
+    // Le header fait 80px de haut (h-20), le logo est centré
+    // Position approximative : 4px (padding) + 40px (logo) + 3*4px (gap) = ~56px du bord gauche
+    return {
+      x: 56, // Position horizontale sous le logo
+      y: 100, // Juste sous la bannière (header de 80px + marge)
+    }
+  }
+
+  // Auto-minimize after 5 seconds of inactivity
   const resetInactivityTimer = () => {
     if (inactivityTimerRef.current) {
       clearTimeout(inactivityTimerRef.current)
@@ -66,7 +108,6 @@ export function Chatbot() {
     }
   }
 
-  // Clear inactivity timer when user interacts
   const clearInactivityTimer = () => {
     if (inactivityTimerRef.current) {
       clearTimeout(inactivityTimerRef.current)
@@ -85,7 +126,6 @@ export function Chatbot() {
   }, [isOpen, isMinimized, messages, userInteracted])
 
   useEffect(() => {
-    // Initialiser la position en bas à droite (client-side only)
     if (typeof window !== "undefined") {
       setPosition({
         x: window.innerWidth - 100,
@@ -109,7 +149,15 @@ export function Chatbot() {
     if (isDragging) {
       const newX = Math.max(0, Math.min(window.innerWidth - 80, e.clientX - dragOffset.x))
       const newY = Math.max(0, Math.min(window.innerHeight - 80, e.clientY - dragOffset.y))
-      setPosition({ x: newX, y: newY })
+      const newPosition = { x: newX, y: newY }
+
+      setPosition(newPosition)
+
+      // Vérifier si on doit rétracter sur mobile
+      if (isMobile) {
+        const shouldRetract = checkRetraction(newPosition)
+        setIsRetracted(shouldRetract)
+      }
     }
   }
 
@@ -119,17 +167,23 @@ export function Chatbot() {
         Math.pow(e.clientX - dragStartPosition.x, 2) + Math.pow(e.clientY - dragStartPosition.y, 2),
       )
 
-      // Si la distance de déplacement est très petite (moins de 5 pixels), considérer comme un clic
+      // Si rétracté sur mobile, aller à la position fixe sous le logo
+      if (isMobile && isRetracted) {
+        const retractedPos = getRetractedPosition()
+        setPosition(retractedPos)
+        // S'assurer que l'état rétracté reste actif
+        setTimeout(() => setIsRetracted(true), 100)
+      }
+
+      // Si la distance de déplacement est très petite, considérer comme un clic
       if (dragDistance < 5) {
         if (!isOpen) {
           openChat()
         } else if (isMinimized) {
-          // Restore chat if minimized
           setIsMinimized(false)
           setUserInteracted(true)
           clearInactivityTimer()
         } else {
-          // If chat is open and not minimized, close it
           closeChat()
         }
       }
@@ -146,7 +200,7 @@ export function Chatbot() {
         document.removeEventListener("mouseup", handleMouseUp)
       }
     }
-  }, [isDragging, dragOffset, dragStartPosition, isOpen, isMinimized])
+  }, [isDragging, dragOffset, dragStartPosition, isOpen, isMinimized, isMobile, isRetracted])
 
   const sendMessage = async (text: string) => {
     if (!text.trim()) return
@@ -180,18 +234,16 @@ export function Chatbot() {
         let botResponse = "Merci pour votre message ! Notre équipe vous répondra bientôt."
 
         try {
-          // Parser la réponse JSON pour extraire le champ "output"
           const jsonResponse = JSON.parse(responseText)
           if (jsonResponse.output) {
             botResponse = jsonResponse.output
           }
         } catch (parseError) {
-          // Si ce n'est pas du JSON, utiliser le texte brut nettoyé
           botResponse = responseText
-            .replace(/^\[|\]$/g, "") // Supprimer les crochets au début et à la fin
-            .replace(/^"output":\s*"/i, "") // Supprimer "output": " au début
-            .replace(/"$/, "") // Supprimer les guillemets à la fin
-            .replace(/\\"/g, '"') // Remplacer les guillemets échappés
+            .replace(/^\[|\]$/g, "")
+            .replace(/^"output":\s*"/i, "")
+            .replace(/"$/, "")
+            .replace(/\\"/g, '"')
             .trim()
         }
 
@@ -234,9 +286,9 @@ export function Chatbot() {
   const openChat = () => {
     setIsOpen(true)
     setIsMinimized(false)
-    setUserInteracted(true) // User clicked on chatbot, stop auto-minimize
-    clearInactivityTimer() // Clear any existing timer
-    setShowWelcomeBubble(false) // Hide welcome bubble when opening chat
+    setUserInteracted(true)
+    clearInactivityTimer()
+    setShowWelcomeBubble(false)
     if (messages.length === 0) {
       const welcomeMessage: Message = {
         id: "welcome",
@@ -250,59 +302,64 @@ export function Chatbot() {
 
   const minimizeChat = () => {
     setIsMinimized(true)
-    setUserInteracted(false) // Reset user interaction when manually minimized
+    setUserInteracted(false)
   }
 
   const closeChat = () => {
     setIsOpen(false)
     setIsMinimized(false)
-    setUserInteracted(false) // Reset user interaction when closed
+    setUserInteracted(false)
     clearInactivityTimer()
   }
 
-  // Handle click on chat window frame
   const handleChatFrameClick = (e: React.MouseEvent) => {
     e.stopPropagation()
     setUserInteracted(true)
     clearInactivityTimer()
   }
 
-  // Calculer la position du chat pour qu'il apparaisse au-dessus du chatbot
+  // Calculer la position du chat
   const getChatPosition = () => {
     if (typeof window === "undefined") return { x: 0, y: 0 }
 
-    const chatWidth = 400
-    const chatHeight = 500
+    const chatWidth = isMobile ? Math.min(350, window.innerWidth - 20) : 400
+    const chatHeight = isMobile ? Math.min(450, window.innerHeight - 100) : 500
 
-    // Position au-dessus du chatbot avec un petit décalage
-    let chatX = position.x - (chatWidth - 80) / 2 // Centrer horizontalement par rapport au chatbot
-    let chatY = position.y - chatHeight - 10 // Au-dessus avec 10px d'espace
+    let chatX = position.x - (chatWidth - 80) / 2
+    let chatY = position.y - chatHeight - 10
 
-    // Ajustements pour rester dans l'écran
-    chatX = Math.max(10, Math.min(window.innerWidth - chatWidth - 10, chatX))
-    chatY = Math.max(10, chatY)
+    // Ajustements pour mobile
+    if (isMobile) {
+      chatX = Math.max(10, Math.min(window.innerWidth - chatWidth - 10, chatX))
+      chatY = Math.max(10, chatY)
 
-    return { x: chatX, y: chatY }
+      // Si pas assez de place au-dessus, mettre en dessous
+      if (chatY < 10) {
+        chatY = position.y + 90
+      }
+    } else {
+      chatX = Math.max(10, Math.min(window.innerWidth - chatWidth - 10, chatX))
+      chatY = Math.max(10, chatY)
+    }
+
+    return { x: chatX, y: chatY, width: chatWidth, height: chatHeight }
   }
 
-  // Calculer la position de la bulle pour qu'elle reste dans l'écran
+  // Calculer la position de la bulle
   const getBubblePosition = () => {
     if (typeof window === "undefined") return { x: 0, y: 0 }
 
-    const bubbleWidth = 200 // Estimation de la largeur de la bulle
-    const bubbleHeight = 50 // Estimation de la hauteur de la bulle
+    const bubbleWidth = 200
+    const bubbleHeight = 50
 
-    // Position par défaut : au-dessus et centrée avec encore plus d'espace
-    let bubbleX = position.x + 32 - bubbleWidth / 2 // Centrer par rapport au logo
-    let bubbleY = position.y - bubbleHeight - 40 // Au-dessus avec 40px d'espace (encore plus haut)
+    let bubbleX = position.x + 32 - bubbleWidth / 2
+    let bubbleY = position.y - bubbleHeight - 40
 
-    // Ajustements pour rester dans l'écran
     bubbleX = Math.max(10, Math.min(window.innerWidth - bubbleWidth - 10, bubbleX))
     bubbleY = Math.max(10, bubbleY)
 
-    // Si pas assez de place au-dessus, mettre en dessous
     if (position.y < bubbleHeight + 50) {
-      bubbleY = position.y + 80 // En dessous du logo
+      bubbleY = position.y + 80
     }
 
     return { x: bubbleX, y: bubbleY }
@@ -311,11 +368,14 @@ export function Chatbot() {
   const chatPosition = getChatPosition()
   const bubblePosition = getBubblePosition()
 
+  // Taille du chatbot selon l'état
+  const chatbotSize = isRetracted && isMobile ? 40 : 64
+
   return (
     <>
       {/* Welcome Bubble */}
       <AnimatePresence>
-        {showWelcomeBubble && !isOpen && (
+        {showWelcomeBubble && !isOpen && !isRetracted && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -331,7 +391,6 @@ export function Chatbot() {
                 <p className="leading-relaxed font-medium">Bonjour, je suis Charlie ton assistant IA !</p>
               </div>
 
-              {/* Arrow pointing to Charlie */}
               <div
                 className="absolute w-0 h-0 border-l-4 border-r-4 border-transparent"
                 style={{
@@ -339,13 +398,11 @@ export function Chatbot() {
                   transform: "translateX(-50%)",
                   ...(position.y < 100
                     ? {
-                        // Arrow pointing up (bubble is below)
                         top: "-8px",
                         borderBottomWidth: "8px",
                         borderBottomColor: "#00C9A7",
                       }
                     : {
-                        // Arrow pointing down (bubble is above)
                         bottom: "-8px",
                         borderTopWidth: "8px",
                         borderTopColor: "#00C9A7",
@@ -360,7 +417,13 @@ export function Chatbot() {
       {/* Chatbot Icon */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          width: chatbotSize,
+          height: chatbotSize,
+        }}
+        transition={{ duration: 0.3 }}
         className="fixed z-50 select-none"
         style={{
           left: position.x,
@@ -370,21 +433,30 @@ export function Chatbot() {
         }}
       >
         <div className="relative group">
-          {/* Halo effect for closed state */}
+          {/* Halo effect - plus petit si rétracté */}
           {(!isOpen || isMinimized) && (
-            <div className="absolute -inset-2 bg-strataidge-turquoise rounded-full blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+            <div
+              className={`absolute bg-strataidge-turquoise rounded-full blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300`}
+              style={{
+                inset: isRetracted && isMobile ? "-4px" : "-8px",
+              }}
+            />
           )}
 
           <div
             onMouseDown={handleMouseDown}
-            className="relative w-16 h-16 bg-transparent hover:scale-110 transition-all duration-300 flex items-center justify-center cursor-move"
+            className="relative bg-transparent hover:scale-110 transition-all duration-300 flex items-center justify-center cursor-move"
+            style={{
+              width: chatbotSize,
+              height: chatbotSize,
+            }}
             aria-label="Ouvrir le chat avec Charlie"
           >
             <Image
               src={showWelcomeBubble || (isOpen && !isMinimized) ? "/charlie-open.png" : "/charlie-closed.png"}
               alt="Charlie - Assistant virtuel"
-              width={64}
-              height={64}
+              width={chatbotSize}
+              height={chatbotSize}
               className="group-hover:scale-110 transition-transform duration-300 pointer-events-none"
             />
           </div>
@@ -403,8 +475,8 @@ export function Chatbot() {
             style={{
               left: chatPosition.x,
               top: chatPosition.y,
-              width: "400px",
-              height: "500px",
+              width: chatPosition.width,
+              height: chatPosition.height,
             }}
             onClick={handleChatFrameClick}
           >
