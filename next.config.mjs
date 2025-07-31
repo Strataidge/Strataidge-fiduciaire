@@ -29,6 +29,32 @@ const nextConfig = {
         destination: '/$1',
         permanent: true,
       },
+      // Nouvelles redirections pour corriger les 404
+      {
+        source: '/about',
+        destination: '/#about',
+        permanent: true,
+      },
+      {
+        source: '/services',
+        destination: '/#services',
+        permanent: true,
+      },
+      {
+        source: '/contact',
+        destination: '/#contact',
+        permanent: true,
+      },
+      {
+        source: '/offers',
+        destination: '/#offers',
+        permanent: true,
+      },
+      {
+        source: '/blog',
+        destination: '/#blog',
+        permanent: true,
+      },
     ]
   },
 
@@ -53,6 +79,11 @@ const nextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
+          },
+          // Ajouter des headers pour améliorer l'indexation
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
           },
         ],
       },

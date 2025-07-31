@@ -25,3 +25,8 @@ Sitemap: https://www.strataidge-fiduciaire.com/sitemap.xml
 
 # Informations supplémentaires
 # Host: https://www.strataidge-fiduciaire.com
+
+# Correction pour éviter les erreurs d'exploration
+Disallow: /404
+Disallow: /500
+Disallow: /_error
