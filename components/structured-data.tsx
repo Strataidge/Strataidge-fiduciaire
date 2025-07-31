@@ -70,48 +70,6 @@ export function StructuredData() {
                 geoRadius: "100000",
               },
             },
-            hasOfferCatalog: {
-              "@type": "OfferCatalog",
-              name: "Services comptables et fiscaux",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Pilotage comptable digitalisé",
-                    description:
-                      "Gestion continue et innovante de vos flux financiers pour une vision claire et anticipative.",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Stratégies fiscales sur mesure",
-                    description:
-                      "Des stratégies adaptées à vos enjeux, alliant anticipation et rigueur pour une fiscalité optimisée.",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Création d'entreprise",
-                    description:
-                      "De l'idée à la réalité, nous vous guidons pour lancer votre entreprise sur des bases solides.",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Transmission & Acquisition",
-                    description:
-                      "Un accompagnement stratégique pour sécuriser et valoriser la vente ou l'acquisition d'une entreprise.",
-                  },
-                },
-              ],
-            },
           }),
         }}
       />
@@ -146,7 +104,7 @@ export function StructuredData() {
         }}
       />
 
-      {/* BreadcrumbList Schema - CORRIGÉ */}
+      {/* BreadcrumbList Schema - VERSION CORRIGÉE */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -159,56 +117,31 @@ export function StructuredData() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Accueil",
-                item: {
-                  "@type": "WebPage",
-                  "@id": "https://www.strataidge-fiduciaire.com/",
-                  url: "https://www.strataidge-fiduciaire.com/",
-                  name: "Strataidge Fiduciaire - Expert-comptable en Belgique",
-                },
+                item: "https://www.strataidge-fiduciaire.com/",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Vision",
-                item: {
-                  "@type": "WebPage",
-                  "@id": "https://www.strataidge-fiduciaire.com/#about",
-                  url: "https://www.strataidge-fiduciaire.com/#about",
-                  name: "Notre vision - Strataidge Fiduciaire",
-                },
+                item: "https://www.strataidge-fiduciaire.com/#about",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: "Solutions",
-                item: {
-                  "@type": "WebPage",
-                  "@id": "https://www.strataidge-fiduciaire.com/#services",
-                  url: "https://www.strataidge-fiduciaire.com/#services",
-                  name: "Nos solutions comptables et fiscales",
-                },
+                item: "https://www.strataidge-fiduciaire.com/#services",
               },
               {
                 "@type": "ListItem",
                 position: 4,
                 name: "Offres",
-                item: {
-                  "@type": "WebPage",
-                  "@id": "https://www.strataidge-fiduciaire.com/#offers",
-                  url: "https://www.strataidge-fiduciaire.com/#offers",
-                  name: "Nos offres de services",
-                },
+                item: "https://www.strataidge-fiduciaire.com/#offers",
               },
               {
                 "@type": "ListItem",
                 position: 5,
                 name: "Contact",
-                item: {
-                  "@type": "WebPage",
-                  "@id": "https://www.strataidge-fiduciaire.com/#contact",
-                  url: "https://www.strataidge-fiduciaire.com/#contact",
-                  name: "Contactez Strataidge Fiduciaire",
-                },
+                item: "https://www.strataidge-fiduciaire.com/#contact",
               },
             ],
           }),
@@ -269,6 +202,44 @@ export function StructuredData() {
             email: "contact@strataidge-fiduciaire.com",
             url: "https://www.strataidge-fiduciaire.com",
             sameAs: ["https://www.linkedin.com/company/strataidge", "https://www.instagram.com/strataidge"],
+          }),
+        }}
+      />
+
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "@id": "https://www.strataidge-fiduciaire.com/#faq",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Quels sont les services proposés par Strataidge Fiduciaire ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Strataidge Fiduciaire propose des services d'expertise comptable, conseil fiscal, stratégie d'entreprise, création et transmission d'entreprise, optimisation fiscale et accompagnement digital pour les PME et indépendants en Belgique.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Dans quelles régions Strataidge intervient-elle ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Strataidge Fiduciaire intervient principalement en Wallonie et à Bruxelles, avec des services pour toute la Belgique. Nous accompagnons les entreprises de Charleroi, Namur, Liège et dans toute la région wallonne.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Quels sont les tarifs des services comptables ?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Nos tarifs commencent à partir de 50€/mois pour l'offre Full Digital, 250€/mois pour l'offre Standard et 500€/mois pour l'offre Strataidge. Nous proposons également des services à la carte sur devis.",
+                },
+              },
+            ],
           }),
         }}
       />
