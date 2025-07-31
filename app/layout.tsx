@@ -86,7 +86,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.png", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "32x32" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -104,6 +103,7 @@ export const metadata: Metadata = {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "Strataidge", // Ajouter cette ligne
   },
   verification: {
     google: "your-google-verification-code",
@@ -125,14 +125,7 @@ export default function RootLayout({
     <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
       <head>
         <StructuredData />
-        {/* UN SEUL favicon SVG */}
-        <link rel="icon" href="/favicon.png" type="image/svg+xml" />
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
-        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-        <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
         {/* UNE SEULE déclaration apple-touch-icon */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
