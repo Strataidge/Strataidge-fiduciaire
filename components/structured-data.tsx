@@ -31,7 +31,9 @@ export function StructuredData() {
               "@type": "PostalAddress",
               addressCountry: "BE",
               addressRegion: "Wallonie",
-              addressLocality: "Belgique",
+              addressLocality: "Ham-sur-Heure",
+              postalCode: "6120",
+              streetAddress: "Rue Amérique 10",
             },
             contactPoint: {
               "@type": "ContactPoint",
@@ -45,7 +47,7 @@ export function StructuredData() {
             foundingDate: "2024",
             numberOfEmployees: {
               "@type": "QuantitativeValue",
-              value: "5-10",
+              value: 7,
             },
             slogan: "L'humain derrière les chiffres",
             knowsAbout: [
@@ -202,6 +204,18 @@ export function StructuredData() {
             email: "contact@strataidge-fiduciaire.com",
             url: "https://www.strataidge-fiduciaire.com",
             sameAs: ["https://www.linkedin.com/company/strataidge", "https://www.instagram.com/strataidge"],
+            address: {
+              "@type": "PostalAddress",
+              addressCountry: "BE",
+              addressRegion: "Wallonie",
+              addressLocality: "Ham-sur-Heure",
+              postalCode: "6120",
+              streetAddress: "Rue Amérique 10",
+            },
+            numberOfEmployees: {
+              "@type": "QuantitativeValue",
+              value: 7,
+            },
           }),
         }}
       />
