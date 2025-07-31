@@ -92,11 +92,15 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Type',
-            value: 'application/xml',
+            value: 'application/xml; charset=utf-8',
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=86400',
+            value: 'public, max-age=3600, s-maxage=3600',
+          },
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex',
           },
         ],
       },
