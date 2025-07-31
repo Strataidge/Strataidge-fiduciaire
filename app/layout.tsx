@@ -86,6 +86,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "32x32" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -103,7 +104,7 @@ export const metadata: Metadata = {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Strataidge", // Ajouter cette ligne
+    "apple-mobile-web-app-title": "Strataidge",
   },
   verification: {
     google: "your-google-verification-code",
@@ -125,7 +126,6 @@ export default function RootLayout({
     <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
       <head>
         <StructuredData />
-        {/* UNE SEULE déclaration apple-touch-icon */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
