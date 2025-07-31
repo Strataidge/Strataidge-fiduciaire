@@ -68,29 +68,6 @@ export default function StrataidgeLandingPageV2() {
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
       {/* Schema.org structured data for the page */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "@id": "https://www.strataidge-fiduciaire.com/#webpage",
-            url: "https://www.strataidge-fiduciaire.com",
-            name: "Strataidge Fiduciaire - Expert-comptable et Conseil Fiscal en Belgique",
-            description:
-              "Expert-comptable et conseil fiscal en Belgique. Accompagnement comptable, fiscal et stratégique pour PME, indépendants et entreprises en Wallonie et Bruxelles.",
-            isPartOf: {
-              "@id": "https://www.strataidge-fiduciaire.com/#website",
-            },
-            about: {
-              "@id": "https://www.strataidge-fiduciaire.com/#organization",
-            },
-            mainEntity: {
-              "@id": "https://www.strataidge-fiduciaire.com/#organization",
-            },
-          }),
-        }}
-      />
       <RecruitmentBanner
         isVisible={isBannerVisible}
         onClose={() => setIsBannerVisible(false)}

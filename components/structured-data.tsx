@@ -106,14 +106,14 @@ export function StructuredData() {
         }}
       />
 
-      {/* BreadcrumbList Schema - VERSION CORRIGÉE */}
+      {/* BreadcrumbList Schema - VERSION FINALE CORRIGÉE */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
-            "@id": "https://www.strataidge-fiduciaire.com/#breadcrumblist",
+            "@id": "https://www.strataidge-fiduciaire.com/#breadcrumb",
             itemListElement: [
               {
                 "@type": "ListItem",
