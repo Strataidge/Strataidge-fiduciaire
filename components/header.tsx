@@ -32,6 +32,27 @@ export function Header() {
     { name: "Contact", href: "#contact" },
   ]
 
+  // Gestion du bouton retour pour le menu mobile
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isMenuOpen) {
+        setIsMenuOpen(false)
+      }
+      if (isLoginOpen) {
+        setIsLoginOpen(false)
+      }
+    }
+
+    if (isMenuOpen || isLoginOpen) {
+      window.history.pushState({ modal: true }, "")
+      window.addEventListener("popstate", handlePopState)
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [isMenuOpen, isLoginOpen])
+
   const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoginSubmitting(true)

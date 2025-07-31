@@ -40,6 +40,24 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
   const inactivityTimerRef = useRef<NodeJS.Timeout>()
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // Gestion du bouton retour pour le chatbot
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isOpen && !isMinimized) {
+        closeChat()
+      }
+    }
+
+    if (isOpen && !isMinimized) {
+      window.history.pushState({ modal: true }, "")
+      window.addEventListener("popstate", handlePopState)
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [isOpen, isMinimized])
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
@@ -118,11 +136,18 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
     e.preventDefault()
     setIsDragging(true)
     setDragStartPosition({ x: e.clientX, y: e.clientY })
-    const rect = e.currentTarget.getBoundingClientRect()
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    })
+
+    const target = e.currentTarget as HTMLElement
+    if (target) {
+      const rect = target.getBoundingClientRect()
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      })
+    } else {
+      // Fallback si l'élément n'est pas disponible
+      setDragOffset({ x: 0, y: 0 })
+    }
   }
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -367,12 +392,21 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
     setTimeout(() => {
       setIsDragging(true)
       const touch = e.touches[0]
-      setDragStartPosition({ x: touch.clientX, y: touch.clientY })
-      const rect = e.currentTarget.getBoundingClientRect()
-      setDragOffset({
-        x: touch.clientX - rect.left,
-        y: touch.clientY - rect.top,
-      })
+      if (touch) {
+        setDragStartPosition({ x: touch.clientX, y: touch.clientY })
+
+        const target = e.currentTarget as HTMLElement
+        if (target) {
+          const rect = target.getBoundingClientRect()
+          setDragOffset({
+            x: touch.clientX - rect.left,
+            y: touch.clientY - rect.top,
+          })
+        } else {
+          // Fallback si l'élément n'est pas disponible
+          setDragOffset({ x: 0, y: 0 })
+        }
+      }
     }, 10)
   }
 

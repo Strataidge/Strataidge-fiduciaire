@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { CheckCircle, ArrowRight } from "lucide-react"
@@ -13,6 +13,24 @@ interface RecruitmentPopupProps {
 
 export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps) {
   const [view, setView] = useState<"details" | "form">("details")
+
+  // Gestion du bouton retour
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isOpen) {
+        onOpenChange(false)
+      }
+    }
+
+    if (isOpen) {
+      window.history.pushState({ modal: true }, "")
+      window.addEventListener("popstate", handlePopState)
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [isOpen, onOpenChange])
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
