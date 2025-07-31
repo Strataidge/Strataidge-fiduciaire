@@ -106,47 +106,51 @@ export function StructuredData() {
         }}
       />
 
-      {/* BreadcrumbList Schema - VERSION FINALE CORRIGÉE */}
+      {/* BreadcrumbList Schema - VERSION ULTRA SIMPLIFIÉE */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "@id": "https://www.strataidge-fiduciaire.com/#breadcrumb",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Accueil",
-                item: "https://www.strataidge-fiduciaire.com/",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Vision",
-                item: "https://www.strataidge-fiduciaire.com/#about",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: "Solutions",
-                item: "https://www.strataidge-fiduciaire.com/#services",
-              },
-              {
-                "@type": "ListItem",
-                position: 4,
-                name: "Offres",
-                item: "https://www.strataidge-fiduciaire.com/#offers",
-              },
-              {
-                "@type": "ListItem",
-                position: 5,
-                name: "Contact",
-                item: "https://www.strataidge-fiduciaire.com/#contact",
-              },
-            ],
-          }),
+          __html: JSON.stringify(
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "@id": "https://www.strataidge-fiduciaire.com/#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Accueil",
+                  item: "https://www.strataidge-fiduciaire.com/",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Vision",
+                  item: "https://www.strataidge-fiduciaire.com/#about",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: "Solutions",
+                  item: "https://www.strataidge-fiduciaire.com/#services",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 4,
+                  name: "Offres",
+                  item: "https://www.strataidge-fiduciaire.com/#offers",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 5,
+                  name: "Contact",
+                  item: "https://www.strataidge-fiduciaire.com/#contact",
+                },
+              ],
+            },
+            null,
+            0,
+          ),
         }}
       />
 
