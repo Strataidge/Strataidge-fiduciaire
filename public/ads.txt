@@ -1,0 +1,14 @@
+# ads.txt file for strataidge-fiduciaire.com
+# This file is used to authorize digital sellers for advertising inventory
+# Format: <FIELD #1>, <FIELD #2>, <FIELD #3>, <FIELD #4>
+# <FIELD #1>: Domain name of the advertising system
+# <FIELD #2>: Publisher's Account ID
+# <FIELD #3>: Type of Account/Relationship
+# <FIELD #4>: Certification Authority ID
+
+# Google AdSense (example - replace with your actual publisher ID)
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Add other advertising partners here as needed
+# facebook.com, 000000000000000, DIRECT, c3e20eee3f780d68
+# amazon-adsystem.com, 0000-0000-0000-0000, DIRECT, 78b21b5075a2d276

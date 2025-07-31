@@ -133,6 +133,43 @@ export default function RootLayout({
         <meta name="geo.placename" content="Belgique" />
         <meta name="geo.position" content="50.8503;4.3517" />
         <meta name="ICBM" content="50.8503, 4.3517" />
+
+        {/* Google Analytics - AJOUTÉ */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'GA_MEASUREMENT_ID');
+            `,
+          }}
+        />
+
+        {/* Social Media Integration - AJOUTÉ */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId: 'YOUR_FACEBOOK_APP_ID',
+                  cookie: true,
+                  xfbml: true,
+                  version: 'v18.0'
+                });
+              };
+              (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/fr_FR/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+            `,
+          }}
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
