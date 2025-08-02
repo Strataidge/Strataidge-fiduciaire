@@ -364,7 +364,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
     if (typeof window === "undefined") return { x: 0, y: 0 }
 
     const bubbleWidth = 200 // Estimation de la largeur de la bulle
-    const bubbleHeight = 50 // Estimation de la hauteur de la bulle
+    const bubbleHeight = 60 // Augmenté pour plus d'espace
     const iconSize = isMobile ? 48 : 64
 
     // Position par défaut : au-dessus et centrée par rapport au centre de Charlie
@@ -374,8 +374,6 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
     // Ajustements pour rester dans l'écran
     bubbleX = Math.max(10, Math.min(window.innerWidth - bubbleWidth - 10, bubbleX))
     bubbleY = Math.max(10, bubbleY) // Garder au minimum 10px du haut
-
-    // La bulle reste TOUJOURS au-dessus, pas de repositionnement en dessous
 
     return { x: bubbleX, y: bubbleY }
   }
@@ -468,7 +466,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
             initial={{ opacity: 0, scale: 0.8, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            className="fixed z-60 select-none"
+            className="fixed z-[60] select-none"
             style={{
               left: bubblePosition.x,
               top: bubblePosition.y,

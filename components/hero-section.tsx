@@ -38,10 +38,16 @@ export function HeroSection() {
     }
   }, [isMobile, isClient])
 
-  // URLs optimisées pour desktop uniquement
+  // URLs optimisées pour desktop et mobile
   const videoSources = {
-    webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
-    mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
+    desktop: {
+      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
+      mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
+    },
+    mobile: {
+      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_-_2_.webm",
+      mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com)%20(2).mp4",
+    },
   }
 
   // Déterminer la position de l'objet de manière sûre
@@ -81,7 +87,6 @@ export function HeroSection() {
           ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
           className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
@@ -98,20 +103,9 @@ export function HeroSection() {
             setVideoLoaded(true)
           }}
         >
-          {/* Sources pour mobile */}
-          {isMobile && (
-            <>
-              <source src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/mobile-video.webm" type="video/webm" />
-              <source src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/mobile-video.mp4" type="video/mp4" />
-            </>
-          )}
-          {/* Sources pour desktop */}
-          {!isMobile && (
-            <>
-              <source src={videoSources.webm} type="video/webm" />
-              <source src={videoSources.mp4} type="video/mp4" />
-            </>
-          )}
+          {/* Sources spécifiques pour mobile et desktop */}
+          <source src={isMobile ? videoSources.mobile.webm : videoSources.desktop.webm} type="video/webm" />
+          <source src={isMobile ? videoSources.mobile.mp4 : videoSources.desktop.mp4} type="video/mp4" />
           Votre navigateur ne supporte pas la vidéo.
         </video>
       )}
