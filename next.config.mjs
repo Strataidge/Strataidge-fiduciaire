@@ -24,9 +24,9 @@ const nextConfig = {
           },
         ],
       },
-      // Cache pour les images
+      // Cache pour les images PNG
       {
-        source: '/.*\\.(?:png|jpg|jpeg|gif|webp|avif|ico|svg)$',
+        source: '/:path*.png',
         headers: [
           {
             key: 'Cache-Control',
@@ -34,9 +34,9 @@ const nextConfig = {
           },
         ],
       },
-      // Cache pour les fonts
+      // Cache pour les images JPG
       {
-        source: '/.*\\.(?:woff|woff2|ttf|eot|otf)$',
+        source: '/:path*.jpg',
         headers: [
           {
             key: 'Cache-Control',
@@ -44,9 +44,129 @@ const nextConfig = {
           },
         ],
       },
-      // Cache pour les vidéos et PDFs
+      // Cache pour les images JPEG
       {
-        source: '/.*\\.(?:mp4|webm|pdf)$',
+        source: '/:path*.jpeg',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les images GIF
+      {
+        source: '/:path*.gif',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les images WebP
+      {
+        source: '/:path*.webp',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les images AVIF
+      {
+        source: '/:path*.avif',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les images SVG
+      {
+        source: '/:path*.svg',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts WOFF
+      {
+        source: '/:path*.woff',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts WOFF2
+      {
+        source: '/:path*.woff2',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts TTF
+      {
+        source: '/:path*.ttf',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts EOT
+      {
+        source: '/:path*.eot',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts OTF
+      {
+        source: '/:path*.otf',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les vidéos MP4
+      {
+        source: '/:path*.mp4',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les vidéos WebM
+      {
+        source: '/:path*.webm',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les PDFs
+      {
+        source: '/:path*.pdf',
         headers: [
           {
             key: 'Cache-Control',
