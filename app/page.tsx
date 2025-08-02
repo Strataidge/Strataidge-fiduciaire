@@ -491,7 +491,7 @@ function MethodologySection() {
 function BlogSection() {
   const blogPosts = [
     {
-      img: "/gouvernement_de_wever.jpg",
+      img: "/gouvernement-de-wever-2025.webp",
       category: "Fiscalité",
       title: "Réforme fiscale 2025 : ce que prévoit le nouveau gouvernement belge",
     },
