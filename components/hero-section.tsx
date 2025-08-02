@@ -10,8 +10,8 @@ import { SparkleAnimation } from "@/components/sparkle-animation"
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [showVideo, setShowVideo] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
 
   useEffect(() => {
     // Détecter si on est sur mobile
@@ -26,22 +26,15 @@ export function HeroSection() {
   }, [])
 
   useEffect(() => {
-    // Charge la vidéo après le rendu initial pour améliorer le LCP
-    // Seulement sur desktop pour économiser la bande passante mobile
-    if (!isMobile) {
-      const timer = setTimeout(() => {
-        setShowVideo(true)
-      }, 2000) // 2 secondes après le chargement initial
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 1.5
 
-      return () => clearTimeout(timer)
+      // Précharger la vidéo immédiatement sur desktop
+      if (!isMobile) {
+        videoRef.current.load()
+      }
     }
   }, [isMobile])
-
-  useEffect(() => {
-    if (videoRef.current && showVideo) {
-      videoRef.current.playbackRate = 1.5
-    }
-  }, [showVideo])
 
   // URLs optimisées pour desktop uniquement
   const videoSources = {
@@ -50,43 +43,51 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-strataidge-blue-night">
       {/* Image LCP statique - priorité maximale pour le chargement */}
       <Image
         src="/hero-lcp.webp"
         alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
         fill
         priority
-        quality={90}
+        quality={95}
         sizes="100vw"
         className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_20%] lg:object-[center_20%]"
         style={{
           objectFit: "cover",
-          objectPosition: "center 20%",
+          objectPosition: window?.innerWidth < 768 ? "70% 20%" : "center 20%",
+        }}
+        onLoad={() => {
+          // Dès que l'image est chargée, on peut commencer la vidéo sur desktop
+          if (!isMobile && videoRef.current) {
+            videoRef.current.play().catch(() => {
+              // Ignore les erreurs de lecture automatique
+            })
+          }
         }}
       />
 
-      {/* Vidéo seulement sur desktop et après 2 secondes */}
-      {showVideo && !isMobile && (
+      {/* Vidéo seulement sur desktop - chargement immédiat */}
+      {!isMobile && (
         <video
           ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          poster="/hero-lcp.webp"
-          preload="none"
-          className="absolute inset-0 w-full h-full object-cover z-[1] object-[center_20%] opacity-0 animate-fade-in"
+          preload="auto"
+          className={`absolute inset-0 w-full h-full object-cover z-[1] object-[center_20%] transition-opacity duration-1000 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
           style={{
-            animation: "fadeIn 1s ease-in-out forwards",
             objectFit: "cover",
             objectPosition: "center 20%",
           }}
+          onCanPlay={() => {
+            setVideoLoaded(true)
+          }}
           onLoadedData={() => {
-            // Transition douce de l'image vers la vidéo
-            if (videoRef.current) {
-              videoRef.current.style.opacity = "1"
-            }
+            setVideoLoaded(true)
           }}
         >
           {/* WebM pour les navigateurs modernes (meilleure compression) */}
@@ -138,17 +139,6 @@ export function HeroSection() {
           </Link>
         </motion.div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      `}</style>
     </section>
   )
 }
