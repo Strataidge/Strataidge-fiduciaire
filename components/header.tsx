@@ -134,7 +134,7 @@ export function Header() {
               <Image src="/logo.png" alt="Strataidge Fiduciaire & Conseils Logo" width={40} height={40} />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
+                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest my-[-4px]">
                   FIDUCIAIRE & CONSEILS
                 </span>
               </div>

@@ -10,7 +10,7 @@ const siteConfig = {
   description:
     "Strataidge Fiduciaire : expert-comptable et conseil fiscal en Belgique. Accompagnement comptable, fiscal et stratégique pour PME, indépendants et entreprises en Wallonie et Bruxelles.",
   url: "https://www.strataidge-fiduciaire.com",
-  ogImage: "https://www.strataidge-fiduciaire.com/hero-background.jpg",
+  ogImage: "https://www.strataidge-fiduciaire.com/og-image-strataidge.png",
 }
 
 export const metadata: Metadata = {
@@ -68,11 +68,11 @@ export const metadata: Metadata = {
     siteName: "Strataidge Fiduciaire & Conseils",
     images: [
       {
-        url: siteConfig.ogImage,
+        url: "https://www.strataidge-fiduciaire.com/og-image-strataidge.png",
         width: 1200,
         height: 630,
-        alt: "Strataidge Fiduciaire & Conseils - Expert-comptable en Belgique",
-        type: "image/jpeg",
+        alt: "Strataidge Fiduciaire & Conseils - L'humain derrière les chiffres - Expert-comptable en Belgique",
+        type: "image/png",
       },
     ],
   },
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
+    images: ["https://www.strataidge-fiduciaire.com/og-image-strataidge.png"],
     creator: "@strataidge",
     site: "@strataidge",
   },
