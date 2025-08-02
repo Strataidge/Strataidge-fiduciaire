@@ -496,27 +496,27 @@ function BlogSection() {
       title: "Réforme fiscale 2025 : ce que prévoit le nouveau gouvernement belge",
     },
     {
-      img: "/charges-sociales-pme.jpg",
+      img: "/charges-sociales-pme-new.webp",
       category: "Entreprise",
       title: "Charges sociales : nouvelles réductions ciblées pour les PME en 2025",
     },
     {
-      img: "/vue-de-dessus-femme-tapant-sur-ordinateur-portable.jpg",
+      img: "/facturation-electronique.webp",
       category: "Digitalisation",
       title: "Facturation électronique : les grands changements à venir",
     },
     {
-      img: "/piles-de-pieces-disposees-dans-un-graphique-a-barres.jpg",
+      img: "/fiscalite-verte.webp",
       category: "Fiscalité",
       title: "Fiscalité verte : les changements majeurs prévus en 2025",
     },
     {
-      img: "/des-couples-ages-discutent-de-finances-avec-une-tirelire.jpg",
+      img: "/reforme-des-pensions.webp",
       category: "Social",
       title: "Réforme des pensions 2025 : l'âge légal passe à 66 ans, bonus et conditions renforcées",
     },
     {
-      img: "/gens-d-affaires-travaillant-avec-des-documents-commerciaux-au-bureau.jpg",
+      img: "/ecosysteme-belge.webp",
       category: "Innovation",
       title: "L'écosystème belge des start‑ups en plein essor : technologie, santé et durabilité en tête",
     },
