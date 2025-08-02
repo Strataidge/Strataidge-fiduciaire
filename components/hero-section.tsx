@@ -64,13 +64,15 @@ export function HeroSection() {
         alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
         fill
         priority
-        quality={95}
+        quality={85}
         sizes="100vw"
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{
           objectFit: "cover",
           objectPosition: getObjectPosition(),
         }}
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
         onLoad={() => {
           // Dès que l'image est chargée, on peut commencer la vidéo sur desktop ET mobile
           if (videoRef.current && isClient) {
@@ -81,14 +83,15 @@ export function HeroSection() {
         }}
       />
 
-      {/* Vidéo pour desktop ET mobile - chargement immédiat */}
+      {/* Vidéo pour desktop ET mobile - chargement différé */}
       {isClient && (
         <video
           ref={videoRef}
           autoPlay
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/hero-lcp.webp"
           className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}

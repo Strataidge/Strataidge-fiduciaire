@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
+import Script from "next/script"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { StructuredData } from "@/components/structured-data"
@@ -142,29 +143,49 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          as="style"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+          media="print"
+        />
+
+        {/* Preload hero image for LCP optimization */}
+        <link rel="preload" as="image" href="/hero-lcp.webp" type="image/webp" fetchPriority="high" />
+
+        {/* Preload video poster */}
+        <link rel="preload" as="image" href="/hero-lcp.webp" type="image/webp" />
+
         <StructuredData />
 
+        {/* Optimized favicon loading */}
         <link rel="icon" type="image/svg+xml" href="/favicon-optimized.svg" />
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-
-        <link rel="preload" as="image" href={siteConfig.ogImage} type="image/jpeg" />
-        <link rel="preload" as="image" href={siteConfig.ogImageSquare} type="image/jpeg" />
-
+        {/* DNS prefetch for external domains */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
 
+        {/* Preconnect to critical domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href={siteConfig.ogImage} type="image/jpeg" />
+        <link rel="preload" as="image" href={siteConfig.ogImageSquare} type="image/jpeg" />
+
+        {/* Geographic meta tags */}
         <meta name="geo.region" content="BE-WAL" />
         <meta name="geo.placename" content="Ham-sur-Heure, Wallonie, Belgique" />
         <meta
@@ -176,40 +197,7 @@ export default function RootLayout({
           content={`${siteConfig.address.coordinates.latitude}, ${siteConfig.address.coordinates.longitude}`}
         />
 
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}`}></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            
-            gtag('consent', 'default', {
-              'analytics_storage': 'denied',
-              'ad_storage': 'denied',
-              'functionality_storage': 'granted',
-              'security_storage': 'granted'
-            });
-            
-            gtag('config', '${siteConfig.analytics.googleId}', {
-              page_title: document.title,
-              page_location: window.location.href,
-              anonymize_ip: true,
-              allow_google_signals: false,
-              allow_ad_personalization_signals: false,
-              cookie_flags: 'SameSite=None;Secure',
-              send_page_view: true
-            });
-            
-            window.enableAnalytics = function() {
-              gtag('consent', 'update', {
-                'analytics_storage': 'granted'
-              });
-            };
-          `,
-          }}
-        />
-
+        {/* Structured data for organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -413,6 +401,22 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* Load fonts asynchronously */}
+        <Script
+          id="load-fonts"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+                document.head.appendChild(link);
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <noscript>
@@ -456,6 +460,42 @@ export default function RootLayout({
           </div>
         </noscript>
         {children}
+
+        {/* Google Analytics - Load after main content */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied',
+              'functionality_storage': 'granted',
+              'security_storage': 'granted'
+            });
+            
+            gtag('config', '${siteConfig.analytics.googleId}', {
+              page_title: document.title,
+              page_location: window.location.href,
+              anonymize_ip: true,
+              allow_google_signals: false,
+              allow_ad_personalization_signals: false,
+              cookie_flags: 'SameSite=None;Secure',
+              send_page_view: true
+            });
+            
+            window.enableAnalytics = function() {
+              gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+              });
+            };
+          `}
+        </Script>
       </body>
     </html>
   )
