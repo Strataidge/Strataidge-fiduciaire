@@ -107,7 +107,7 @@ export const metadata: Metadata = {
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon-optimized.svg",
   },
   manifest: "/site.webmanifest",
@@ -156,6 +156,20 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+
+        {/* Icône Apple Touch optimisée - format unique 180x180 */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+        {/* Optimisations spécifiques iOS pour éviter le sablier */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Strataidge" />
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        {/* Préchargement critique pour iOS */}
+        <link rel="preload" as="image" href="/logo.png" type="image/png" />
+        <link rel="preload" as="image" href="/apple-touch-icon.png" type="image/png" />
+        <link rel="preload" as="image" href="/hero-lcp.webp" type="image/webp" />
 
         <link rel="preload" as="image" href={siteConfig.ogImage} type="image/jpeg" />
         <link rel="preload" as="image" href={siteConfig.ogImageSquare} type="image/jpeg" />

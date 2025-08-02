@@ -31,10 +31,21 @@ export function HeroSection() {
 
   useEffect(() => {
     if (videoRef.current && isClient) {
-      videoRef.current.playbackRate = 1.5
+      // Optimisation spécifique iOS pour éviter le sablier
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
 
-      // Précharger et lancer la vidéo sur desktop ET mobile
-      videoRef.current.load()
+      if (isIOS) {
+        // Sur iOS, on attend un peu plus avant de charger la vidéo
+        setTimeout(() => {
+          if (videoRef.current) {
+            videoRef.current.playbackRate = 1.5
+            videoRef.current.load()
+          }
+        }, 500)
+      } else {
+        videoRef.current.playbackRate = 1.5
+        videoRef.current.load()
+      }
     }
   }, [isMobile, isClient])
 
@@ -72,12 +83,17 @@ export function HeroSection() {
           objectPosition: getObjectPosition(),
         }}
         onLoad={() => {
-          // Dès que l'image est chargée, on peut commencer la vidéo sur desktop ET mobile
-          if (videoRef.current && isClient) {
-            videoRef.current.play().catch(() => {
-              // Ignore les erreurs de lecture automatique
-            })
-          }
+          // Optimisation iOS - délai plus court pour éviter le sablier
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+          const delay = isIOS ? 200 : 0
+
+          setTimeout(() => {
+            if (videoRef.current && isClient) {
+              videoRef.current.play().catch(() => {
+                // Ignore les erreurs de lecture automatique
+              })
+            }
+          }, delay)
         }}
       />
 
