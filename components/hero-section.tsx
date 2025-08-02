@@ -53,7 +53,7 @@ export function HeroSection() {
   // Déterminer la position de l'objet de manière sûre
   const getObjectPosition = () => {
     if (!isClient) return "center 20%" // Valeur par défaut pour SSR
-    return isMobile ? "70% 20%" : "center 20%"
+    return isMobile ? "60% 20%" : "center 20%" // Cadrage optimal entre les deux personnes
   }
 
   return (
