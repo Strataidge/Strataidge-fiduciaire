@@ -151,7 +151,7 @@ const nextConfig = {
       },
       // Headers optimisés pour les icônes Apple
       {
-        source: '/apple-touch-icon*.png',
+        source: '/apple-touch-icon.png',
         headers: [
           {
             key: 'Cache-Control',
