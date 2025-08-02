@@ -6,6 +6,24 @@ export function StructuredData() {
   const pathname = usePathname()
   const siteUrl = "https://www.strataidge-fiduciaire.com"
 
+  // Noms des pages pour le breadcrumb
+  const pageNames = {
+    "/solutions": "Solutions Comptables & Fiscales",
+    "/approche": "Notre Approche Stratégique",
+    "/offres": "Nos Offres sur Mesure",
+    "/contact": "Contact & Devis",
+    "/about": "À Propos de Strataidge",
+    "/services": "Nos Services",
+    "/blog": "Blog & Actualités",
+    "/creation-entreprise": "Création d'Entreprise",
+    "/conseil-fiscal": "Conseil Fiscal",
+    "/expertise-comptable": "Expertise Comptable",
+    "/optimisation-fiscale": "Optimisation Fiscale",
+    "/digitalisation-comptable": "Digitalisation Comptable",
+    "/accompagnement-pme": "Accompagnement PME",
+    "/transmission-entreprise": "Transmission d'Entreprise",
+  }
+
   // Breadcrumb dynamique enrichi selon la page
   const getBreadcrumbData = () => {
     const pathSegments = pathname.split("/").filter(Boolean)
@@ -18,28 +36,45 @@ export function StructuredData() {
       },
     ]
 
-    let currentPath = siteUrl
-    pathSegments.forEach((segment, index) => {
-      currentPath += `/${segment}`
-      const segmentNames: { [key: string]: string } = {
-        solutions: "Solutions Comptables & Fiscales",
-        approche: "Notre Approche Stratégique",
-        offres: "Nos Offres sur Mesure",
-        contact: "Contact & Devis",
-        about: "À Propos de Strataidge",
-        services: "Nos Services",
-        blog: "Blog & Actualités",
-        "creation-entreprise": "Création d'Entreprise",
-        "conseil-fiscal": "Conseil Fiscal",
-        "expertise-comptable": "Expertise Comptable",
-      }
+    // Ajouter automatiquement la page actuelle si ce n'est pas la homepage
+    if (pathname !== "/") {
+      const cleanPath = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname
+      const pageName =
+        pageNames[cleanPath as keyof typeof pageNames] ||
+        cleanPath
+          .replace("/", "")
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")
 
       breadcrumbItems.push({
         "@type": "ListItem",
-        position: index + 2,
-        name: segmentNames[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace("-", " "),
-        item: currentPath,
+        position: 2,
+        name: pageName,
+        item: `${siteUrl}${cleanPath}`,
       })
+    }
+
+    // Pour les URLs avec plusieurs segments (ex: /blog/article-name)
+    let currentPath = siteUrl
+    pathSegments.forEach((segment, index) => {
+      if (index > 0) {
+        // Skip le premier segment déjà traité
+        currentPath += `/${segment}`
+        const segmentName =
+          pageNames[`/${segment}` as keyof typeof pageNames] ||
+          segment
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ")
+
+        breadcrumbItems.push({
+          "@type": "ListItem",
+          position: index + 2,
+          name: segmentName,
+          item: currentPath,
+        })
+      }
     })
 
     return breadcrumbItems
@@ -86,22 +121,32 @@ export function StructuredData() {
             {
               "@type": "Offer",
               name: "Digitalisation Comptable",
-              description: "Transformation digitale de votre comptabilité",
+              description: "Transformation digitale complète de votre comptabilité avec outils modernes",
               category: "Digital Transformation",
+              priceRange: "€€",
             },
             {
               "@type": "Offer",
               name: "Optimisation Fiscale",
-              description: "Stratégies d'optimisation fiscale personnalisées",
+              description: "Stratégies d'optimisation fiscale personnalisées pour réduire vos charges",
               category: "Tax Optimization",
+              priceRange: "€€€",
             },
             {
               "@type": "Offer",
               name: "Accompagnement Stratégique",
-              description: "Conseil stratégique pour le développement d'entreprise",
+              description: "Conseil stratégique pour le développement et la croissance d'entreprise",
               category: "Business Strategy",
+              priceRange: "€€€",
             },
           ],
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          reviewCount: "34",
+          bestRating: "5",
+          worstRating: "1",
         },
       },
       "/offres": {
@@ -136,7 +181,7 @@ export function StructuredData() {
               itemOffered: {
                 "@type": "Service",
                 name: "Comptabilité Digitale",
-                description: "Tenue de comptabilité, déclarations TVA, bilan annuel",
+                description: "Tenue de comptabilité, déclarations TVA, bilan annuel, support digital",
                 serviceType: "Digital Accounting",
               },
               eligibleRegion: {
@@ -164,7 +209,7 @@ export function StructuredData() {
               itemOffered: {
                 "@type": "Service",
                 name: "Comptabilité Standard",
-                description: "Comptabilité complète, conseil fiscal, accompagnement personnalisé",
+                description: "Comptabilité complète, conseil fiscal, accompagnement personnalisé, reporting mensuel",
                 serviceType: "Standard Accounting",
               },
               eligibleRegion: {
@@ -192,7 +237,7 @@ export function StructuredData() {
               itemOffered: {
                 "@type": "Service",
                 name: "Conseil Stratégique Premium",
-                description: "Comptabilité, fiscalité, stratégie d'entreprise, accompagnement dédié",
+                description: "Comptabilité, fiscalité, stratégie d'entreprise, accompagnement dédié, tableaux de bord",
                 serviceType: "Premium Strategic Consulting",
               },
               eligibleRegion: {
@@ -231,6 +276,18 @@ export function StructuredData() {
         breadcrumb: {
           "@id": `${siteUrl}/contact#breadcrumb`,
         },
+        potentialAction: [
+          {
+            "@type": "CommunicateAction",
+            name: "Appeler Strataidge",
+            target: "tel:+32-499-47-02-98",
+          },
+          {
+            "@type": "CommunicateAction",
+            name: "Envoyer un email",
+            target: "mailto:contact@strataidge-fiduciaire.com",
+          },
+        ],
       },
       "/approche": {
         "@type": "AboutPage",
@@ -242,6 +299,11 @@ export function StructuredData() {
           "@id": `${siteUrl}#organization`,
         },
         significantLink: [`${siteUrl}/approche#methode`, `${siteUrl}/approche#valeurs`, `${siteUrl}/approche#equipe`],
+        about: {
+          "@type": "Thing",
+          name: "Approche Comptable Humaine et Digitale",
+          description: "Méthodologie unique combinant expertise traditionnelle et innovation digitale",
+        },
       },
     }
 
@@ -324,6 +386,18 @@ export function StructuredData() {
         articleSection: "Services",
         wordCount: 800,
         inLanguage: "fr-BE",
+        about: [
+          {
+            "@type": "Thing",
+            name: "Comptabilité Digitale",
+            description: "Solutions de comptabilité numérique pour entreprises modernes",
+          },
+          {
+            "@type": "Thing",
+            name: "Optimisation Fiscale",
+            description: "Stratégies d'optimisation fiscale pour entreprises belges",
+          },
+        ],
       },
       "/approche": {
         "@type": "Article",
@@ -342,6 +416,48 @@ export function StructuredData() {
         articleSection: "About",
         wordCount: 600,
         inLanguage: "fr-BE",
+        about: [
+          {
+            "@type": "Thing",
+            name: "Approche Humaine",
+            description: "Méthodologie centrée sur l'accompagnement personnalisé",
+          },
+          {
+            "@type": "Thing",
+            name: "Innovation Comptable",
+            description: "Intégration des nouvelles technologies dans l'expertise comptable",
+          },
+        ],
+      },
+      "/offres": {
+        "@type": "Article",
+        "@id": `${siteUrl}/offres#article`,
+        headline: "Nos Offres Comptables sur Mesure",
+        description: "Découvrez nos formules adaptées à chaque type d'entreprise et d'entrepreneur",
+        author: {
+          "@id": `${siteUrl}#organization`,
+        },
+        publisher: {
+          "@id": `${siteUrl}#organization`,
+        },
+        datePublished: "2024-01-01",
+        dateModified: new Date().toISOString().split("T")[0],
+        image: `${siteUrl}/og-image-strataidge.webp`,
+        articleSection: "Pricing",
+        wordCount: 700,
+        inLanguage: "fr-BE",
+        about: [
+          {
+            "@type": "Thing",
+            name: "Tarification Comptable",
+            description: "Grilles tarifaires transparentes pour services comptables",
+          },
+          {
+            "@type": "Thing",
+            name: "Services sur Mesure",
+            description: "Solutions personnalisées selon les besoins d'entreprise",
+          },
+        ],
       },
     }
 

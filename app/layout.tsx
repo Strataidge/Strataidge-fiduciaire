@@ -8,9 +8,10 @@ import { StructuredData } from "@/components/structured-data"
 const siteConfig = {
   name: "Fiduciaire Digitale et Humaine – Conseil Fiscal & Comptabilité",
   description:
-    "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire et impact durable.",
+    "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire.",
   url: "https://www.strataidge-fiduciaire.com",
   ogImage: "https://www.strataidge-fiduciaire.com/og-image-strataidge.webp",
+  ogImageSquare: "https://www.strataidge-fiduciaire.com/og-image-square.webp",
   address: {
     street: "Rue Amérique 10",
     city: "Ham-sur-Heure",
@@ -26,25 +27,73 @@ const siteConfig = {
     phone: "+32-499-47-02-98",
     email: "contact@strataidge-fiduciaire.com",
   },
+  analytics: {
+    googleId: "G-XXXXXXXXXX", // Remplacer par votre ID GA4 réel
+  },
 }
 
-// Descriptions spécifiques par page pour le SEO dynamique
+// Descriptions spécifiques par page pour le SEO dynamique (optimisées <155 caractères)
 const pageDescriptions = {
-  "/": "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire et impact durable.",
+  "/": "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire.",
   "/solutions":
-    "Des solutions humaines et digitales pour simplifier la comptabilité, optimiser la fiscalité et soutenir la croissance des entreprises et indépendants.",
+    "Solutions humaines et digitales pour simplifier la comptabilité, optimiser la fiscalité et soutenir la croissance des entreprises et indépendants.",
   "/approche":
-    "Une méthode unique qui allie expertise comptable, vision stratégique et outils digitaux pour accompagner les entreprises et indépendants à chaque étape.",
+    "Méthode unique alliant expertise comptable, vision stratégique et outils digitaux pour accompagner entreprises et indépendants à chaque étape.",
   "/offres":
-    "Formules flexibles et adaptées à chaque besoin : comptabilité, fiscalité et conseil stratégique pour indépendants, petites, moyennes et grandes entreprises.",
+    "Formules flexibles adaptées à chaque besoin : comptabilité, fiscalité et conseil stratégique pour indépendants, PME et grandes entreprises.",
   "/contact":
-    "Parlons de votre stratégie comptable et fiscale. Contactez Strataidge pour un accompagnement humain et digital adapté à votre entreprise et vos ambitions.",
+    "Parlons de votre stratégie comptable et fiscale. Contactez Strataidge pour un accompagnement humain et digital adapté à votre entreprise.",
+}
+
+// Noms des pages pour le breadcrumb
+const pageNames = {
+  "/solutions": "Solutions Comptables & Fiscales",
+  "/approche": "Notre Approche Stratégique",
+  "/offres": "Nos Offres sur Mesure",
+  "/contact": "Contact & Devis",
+  "/about": "À Propos de Strataidge",
+  "/services": "Nos Services",
+  "/blog": "Blog & Actualités",
+  "/creation-entreprise": "Création d'Entreprise",
+  "/conseil-fiscal": "Conseil Fiscal",
+  "/expertise-comptable": "Expertise Comptable",
 }
 
 export async function generateMetadata({ params }: { params: { slug?: string } }): Promise<Metadata> {
   const currentPath = params?.slug ? `/${params.slug}` : "/"
   const cleanPath = currentPath.endsWith("/") && currentPath !== "/" ? currentPath.slice(0, -1) : currentPath
   const pageDescription = pageDescriptions[cleanPath as keyof typeof pageDescriptions] || siteConfig.description
+
+  // Breadcrumb dynamique pour les métadonnées
+  const getBreadcrumbForMeta = () => {
+    const breadcrumbItems = [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: siteConfig.url,
+      },
+    ]
+
+    if (cleanPath !== "/") {
+      const pageName =
+        pageNames[cleanPath as keyof typeof pageNames] ||
+        cleanPath
+          .replace("/", "")
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")
+
+      breadcrumbItems.push({
+        "@type": "ListItem",
+        position: 2,
+        name: pageName,
+        item: `${siteConfig.url}${cleanPath}`,
+      })
+    }
+
+    return breadcrumbItems
+  }
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -95,6 +144,13 @@ export async function generateMetadata({ params }: { params: { slug?: string } }
           alt: "Strataidge Fiduciaire & Conseils - L'humain derrière les chiffres - Expert-comptable en Belgique",
           type: "image/webp",
         },
+        {
+          url: siteConfig.ogImageSquare,
+          width: 1200,
+          height: 1200,
+          alt: "Strataidge Fiduciaire & Conseils - Logo carré pour LinkedIn",
+          type: "image/webp",
+        },
       ],
     },
     twitter: {
@@ -127,6 +183,12 @@ export async function generateMetadata({ params }: { params: { slug?: string } }
       "apple-mobile-web-app-capable": "yes",
       "apple-mobile-web-app-status-bar-style": "black-translucent",
       "apple-mobile-web-app-title": "Strataidge",
+      // Breadcrumb pour les métadonnées
+      breadcrumb: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: getBreadcrumbForMeta(),
+      }),
     },
     verification: {
       google: "your-google-verification-code",
@@ -167,8 +229,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        {/* Préchargement de l'image OG WebP pour les performances */}
+        {/* Préchargement des images OG WebP pour les performances */}
         <link rel="preload" as="image" href={siteConfig.ogImage} type="image/webp" />
+        <link rel="preload" as="image" href={siteConfig.ogImageSquare} type="image/webp" />
 
         {/* DNS Prefetch optimisé */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
@@ -188,15 +251,24 @@ export default function RootLayout({
           content={`${siteConfig.address.coordinates.latitude}, ${siteConfig.address.coordinates.longitude}`}
         />
 
-        {/* Google Analytics GA4 - Optimisé avec respect RGPD */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        {/* Google Analytics GA4 - Optimisé avec RGPD et consentement */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}`}></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX', {
+              
+              // Configuration RGPD par défaut - analytics désactivé
+              gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied',
+                'functionality_storage': 'granted',
+                'security_storage': 'granted'
+              });
+              
+              gtag('config', '${siteConfig.analytics.googleId}', {
                 page_title: document.title,
                 page_location: window.location.href,
                 anonymize_ip: true,
@@ -205,11 +277,18 @@ export default function RootLayout({
                 cookie_flags: 'SameSite=None;Secure',
                 send_page_view: true
               });
+              
+              // Fonction pour activer le tracking après consentement
+              window.enableAnalytics = function() {
+                gtag('consent', 'update', {
+                  'analytics_storage': 'granted'
+                });
+              };
             `,
           }}
         />
 
-        {/* Structured Data enrichi avec IDs cohérents et BreadcrumbList */}
+        {/* Structured Data enrichi avec IDs cohérents et BreadcrumbList dynamique */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -408,18 +487,6 @@ export default function RootLayout({
                   copyrightHolder: {
                     "@id": `${siteConfig.url}#organization`,
                   },
-                },
-                {
-                  "@type": "BreadcrumbList",
-                  "@id": `${siteConfig.url}#breadcrumb`,
-                  itemListElement: [
-                    {
-                      "@type": "ListItem",
-                      position: 1,
-                      name: "Accueil",
-                      item: siteConfig.url,
-                    },
-                  ],
                 },
               ],
             }),

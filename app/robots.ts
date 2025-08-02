@@ -1,25 +1,37 @@
 import type { MetadataRoute } from "next"
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = "https://www.strataidge-fiduciaire.com"
+
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/admin/", "/private/", "/404", "/500", "/_error"],
+        disallow: ["/api/", "/admin/", "/private/", "/_next/", "/static/", "*.json", "/search"],
       },
       {
-        userAgent: "Googlebot",
-        allow: "/",
-        crawlDelay: 1,
+        userAgent: "GPTBot",
+        disallow: "/",
       },
       {
-        userAgent: "Bingbot",
-        allow: "/",
-        crawlDelay: 1,
+        userAgent: "ChatGPT-User",
+        disallow: "/",
+      },
+      {
+        userAgent: "CCBot",
+        disallow: "/",
+      },
+      {
+        userAgent: "anthropic-ai",
+        disallow: "/",
+      },
+      {
+        userAgent: "Claude-Web",
+        disallow: "/",
       },
     ],
-    sitemap: "https://www.strataidge-fiduciaire.com/sitemap.xml",
-    host: "https://www.strataidge-fiduciaire.com",
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   }
 }
