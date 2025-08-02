@@ -23,14 +23,19 @@ export function HeroSection() {
         autoPlay
         muted
         playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_50%] lg:object-center"
+        poster="/hero-poster.webp"
+        preload="metadata"
+        className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_20%] lg:object-[center_20%]"
       >
+        <source
+          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720.webm"
+          type="video/webm"
+        />
         <source
           src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_3840x2160.mp4"
           type="video/mp4"
         />
-        Votre navigateur ne supporte pas la balise vidéo.
+        Votre navigateur ne supporte pas la vidéo.
       </video>
       <SparkleAnimation />
       <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90" />
