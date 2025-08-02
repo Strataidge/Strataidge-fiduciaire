@@ -707,13 +707,10 @@ function OffersSection() {
       amount: "",
       description: "Des services ponctuels pour vos besoins spécifiques.",
       features: [
-        "Rendez-vous conseils (comptable, financier, stratégique et fiscale)",
-        "Recherche et montage de crédits professionnels",
-        "Assistance en cas de contrôle fiscal",
-        "Optimisations fiscales ou comptables ciblées",
-        "Élaboration de business plans ou plans stratégiques",
-        "Audit et diagnostic d'entreprise (risques, opportunités, procédures)",
-        "Mise en place de l'internalisation de la comptabilité (diagnostic, écolage, etc.)",
+        "Rendez-vous conseils spécialisés",
+        "Montage de dossiers de crédit",
+        "Assistance contrôle fiscal",
+        "Business plans et audits",
       ],
     },
     {
@@ -723,10 +720,12 @@ function OffersSection() {
       description:
         "De l'idée au lancement officiel : un accompagnement clé en main pour créer votre société sereinement.",
       features: [
-        "Analyse et validation du projet",
-        "Rédaction et accompagnement du business plan",
-        "Choix de la forme juridique et fiscalité adaptée",
-        "Préparation et coordination avec le notaire",
+        "Analyse et validation complète du projet d'entreprise",
+        "Rédaction du business plan et prévisions financières",
+        "Choix optimal de la forme juridique et fiscalité",
+        "Coordination complète des démarches notariales et administratives",
+        "Formation aux obligations comptables et fiscales",
+        "Suivi post-création et conseils d'optimisation",
       ],
       fullDetails: {
         included: {
@@ -1057,6 +1056,294 @@ function OffersSection() {
       </Dialog>
 
       {/* Les autres dialogs continuent de la même manière... */}
+      {/* Dialog Standard */}
+      <Dialog open={isStandardDetailsOpen} onOpenChange={setIsStandardDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 text-left">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Standard - L'équilibre parfait
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Entre autonomie digitale et accompagnement humain personnalisé.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                <div>
+                  <h4 className="font-bold text-lg text-white mb-3">Inclus dans l'offre :</h4>
+                  <ul className="space-y-2">
+                    {plans[1].features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                        <span className="text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg text-white mb-3">Non inclus :</h4>
+                  <ul className="space-y-2">
+                    {plans[1].notIncluded?.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <X className="h-5 w-5 text-gray-400 mr-3 mt-1 flex-shrink-0" />
+                        <span className="text-gray-400">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <InternalisationSection />
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={() => setIsStandardDetailsOpen(false)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  onClick={() => {
+                    setIsStandardDetailsOpen(false)
+                    handleSelectPlan("Standard")
+                  }}
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  Demander cette offre
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog Strataidge */}
+      <Dialog open={isStrataidgeDetailsOpen} onOpenChange={setIsStrataidgeDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 text-left">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Strataidge - Transformation stratégique
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Une immersion complète pour transformer votre business.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                <div>
+                  <h4 className="font-bold text-lg text-white mb-3">Inclus dans l'offre :</h4>
+                  <ul className="space-y-2">
+                    {plans[2].features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                        <span className="text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg text-white mb-3">À noter :</h4>
+                  <ul className="space-y-2">
+                    {plans[2].notIncluded?.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <X className="h-5 w-5 text-gray-400 mr-3 mt-1 flex-shrink-0" />
+                        <span className="text-gray-400">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={() => setIsStrataidgeDetailsOpen(false)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  onClick={() => {
+                    setIsStrataidgeDetailsOpen(false)
+                    handleSelectPlan("Strataidge")
+                  }}
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  Demander cette offre
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog À la carte */}
+      <Dialog open={isCarteDetailsOpen} onOpenChange={setIsCarteDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 text-left">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  À la carte - Services ponctuels
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Des services spécialisés pour vos besoins spécifiques.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                <div>
+                  <h4 className="font-bold text-lg text-white mb-3">Services disponibles :</h4>
+                  <ul className="space-y-2">
+                    {plans[3].features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
+                        <span className="text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="bg-strataidge-turquoise/10 p-4 rounded-lg border border-strataidge-turquoise/20">
+                  <h4 className="font-bold text-white mb-2">Tarification flexible</h4>
+                  <p className="text-gray-300 text-sm">
+                    Chaque service est facturé selon sa complexité et le temps nécessaire. Nous établissons un devis
+                    personnalisé après analyse de votre demande.
+                  </p>
+                </div>
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={() => setIsCarteDetailsOpen(false)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  onClick={openCarteRequest}
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  Demander un devis
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog Création d'entreprise */}
+      <Dialog open={isCreationDetailsOpen} onOpenChange={setIsCreationDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-4xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 text-left">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Création d'entreprise - Accompagnement complet
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  De l'idée au lancement : un accompagnement clé en main.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                {creationPlan?.fullDetails && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {Object.entries(creationPlan.fullDetails.included).map(([key, section]) => (
+                      <div key={key} className="bg-white/5 p-4 rounded-lg">
+                        <h4 className="font-bold text-white mb-3 flex items-center">
+                          <section.icon className="h-5 w-5 text-strataidge-turquoise mr-2" />
+                          {section.title}
+                        </h4>
+                        <ul className="space-y-1">
+                          {section.items.map((item, index) => (
+                            <li key={index} className="text-sm text-gray-300 flex items-start">
+                              <span className="text-strataidge-turquoise mr-2">•</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={() => setIsCreationDetailsOpen(false)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  onClick={openCreationRequest}
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  Demander un devis
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog Transmission & Acquisition */}
+      <Dialog open={isTransmissionDetailsOpen} onOpenChange={setIsTransmissionDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-4xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 text-left">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Transmission & Acquisition
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Accompagnement stratégique pour vendre, transmettre ou acquérir une entreprise.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                {transmissionPlan?.fullDetails && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {Object.entries(transmissionPlan.fullDetails.included).map(([key, section]) => (
+                      <div key={key} className="bg-white/5 p-4 rounded-lg">
+                        <h4 className="font-bold text-white mb-3 flex items-center">
+                          <section.icon className="h-5 w-5 text-strataidge-turquoise mr-2" />
+                          {section.title}
+                        </h4>
+                        <ul className="space-y-1">
+                          {section.items.map((item, index) => (
+                            <li key={index} className="text-sm text-gray-300 flex items-start">
+                              <span className="text-strataidge-turquoise mr-2">•</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={() => setIsTransmissionDetailsOpen(false)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  onClick={openTransmissionRequest}
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  Demander un devis
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

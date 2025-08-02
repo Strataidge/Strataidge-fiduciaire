@@ -53,8 +53,8 @@ function ModernOfferCard({ plan, onPlanSelect }: { plan: any; onPlanSelect: (pla
           </ul>
         </div>
 
-        {/* Spacer pour pousser les boutons vers le bas de manière uniforme */}
-        <div className="flex-1"></div>
+        {/* Espacement avant les boutons */}
+        <div className="mt-auto"></div>
 
         {/* Button section - hauteur fixe en bas */}
         <div className="h-[60px] flex flex-col justify-end">

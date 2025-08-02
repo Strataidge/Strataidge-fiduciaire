@@ -86,18 +86,20 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "32x32" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      // Prioriser le nouveau favicon SVG optimisé
+      { url: "/favicon-optimized.svg", type: "image/svg+xml" },
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon-optimized.svg", // Utiliser le nouveau SVG optimisé
   },
   manifest: "/site.webmanifest",
   other: {
-    "msapplication-TileImage": "/favicon-48x48.png",
+    "msapplication-TileImage": "/favicon-96x96.png",
     "msapplication-TileColor": "#0A192F",
     "theme-color": "#00C9A7",
     "format-detection": "telephone=no",
@@ -126,6 +128,14 @@ export default function RootLayout({
     <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
       <head>
         <StructuredData />
+
+        {/* Favicon optimisé pour Google - Ajout explicite */}
+        <link rel="icon" type="image/svg+xml" href="/favicon-optimized.svg" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
