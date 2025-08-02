@@ -14,7 +14,7 @@ const nextConfig = {
   // Configuration des headers pour le cache
   async headers() {
     return [
-      // Cache long pour les assets statiques
+      // Cache long pour les assets statiques - favicon
       {
         source: '/favicon.ico',
         headers: [
@@ -24,8 +24,29 @@ const nextConfig = {
           },
         ],
       },
+      // Cache pour les images
       {
-        source: '/(.*\\.(png|jpg|jpeg|gif|webp|avif|ico|svg|woff|woff2|ttf|eot|otf|mp4|webm|pdf))$',
+        source: '/.*\\.(?:png|jpg|jpeg|gif|webp|avif|ico|svg)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts
+      {
+        source: '/.*\\.(?:woff|woff2|ttf|eot|otf)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les vidéos et PDFs
+      {
+        source: '/.*\\.(?:mp4|webm|pdf)$',
         headers: [
           {
             key: 'Cache-Control',
@@ -35,7 +56,7 @@ const nextConfig = {
       },
       // Cache pour les chunks JS/CSS de Next.js
       {
-        source: '/_next/static/(.*)',
+        source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',
@@ -43,9 +64,9 @@ const nextConfig = {
           },
         ],
       },
-      // Headers de sécurité et performance
+      // Headers de sécurité et performance pour toutes les pages
       {
-        source: '/(.*)',
+        source: '/:path*',
         headers: [
           {
             key: 'X-DNS-Prefetch-Control',
