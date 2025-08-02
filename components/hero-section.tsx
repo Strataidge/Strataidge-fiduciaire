@@ -15,64 +15,67 @@ export function HeroSection() {
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
-    // Marquer que nous sommes côté client
     setIsClient(true)
-
-    // Détecter si on est sur mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
     checkMobile()
     window.addEventListener("resize", checkMobile)
-
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
   useEffect(() => {
     if (videoRef.current && isClient) {
-      // Optimisation spécifique iOS pour éviter le sablier
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+      const video = videoRef.current
 
-      if (isIOS) {
-        // Sur iOS, on attend un peu plus avant de charger la vidéo
-        setTimeout(() => {
-          if (videoRef.current) {
-            videoRef.current.playbackRate = 1.5
-            videoRef.current.load()
-          }
-        }, 500)
-      } else {
-        videoRef.current.playbackRate = 1.5
-        videoRef.current.load()
+      // Précharger immédiatement la vidéo
+      video.preload = "auto"
+      video.playbackRate = 1.5
+
+      // Commencer le chargement immédiatement
+      video.load()
+
+      // Essayer de jouer dès que possible
+      const playVideo = () => {
+        video.play().catch(() => {
+          // Ignore les erreurs de lecture automatique
+        })
+      }
+
+      // Jouer dès que les métadonnées sont chargées
+      video.addEventListener("loadedmetadata", playVideo)
+      video.addEventListener("canplay", playVideo)
+
+      return () => {
+        video.removeEventListener("loadedmetadata", playVideo)
+        video.removeEventListener("canplay", playVideo)
       }
     }
-  }, [isMobile, isClient])
+  }, [isClient, isMobile])
 
   // URLs optimisées pour desktop et mobile
   const videoSources = {
     desktop: {
-      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
       mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
+      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
     },
     mobile: {
-      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_-_2_.webm",
       mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com)%20(2).mp4",
+      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_-_2_.webm",
     },
   }
 
-  // Déterminer la position de l'objet de manière sûre
   const getObjectPosition = () => {
-    if (!isClient) return "center 20%" // Valeur par défaut pour SSR
-    return isMobile ? "60% 20%" : "center 20%" // Cadrage optimal entre les deux personnes
+    if (!isClient) return "center 20%"
+    return isMobile ? "60% 20%" : "center 20%"
   }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-strataidge-blue-night">
-      {/* Fond de couleur uniforme pendant le chargement */}
+      {/* Fond de couleur uniforme */}
       <div className="absolute inset-0 bg-strataidge-blue-night z-0" />
 
-      {/* Image LCP statique - priorité maximale pour le chargement */}
+      {/* Image LCP statique */}
       <Image
         src="/hero-lcp.webp"
         alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
@@ -84,80 +87,41 @@ export function HeroSection() {
         style={{
           objectFit: "cover",
           objectPosition: getObjectPosition(),
-          backgroundColor: "#0A192F", // Couleur de fond pendant le chargement
-        }}
-        onLoad={() => {
-          // Optimisation iOS - délai plus court pour éviter le sablier
-          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
-          const delay = isIOS ? 200 : 0
-
-          setTimeout(() => {
-            if (videoRef.current && isClient) {
-              videoRef.current.play().catch(() => {
-                // Ignore les erreurs de lecture automatique
-              })
-            }
-          }, delay)
+          backgroundColor: "#0A192F",
         }}
         onError={() => {
-          // Fallback si l'image WebP ne se charge pas sur iOS
           console.log("Erreur de chargement de l'image hero-lcp.webp")
         }}
-        unoptimized={false}
       />
 
-      {/* Image de fallback pour iOS si WebP ne fonctionne pas */}
-      <Image
-        src="/vision-team-collaboration.webp"
-        alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
-        fill
-        priority={false}
-        quality={90}
-        sizes="100vw"
-        className="absolute inset-0 w-full h-full object-cover z-[1] opacity-0"
-        style={{
-          objectFit: "cover",
-          objectPosition: getObjectPosition(),
-          backgroundColor: "#0A192F", // Couleur de fond pendant le chargement
-        }}
-        onLoad={(e) => {
-          // Afficher cette image si la première ne se charge pas
-          const img = e.target as HTMLImageElement
-          const heroImg = img.parentElement?.querySelector('img[src*="hero-lcp"]') as HTMLImageElement
-          if (heroImg && heroImg.complete && heroImg.naturalWidth === 0) {
-            img.style.opacity = "1"
-            heroImg.style.display = "none"
-          }
-        }}
-      />
-
-      {/* Vidéo pour desktop ET mobile - chargement immédiat */}
+      {/* Vidéo avec préchargement optimisé */}
       {isClient && (
         <video
           ref={videoRef}
           autoPlay
           muted
+          loop
           playsInline
           preload="auto"
           poster="/hero-lcp.webp"
-          className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-500 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{
             objectFit: "cover",
             objectPosition: getObjectPosition(),
-            backgroundColor: "#0A192F", // Couleur de fond pendant le chargement
-          }}
-          onCanPlay={() => {
-            setVideoLoaded(true)
+            backgroundColor: "#0A192F",
           }}
           onLoadedData={() => {
             setVideoLoaded(true)
           }}
+          onCanPlay={() => {
+            setVideoLoaded(true)
+          }}
         >
-          {/* Sources spécifiques pour mobile et desktop */}
-          <source src={isMobile ? videoSources.mobile.webm : videoSources.desktop.webm} type="video/webm" />
+          {/* MP4 en premier pour une meilleure compatibilité */}
           <source src={isMobile ? videoSources.mobile.mp4 : videoSources.desktop.mp4} type="video/mp4" />
+          <source src={isMobile ? videoSources.mobile.webm : videoSources.desktop.webm} type="video/webm" />
           Votre navigateur ne supporte pas la vidéo.
         </video>
       )}

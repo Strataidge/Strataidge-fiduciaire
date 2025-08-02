@@ -100,34 +100,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon-optimized.svg", type: "image/svg+xml" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon-optimized.svg",
+    shortcut: "/favicon-32x32.png",
   },
   manifest: "/site.webmanifest",
   other: {
-    "msapplication-TileImage": "/favicon-96x96.png",
-    "msapplication-TileColor": "#0A192F",
     "theme-color": "#00C9A7",
-    "format-detection": "telephone=no",
-    "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "apple-mobile-web-app-title": "Strataidge",
-  },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-    yahoo: "your-yahoo-verification-code",
-    other: {
-      "msvalidate.01": "your-bing-verification-code",
-    },
   },
     generator: 'v0.dev'
 }
@@ -144,26 +128,26 @@ export default function RootLayout({
 
         <StructuredData />
 
-        {/* Favicons optimisés */}
-        <link rel="icon" type="image/svg+xml" href="/favicon-optimized.svg" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        {/* Favicons simplifiés - SUPPRIMER les conflits */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-        {/* Apple Touch Icon optimisé - FORCER la taille 180x180 */}
+        {/* Apple Touch Icon - SEULE DÉCLARATION */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-        {/* Meta tags spécifiques iOS pour forcer l'utilisation de la bonne icône */}
+        {/* Meta tags iOS optimisés */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Strataidge" />
-        <meta name="mobile-web-app-capable" content="yes" />
 
-        {/* Préchargement critique pour iOS */}
+        {/* Préchargement critique - VIDÉO EN PRIORITÉ pour éviter le sablier */}
+        <link
+          rel="preload"
+          as="video"
+          href="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4"
+          type="video/mp4"
+        />
         <link rel="preload" as="image" href="/apple-touch-icon.png" type="image/png" />
-        <link rel="preload" as="image" href="/logo.png" type="image/png" />
         <link rel="preload" as="image" href="/hero-lcp.webp" type="image/webp" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -173,23 +157,15 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        <link rel="preload" as="image" href={siteConfig.ogImage} type="image/jpeg" />
-        <link rel="preload" as="image" href={siteConfig.ogImageSquare} type="image/jpeg" />
-
+        <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
         <meta name="geo.region" content="BE-WAL" />
         <meta name="geo.placename" content="Ham-sur-Heure, Wallonie, Belgique" />
         <meta
           name="geo.position"
           content={`${siteConfig.address.coordinates.latitude};${siteConfig.address.coordinates.longitude}`}
-        />
-        <meta
-          name="ICBM"
-          content={`${siteConfig.address.coordinates.latitude}, ${siteConfig.address.coordinates.longitude}`}
         />
 
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}`}></script>
