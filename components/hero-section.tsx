@@ -12,8 +12,12 @@ export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    // Marquer que nous sommes côté client
+    setIsClient(true)
+
     // Détecter si on est sur mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
@@ -26,7 +30,7 @@ export function HeroSection() {
   }, [])
 
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoRef.current && isClient) {
       videoRef.current.playbackRate = 1.5
 
       // Précharger la vidéo immédiatement sur desktop
@@ -34,12 +38,18 @@ export function HeroSection() {
         videoRef.current.load()
       }
     }
-  }, [isMobile])
+  }, [isMobile, isClient])
 
   // URLs optimisées pour desktop uniquement
   const videoSources = {
     webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
     mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
+  }
+
+  // Déterminer la position de l'objet de manière sûre
+  const getObjectPosition = () => {
+    if (!isClient) return "center 20%" // Valeur par défaut pour SSR
+    return isMobile ? "70% 20%" : "center 20%"
   }
 
   return (
@@ -52,14 +62,14 @@ export function HeroSection() {
         priority
         quality={95}
         sizes="100vw"
-        className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_20%] lg:object-[center_20%]"
+        className="absolute inset-0 w-full h-full object-cover z-0"
         style={{
           objectFit: "cover",
-          objectPosition: window?.innerWidth < 768 ? "70% 20%" : "center 20%",
+          objectPosition: getObjectPosition(),
         }}
         onLoad={() => {
           // Dès que l'image est chargée, on peut commencer la vidéo sur desktop
-          if (!isMobile && videoRef.current) {
+          if (!isMobile && videoRef.current && isClient) {
             videoRef.current.play().catch(() => {
               // Ignore les erreurs de lecture automatique
             })
@@ -68,7 +78,7 @@ export function HeroSection() {
       />
 
       {/* Vidéo seulement sur desktop - chargement immédiat */}
-      {!isMobile && (
+      {!isMobile && isClient && (
         <video
           ref={videoRef}
           autoPlay
@@ -76,7 +86,7 @@ export function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className={`absolute inset-0 w-full h-full object-cover z-[1] object-[center_20%] transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{
