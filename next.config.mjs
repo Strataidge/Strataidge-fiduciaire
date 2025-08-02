@@ -58,7 +58,7 @@ const nextConfig = {
     ]
   },
 
-  // Headers pour SEO et sécurité
+  // Headers pour SEO, sécurité et cache optimisé
   async headers() {
     return [
       {
@@ -84,6 +84,38 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+          },
+        ],
+      },
+      // Cache optimisé pour les images et vidéos
+      {
+        source: '/hero-lcp.webp',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'Content-Type',
+            value: 'image/webp',
+          },
+        ],
+      },
+      {
+        source: '/:path*.(webp|jpg|jpeg|png|gif|ico|svg)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:path*.(mp4|webm|mov)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
@@ -126,7 +158,8 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 jours
-    unoptimized: true,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Optimisation du bundle

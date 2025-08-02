@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,6 +10,7 @@ import { SparkleAnimation } from "@/components/sparkle-animation"
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [showVideo, setShowVideo] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -24,54 +26,84 @@ export function HeroSection() {
   }, [])
 
   useEffect(() => {
-    if (videoRef.current) {
+    // Charge la vidéo après le rendu initial pour améliorer le LCP
+    // Seulement sur desktop pour économiser la bande passante mobile
+    if (!isMobile) {
+      const timer = setTimeout(() => {
+        setShowVideo(true)
+      }, 2000) // 2 secondes après le chargement initial
+
+      return () => clearTimeout(timer)
+    }
+  }, [isMobile])
+
+  useEffect(() => {
+    if (videoRef.current && showVideo) {
       videoRef.current.playbackRate = 1.5
     }
-  }, [])
+  }, [showVideo])
 
-  // URLs optimisées selon l'appareil
+  // URLs optimisées pour desktop uniquement
   const videoSources = {
-    mobile: {
-      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_-_2_.webm",
-      mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com)%20(2).mp4",
-    },
-    desktop: {
-      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
-      mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
-    },
+    webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
+    mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
   }
-
-  const currentSources = isMobile ? videoSources.mobile : videoSources.desktop
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        poster="/hero-poster.webp"
-        preload="metadata"
+      {/* Image LCP statique - priorité maximale pour le chargement */}
+      <Image
+        src="/hero-lcp.webp"
+        alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
+        fill
+        priority
+        quality={90}
+        sizes="100vw"
         className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_20%] lg:object-[center_20%]"
-        key={isMobile ? "mobile" : "desktop"} // Force re-render when device changes
-      >
-        {/* WebM pour les navigateurs modernes (meilleure compression) */}
-        <source
-          src={currentSources.webm}
-          type="video/webm"
-          media={isMobile ? "(max-width: 767px)" : "(min-width: 768px)"}
-        />
-        {/* MP4 pour Safari et fallback */}
-        <source
-          src={currentSources.mp4}
-          type="video/mp4"
-          media={isMobile ? "(max-width: 767px)" : "(min-width: 768px)"}
-        />
-        Votre navigateur ne supporte pas la vidéo.
-      </video>
-      <SparkleAnimation />
-      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90" />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+        style={{
+          objectFit: "cover",
+          objectPosition: "center 20%",
+        }}
+      />
+
+      {/* Vidéo seulement sur desktop et après 2 secondes */}
+      {showVideo && !isMobile && (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/hero-lcp.webp"
+          preload="none"
+          className="absolute inset-0 w-full h-full object-cover z-[1] object-[center_20%] opacity-0 animate-fade-in"
+          style={{
+            animation: "fadeIn 1s ease-in-out forwards",
+            objectFit: "cover",
+            objectPosition: "center 20%",
+          }}
+          onLoadedData={() => {
+            // Transition douce de l'image vers la vidéo
+            if (videoRef.current) {
+              videoRef.current.style.opacity = "1"
+            }
+          }}
+        >
+          {/* WebM pour les navigateurs modernes (meilleure compression) */}
+          <source src={videoSources.webm} type="video/webm" />
+          {/* MP4 pour Safari et fallback */}
+          <source src={videoSources.mp4} type="video/mp4" />
+          Votre navigateur ne supporte pas la vidéo.
+        </video>
+      )}
+
+      <SparkleAnimation className="z-[2]" />
+
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[3]" />
+
+      {/* Contenu principal */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-[4] relative">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -106,6 +138,17 @@ export function HeroSection() {
           </Link>
         </motion.div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </section>
   )
 }
