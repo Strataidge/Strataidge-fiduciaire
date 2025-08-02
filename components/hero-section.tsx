@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
@@ -9,12 +9,39 @@ import { SparkleAnimation } from "@/components/sparkle-animation"
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    // Détecter si on est sur mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 1.5
     }
   }, [])
+
+  // URLs optimisées selon l'appareil
+  const videoSources = {
+    mobile: {
+      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_-_2_.webm",
+      mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com)%20(2).mp4",
+    },
+    desktop: {
+      webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720-_1_-_online-video-cutter.com_.webm",
+      mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
+    },
+  }
+
+  const currentSources = isMobile ? videoSources.mobile : videoSources.desktop
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -26,14 +53,19 @@ export function HeroSection() {
         poster="/hero-poster.webp"
         preload="metadata"
         className="absolute inset-0 w-full h-full object-cover z-0 object-[70%_20%] lg:object-[center_20%]"
+        key={isMobile ? "mobile" : "desktop"} // Force re-render when device changes
       >
+        {/* WebM pour les navigateurs modernes (meilleure compression) */}
         <source
-          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720.webm"
+          src={currentSources.webm}
           type="video/webm"
+          media={isMobile ? "(max-width: 767px)" : "(min-width: 768px)"}
         />
+        {/* MP4 pour Safari et fallback */}
         <source
-          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1).mp4"
+          src={currentSources.mp4}
           type="video/mp4"
+          media={isMobile ? "(max-width: 767px)" : "(min-width: 768px)"}
         />
         Votre navigateur ne supporte pas la vidéo.
       </video>
