@@ -11,7 +11,7 @@ const siteConfig = {
     "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire.",
   url: "https://www.strataidge-fiduciaire.com",
   ogImage: "https://www.strataidge-fiduciaire.com/og-image-strataidge.jpg",
-  ogImageSquare: "https://www.strataidge-fiduciaire.com/og-image-square.jpg", // Mise à jour ici
+  ogImageSquare: "https://www.strataidge-fiduciaire.com/og-image-square.jpg",
   address: {
     street: "Rue Amérique 10",
     city: "Ham-sur-Heure",
@@ -28,7 +28,7 @@ const siteConfig = {
     email: "contact@strataidge-fiduciaire.com",
   },
   analytics: {
-    googleId: "G-XXXXXXXXXX", // Remplacer par votre ID GA4 réel
+    googleId: "G-XXXXXXXXXX",
   },
 }
 
@@ -142,14 +142,14 @@ export async function generateMetadata({ params }: { params: { slug?: string } }
           width: 1200,
           height: 630,
           alt: "Strataidge Fiduciaire & Conseils - L'humain derrière les chiffres - Expert-comptable en Belgique",
-          type: "image/jpeg", // Déjà corrigé
+          type: "image/jpeg",
         },
         {
           url: siteConfig.ogImageSquare,
           width: 1200,
           height: 1200,
           alt: "Logo Strataidge Fiduciaire & Conseils – Expert-comptable et conseil fiscal en Belgique",
-          type: "image/jpeg", // Déjà corrigé
+          type: "image/jpeg",
         },
       ],
     },
@@ -183,7 +183,6 @@ export async function generateMetadata({ params }: { params: { slug?: string } }
       "apple-mobile-web-app-capable": "yes",
       "apple-mobile-web-app-status-bar-style": "black-translucent",
       "apple-mobile-web-app-title": "Strataidge",
-      // Breadcrumb pour les métadonnées
       breadcrumb: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -209,19 +208,16 @@ export default function RootLayout({
   return (
     <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
       <head>
-        {/* Viewport pour compatibilité mobile */}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
         <StructuredData />
 
-        {/* Favicon optimisé pour Google */}
         <link rel="icon" type="image/svg+xml" href="/favicon-optimized.svg" />
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-        {/* Optimisation des polices avec display=swap */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -229,17 +225,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        {/* Préchargement des images OG optimisées pour les performances */}
         <link rel="preload" as="image" href={siteConfig.ogImage} type="image/jpeg" />
         <link rel="preload" as="image" href={siteConfig.ogImageSquare} type="image/jpeg" />
 
-        {/* DNS Prefetch optimisé */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
-        {/* Géolocalisation précise pour Ham-sur-Heure */}
         <meta name="geo.region" content="BE-WAL" />
         <meta name="geo.placename" content="Ham-sur-Heure, Wallonie, Belgique" />
         <meta
@@ -251,7 +244,6 @@ export default function RootLayout({
           content={`${siteConfig.address.coordinates.latitude}, ${siteConfig.address.coordinates.longitude}`}
         />
 
-        {/* Google Analytics GA4 - Optimisé avec RGPD et consentement */}
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}`}></script>
         <script
           dangerouslySetInnerHTML={{
@@ -260,7 +252,6 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             
-            // Configuration RGPD par défaut - analytics désactivé
             gtag('consent', 'default', {
               'analytics_storage': 'denied',
               'ad_storage': 'denied',
@@ -278,7 +269,6 @@ export default function RootLayout({
               send_page_view: true
             });
             
-            // Fonction pour activer le tracking après consentement
             window.enableAnalytics = function() {
               gtag('consent', 'update', {
                 'analytics_storage': 'granted'
@@ -288,7 +278,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* Structured Data enrichi avec IDs cohérents et BreadcrumbList dynamique */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
