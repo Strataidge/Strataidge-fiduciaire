@@ -105,8 +105,8 @@ function AboutSection() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-strataidge-turquoise to-strataidge-coral rounded-2xl blur-xl opacity-20"></div>
               <Image
-                src="/sourire-de-jeunes-collegues-assis-dans-le-coworking-de-bureau.jpg"
-                alt="Équipe de jeunes professionnels Strataidge collaborant dans un espace de coworking moderne"
+                src="/vision-team-collaboration.webp"
+                alt="Équipe Strataidge célébrant une collaboration réussie dans un bureau moderne avec vue sur la nature"
                 width={500}
                 height={600}
                 className="relative rounded-2xl object-cover w-full h-full shadow-2xl"
