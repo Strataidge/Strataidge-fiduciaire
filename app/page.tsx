@@ -34,6 +34,8 @@ import {
   Send,
   Loader,
   X,
+  Users,
+  UserCheck,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -244,6 +246,24 @@ const services = [
         "**Intégration technologique :** Conseils sur les outils digitaux qui peuvent optimiser l'ensemble de votre chaîne de valeur.",
       ],
       conclusion: "Ne pensez plus en silos. Adoptez une approche intégrée pour une performance démultipliée.",
+    },
+  },
+  {
+    icon: Users,
+    title: "Talents freelance",
+    description:
+      "Nous mettons à votre disposition des experts qualifiés en freelance, adaptés à vos besoins et votre budget.",
+    details: {
+      intro:
+        "Besoin de renforcer votre équipe sans les contraintes d'un recrutement permanent ? Nous vous proposons des talents freelance expérimentés (comptables, contrôleurs de gestion, assistants administratifs), formés à nos méthodes et parfaitement intégrés à votre environnement de travail.",
+      points: [
+        "**Experts qualifiés et polyvalents :** Sélection rigoureuse de profils avec expertise comptable, contrôle de gestion ou administrative confirmée.",
+        "**Flexibilité totale :** Intervention en temps partiel ou temps plein, selon vos besoins et votre charge de travail.",
+        "**Intégration rapide :** Formation et accompagnement pour une prise de poste efficace dans vos outils et processus.",
+        "**Supervision Strataidge :** Encadrement et contrôle qualité par nos experts pour garantir la conformité et l'excellence.",
+        "**Solution économique :** Réduction des coûts RH (pas de charges sociales, formation, congés) tout en maintenant la qualité.",
+      ],
+      conclusion: "Renforcez votre équipe avec la flexibilité du freelance et la garantie qualité Strataidge.",
     },
   },
   {
@@ -599,6 +619,7 @@ function OffersSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formMessage, setFormMessage] = useState<string | null>(null)
   const [isCarteDetailsOpen, setIsCarteDetailsOpen] = useState(false)
+  const [isTalentsDetailsOpen, setIsTalentsDetailsOpen] = useState(false)
 
   const handleSelectPlan = (plan: string) => {
     setSelectedPlan(plan)
@@ -641,6 +662,11 @@ function OffersSection() {
   const openTransmissionRequest = () => {
     setIsTransmissionDetailsOpen(false)
     handleSelectPlan("Transmission & Acquisition")
+  }
+
+  const openTalentsRequest = () => {
+    setIsTalentsDetailsOpen(false)
+    handleSelectPlan("Talents freelance")
   }
 
   const plans = [
@@ -887,6 +913,93 @@ function OffersSection() {
         ],
       },
     },
+    {
+      name: "Talents freelance",
+      price: "Sur devis",
+      amount: "",
+      description: "Des experts qualifiés en freelance pour renforcer votre équipe interne selon vos besoins.",
+      features: [
+        "Experts polyvalents et expérimentés",
+        "Temps partiel ou temps plein selon besoins",
+        "Supervision et contrôle qualité Strataidge",
+        "Intégration rapide dans vos processus",
+      ],
+      fullDetails: {
+        included: {
+          selection: {
+            title: "Sélection et qualification",
+            icon: UserCheck,
+            items: [
+              "Sélection rigoureuse d'experts expérimentés (comptables, contrôleurs, assistants)",
+              "Vérification des compétences techniques et soft skills",
+              "Formation aux spécificités de votre secteur d'activité",
+            ],
+          },
+          integration: {
+            title: "Intégration et formation",
+            icon: GraduationCap,
+            items: [
+              "Formation à vos outils comptables et processus internes",
+              "Accompagnement lors des premiers jours de mission",
+              "Documentation complète des procédures à suivre",
+            ],
+          },
+          supervision: {
+            title: "Supervision et contrôle qualité",
+            icon: Shield,
+            items: [
+              "Encadrement par nos experts comptables",
+              "Contrôles qualité réguliers du travail effectué",
+              "Support technique et résolution de problèmes",
+            ],
+          },
+          flexibilite: {
+            title: "Flexibilité et adaptation",
+            icon: Target,
+            items: [
+              "Modulation du temps de travail selon vos besoins",
+              "Possibilité de changement de profil si nécessaire",
+              "Adaptation aux pics d'activité (clôtures, déclarations)",
+            ],
+          },
+          economie: {
+            title: "Avantages économiques",
+            icon: Banknote,
+            items: [
+              "Pas de charges sociales ni de coûts RH",
+              "Pas de frais de formation ou d'équipement",
+              "Facturation uniquement du temps travaillé",
+            ],
+          },
+          support: {
+            title: "Support continu",
+            icon: Handshake,
+            items: [
+              "Hotline technique pour l'expert en mission",
+              "Réunions de suivi régulières avec votre équipe",
+              "Reporting mensuel sur les activités réalisées",
+            ],
+          },
+        },
+        pourQui: [
+          "Entreprises ayant besoin de renfort temporaire ou permanent",
+          "PME souhaitant internaliser leur gestion sans recruter",
+          "Sociétés avec des pics d'activité saisonniers",
+          "Entreprises en croissance nécessitant une montée en charge progressive",
+        ],
+        conditions: [
+          "Mission minimum de 3 mois pour garantir l'efficacité",
+          "Temps partiel : minimum 2 jours/semaine",
+          "Devis personnalisé selon le profil et la durée de mission",
+          "Possibilité de conversion en CDI avec l'expert freelance",
+        ],
+        exemples: [
+          "PME de 50 salariés : expert 3 jours/semaine pour la gestion courante",
+          "Startup en croissance : expert temps plein pendant 6 mois pour structurer",
+          "Société saisonnière : renfort 2 mois/an pour les clôtures et déclarations",
+        ],
+      },
+    },
   ]
 
   const handlePlanClick = (planName: string) => {
@@ -908,6 +1021,9 @@ function OffersSection() {
         break
       case "Transmission & Acquisition":
         setIsTransmissionDetailsOpen(true)
+        break
+      case "Talents freelance":
+        setIsTalentsDetailsOpen(true)
         break
       default:
         handleSelectPlan(planName)
@@ -1335,6 +1451,64 @@ function OffersSection() {
                 </Button>
                 <Button
                   onClick={openTransmissionRequest}
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  Demander un devis
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog Talents freelance */}
+      <Dialog open={isTalentsDetailsOpen} onOpenChange={setIsTalentsDetailsOpen}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-4xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 text-left">
+                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
+                  Talents freelance
+                </DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Des experts qualifiés pour renforcer votre équipe selon vos besoins.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
+                {plans.find((p) => p.name === "Talents freelance")?.fullDetails && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {Object.entries(plans.find((p) => p.name === "Talents freelance").fullDetails.included).map(
+                      ([key, section]) => (
+                        <div key={key} className="bg-white/5 p-4 rounded-lg">
+                          <h4 className="font-bold text-white mb-3 flex items-center">
+                            <section.icon className="h-5 w-5 text-strataidge-turquoise mr-2" />
+                            {section.title}
+                          </h4>
+                          <ul className="space-y-1">
+                            {section.items.map((item, index) => (
+                              <li key={index} className="text-sm text-gray-300 flex items-start">
+                                <span className="text-strataidge-turquoise mr-2">•</span>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                )}
+              </div>
+              <DialogFooter className="mt-4 flex-shrink-0">
+                <Button
+                  onClick={() => setIsTalentsDetailsOpen(false)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  onClick={openTalentsRequest}
                   className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
                 >
                   Demander un devis
