@@ -1,35 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Optimisations SEO et performance
   compress: true,
   poweredByHeader: false,
   
-  // Redirections pour éviter les problèmes d'indexation
   async redirects() {
     return [
-      // Redirection des anciennes URLs vers les nouvelles
       {
         source: '/home',
         destination: '/',
         permanent: true,
       },
-      {
-        source: '/index',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/index.html',
-        destination: '/',
-        permanent: true,
-      },
-      // Redirection des URLs avec trailing slash
-      {
-        source: '/(.*)//',
-        destination: '/$1',
-        permanent: true,
-      },
-      // Nouvelles redirections pour corriger les 404
       {
         source: '/about',
         destination: '/#about',
@@ -45,20 +25,9 @@ const nextConfig = {
         destination: '/#contact',
         permanent: true,
       },
-      {
-        source: '/offers',
-        destination: '/#offers',
-        permanent: true,
-      },
-      {
-        source: '/blog',
-        destination: '/#blog',
-        permanent: true,
-      },
     ]
   },
 
-  // Headers pour SEO, sécurité et cache optimisé
   async headers() {
     return [
       {
@@ -72,84 +41,9 @@ const nextConfig = {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-          // Ajouter des headers pour améliorer l'indexation
-          {
-            key: 'X-Robots-Tag',
-            value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-          },
         ],
       },
-      // Cache optimisé pour les images et vidéos
-      {
-        source: '/hero-lcp.webp',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-          {
-            key: 'Content-Type',
-            value: 'image/webp',
-          },
-        ],
-      },
-      {
-        source: '/:path*.(webp|jpg|jpeg|png|gif|ico|svg)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/:path*.(mp4|webm|mov)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/sitemap.xml',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/xml; charset=utf-8',
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600',
-          },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex',
-          },
-        ],
-      },
-      {
-        source: '/robots.txt',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'text/plain',
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=86400',
-          },
-        ],
-      },
-      // Headers optimisés pour l'Apple Touch Icon - FORCER la qualité
+      // FORCER L'APPLE TOUCH ICON
       {
         source: '/apple-touch-icon.png',
         headers: [
@@ -161,44 +55,35 @@ const nextConfig = {
             key: 'Content-Type',
             value: 'image/png',
           },
+          // FORCER LA TAILLE
           {
-            key: 'Content-Length',
-            value: '180x180',
+            key: 'Content-Disposition',
+            value: 'inline; filename="apple-touch-icon.png"',
           },
-          // Headers spécifiques iOS pour forcer la bonne résolution
+        ],
+      },
+      // Cache vidéo optimisé
+      {
+        source: '/:path*.(mp4|webm)',
+        headers: [
           {
-            key: 'X-Apple-Touch-Icon-Precomposed',
-            value: 'true',
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
     ]
   },
 
-  // Optimisation des images
   images: {
     formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 jours
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 
-  // Optimisation du bundle
-  experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
-  },
-
-  // Configuration pour la production
   trailingSlash: false,
-
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
 }
 
 export default nextConfig

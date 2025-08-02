@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -28,32 +27,44 @@ export function HeroSection() {
     if (videoRef.current && isClient) {
       const video = videoRef.current
 
-      // Précharger immédiatement la vidéo
+      // Configuration optimisée pour iOS
       video.preload = "auto"
       video.playbackRate = 1.5
+      video.muted = true
+      video.playsInline = true
 
       // Commencer le chargement immédiatement
       video.load()
 
-      // Essayer de jouer dès que possible
+      // Fonction pour jouer la vidéo
       const playVideo = () => {
         video.play().catch(() => {
-          // Ignore les erreurs de lecture automatique
+          console.log("Autoplay bloqué")
         })
       }
 
-      // Jouer dès que les métadonnées sont chargées
-      video.addEventListener("loadedmetadata", playVideo)
-      video.addEventListener("canplay", playVideo)
+      // Événements pour détecter quand la vidéo est prête
+      const handleCanPlay = () => {
+        setVideoLoaded(true)
+        playVideo()
+      }
+
+      const handleLoadedData = () => {
+        setVideoLoaded(true)
+        playVideo()
+      }
+
+      video.addEventListener("canplay", handleCanPlay)
+      video.addEventListener("loadeddata", handleLoadedData)
 
       return () => {
-        video.removeEventListener("loadedmetadata", playVideo)
-        video.removeEventListener("canplay", playVideo)
+        video.removeEventListener("canplay", handleCanPlay)
+        video.removeEventListener("loadeddata", handleLoadedData)
       }
     }
   }, [isClient, isMobile])
 
-  // URLs optimisées pour desktop et mobile
+  // URLs optimisées
   const videoSources = {
     desktop: {
       mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
@@ -72,29 +83,10 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-strataidge-blue-night">
-      {/* Fond de couleur uniforme */}
+      {/* FOND BLEU PERMANENT - PAS DE SABLIER */}
       <div className="absolute inset-0 bg-strataidge-blue-night z-0" />
 
-      {/* Image LCP statique */}
-      <Image
-        src="/hero-lcp.webp"
-        alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
-        fill
-        priority
-        quality={95}
-        sizes="100vw"
-        className="absolute inset-0 w-full h-full object-cover z-[1]"
-        style={{
-          objectFit: "cover",
-          objectPosition: getObjectPosition(),
-          backgroundColor: "#0A192F",
-        }}
-        onError={() => {
-          console.log("Erreur de chargement de l'image hero-lcp.webp")
-        }}
-      />
-
-      {/* Vidéo avec préchargement optimisé */}
+      {/* Vidéo avec fond bleu pendant le chargement */}
       {isClient && (
         <video
           ref={videoRef}
@@ -103,36 +95,28 @@ export function HeroSection() {
           loop
           playsInline
           preload="auto"
-          poster="/hero-lcp.webp"
-          className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-500 ${
+          className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{
             objectFit: "cover",
             objectPosition: getObjectPosition(),
-            backgroundColor: "#0A192F",
-          }}
-          onLoadedData={() => {
-            setVideoLoaded(true)
-          }}
-          onCanPlay={() => {
-            setVideoLoaded(true)
+            backgroundColor: "#0A192F", // Fond bleu pendant le chargement
           }}
         >
-          {/* MP4 en premier pour une meilleure compatibilité */}
+          {/* MP4 en premier pour iOS */}
           <source src={isMobile ? videoSources.mobile.mp4 : videoSources.desktop.mp4} type="video/mp4" />
           <source src={isMobile ? videoSources.mobile.webm : videoSources.desktop.webm} type="video/webm" />
-          Votre navigateur ne supporte pas la vidéo.
         </video>
       )}
 
-      <SparkleAnimation className="z-[3]" />
+      <SparkleAnimation className="z-[2]" />
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[4]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[3]" />
 
       {/* Contenu principal */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-[5] relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-[4] relative">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
