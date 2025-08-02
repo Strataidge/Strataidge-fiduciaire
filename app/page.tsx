@@ -318,12 +318,12 @@ function ServicesSection() {
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Solutions</span>
             <AnimatedTitle className="text-white" id="services-heading">
-              Global dans l'approche, unique dans le conseil
+              Des solutions digitales et humaines adaptées à vos enjeux
             </AnimatedTitle>
             <FadeIn>
               <p className="mt-4 text-lg text-gray-300">
-                Une expertise complète, humaine et digitale pour piloter votre entreprise avec agilité, clarté et
-                anticipation.
+                Gestion comptable en ligne, optimisation fiscale et automatisation comptabilité : notre reporting
+                digital soutient la croissance entreprises avec une approche humaine.
               </p>
             </FadeIn>
           </div>
@@ -456,10 +456,13 @@ function MethodologySection() {
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Approche</span>
           <AnimatedTitle className="text-white" id="methodology-heading">
-            4 étapes pour transformer votre gestion
+            Notre approche : l'humain derrière les chiffres, la stratégie au premier plan
           </AnimatedTitle>
           <FadeIn>
-            <p className="mt-4 text-lg text-gray-300">Avec l'humain au cœur et le digital au service.</p>
+            <p className="mt-4 text-lg text-gray-300">
+              Une approche comptable innovante qui allie vision stratégique et fiduciaire moderne, avec digitalisation
+              comptabilité et accompagnement humain personnalisé.
+            </p>
           </FadeIn>
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
@@ -1074,12 +1077,12 @@ function OffersSection() {
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Offres</span>
             <AnimatedTitle className="text-white" id="offers-heading">
-              Des solutions pour chaque étape de votre parcours
+              Des offres pensées pour chaque étape de votre développement
             </AnimatedTitle>
             <FadeIn>
               <p className="mt-4 text-lg text-gray-300">
-                Que vous soyez en phase de création, de croissance ou de transmission, nous avons une solution pour
-                vous. Découvrez nos abonnements et nos missions spécifiques.
+                Packs comptables et fiscaux, solutions personnalisées et accompagnement stratégique : notre service
+                digitalisé offre un conseil sur-mesure pour chaque entreprise.
               </p>
             </FadeIn>
           </div>
@@ -1574,10 +1577,11 @@ function ContactSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="text-center lg:text-left">
               <h2 id="contact-heading" className="text-3xl font-bold text-white sm:text-4xl">
-                Un projet ? Parlons-en.
+                Contactez-nous et faisons évoluer votre vision financière
               </h2>
               <p className="mt-4 text-gray-300">
-                Discutons de votre projet. Remplissez le formulaire ou prenez rendez-vous directement en ligne.
+                Prendre rendez-vous fiduciaire pour un expert-comptable digital et conseil fiscal indépendant. Contact
+                entreprise avec accompagnement humain personnalisé.
               </p>
               <div className="mt-8 space-y-4">
                 <a
@@ -1710,7 +1714,7 @@ function Footer() {
               <Image src="/logo.png" alt="" width={40} height={40} />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
+                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest my-[-4px]">
                   FIDUCIAIRE & CONSEILS
                 </span>
               </div>

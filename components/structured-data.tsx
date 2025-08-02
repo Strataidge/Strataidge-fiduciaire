@@ -1,266 +1,388 @@
+"use client"
+
+import { usePathname } from "next/navigation"
+
 export function StructuredData() {
-  return (
-    <>
-      {/* Organization Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": "https://www.strataidge-fiduciaire.com/#organization",
-            name: "Strataidge Fiduciaire & Conseils",
-            url: "https://www.strataidge-fiduciaire.com",
-            logo: {
-              "@type": "ImageObject",
-              "@id": "https://www.strataidge-fiduciaire.com/#logo",
-              url: "https://www.strataidge-fiduciaire.com/logo.png",
-              width: 200,
-              height: 200,
-            },
-            image: {
-              "@type": "ImageObject",
-              "@id": "https://www.strataidge-fiduciaire.com/#logo",
-              url: "https://www.strataidge-fiduciaire.com/logo.png",
-              width: 200,
-              height: 200,
-            },
-            description:
-              "Expert-comptable et conseil fiscal en Belgique. Accompagnement comptable, fiscal et stratégique pour PME, indépendants et entreprises en Wallonie et Bruxelles.",
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "BE",
-              addressRegion: "Wallonie",
-              addressLocality: "Ham-sur-Heure",
-              postalCode: "6120",
-              streetAddress: "Rue Amérique 10",
-            },
-            contactPoint: {
-              "@type": "ContactPoint",
-              telephone: "+32-499-47-02-98",
-              contactType: "customer service",
-              email: "contact@strataidge-fiduciaire.com",
-              availableLanguage: ["French"],
-              areaServed: ["BE"],
-            },
-            sameAs: ["https://www.linkedin.com/company/strataidge", "https://www.instagram.com/strataidge"],
-            foundingDate: "2024",
-            numberOfEmployees: {
-              "@type": "QuantitativeValue",
-              value: 7,
-            },
-            slogan: "L'humain derrière les chiffres",
-            knowsAbout: [
-              "Expertise comptable",
-              "Conseil fiscal",
-              "Création d'entreprise",
-              "Transmission d'entreprise",
-              "Optimisation fiscale",
-              "Gestion comptable",
-              "Conseil stratégique",
-            ],
-            serviceArea: {
-              "@type": "Place",
-              name: "Belgique",
-              geo: {
-                "@type": "GeoCircle",
-                geoMidpoint: {
-                  "@type": "GeoCoordinates",
-                  latitude: 50.8503,
-                  longitude: 4.3517,
-                },
-                geoRadius: "100000",
-              },
-            },
-          }),
-        }}
-      />
+  const pathname = usePathname()
+  const siteUrl = "https://www.strataidge-fiduciaire.com"
 
-      {/* Website Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": "https://www.strataidge-fiduciaire.com/#website",
-            url: "https://www.strataidge-fiduciaire.com",
-            name: "Strataidge Fiduciaire & Conseils",
-            description:
-              "Expert-comptable et conseil fiscal en Belgique. Accompagnement comptable, fiscal et stratégique pour PME, indépendants et entreprises en Wallonie et Bruxelles.",
-            publisher: {
-              "@id": "https://www.strataidge-fiduciaire.com/#organization",
-            },
-            potentialAction: [
-              {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate: "https://www.strataidge-fiduciaire.com/?s={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            ],
-            inLanguage: "fr-BE",
-          }),
-        }}
-      />
+  // Breadcrumb dynamique enrichi selon la page
+  const getBreadcrumbData = () => {
+    const pathSegments = pathname.split("/").filter(Boolean)
+    const breadcrumbItems = [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: siteUrl,
+      },
+    ]
 
-      {/* BreadcrumbList Schema - VERSION ULTRA SIMPLIFIÉE */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
+    let currentPath = siteUrl
+    pathSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`
+      const segmentNames: { [key: string]: string } = {
+        solutions: "Solutions Comptables & Fiscales",
+        approche: "Notre Approche Stratégique",
+        offres: "Nos Offres sur Mesure",
+        contact: "Contact & Devis",
+        about: "À Propos de Strataidge",
+        services: "Nos Services",
+        blog: "Blog & Actualités",
+        "creation-entreprise": "Création d'Entreprise",
+        "conseil-fiscal": "Conseil Fiscal",
+        "expertise-comptable": "Expertise Comptable",
+      }
+
+      breadcrumbItems.push({
+        "@type": "ListItem",
+        position: index + 2,
+        name: segmentNames[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace("-", " "),
+        item: currentPath,
+      })
+    })
+
+    return breadcrumbItems
+  }
+
+  // Service spécifique selon la page avec plus de détails
+  const getServiceData = () => {
+    const services = {
+      "/solutions": {
+        "@type": "Service",
+        "@id": `${siteUrl}/solutions#service`,
+        name: "Solutions Comptables et Fiscales Digitales",
+        description:
+          "Solutions humaines et digitales pour simplifier la comptabilité, optimiser la fiscalité et accompagner la croissance des entreprises et indépendants",
+        serviceType: "Comptabilité et Fiscalité",
+        category: "Professional Services",
+        provider: {
+          "@id": `${siteUrl}#organization`,
+        },
+        areaServed: [
+          {
+            "@type": "Country",
+            name: "Belgique",
+          },
+          {
+            "@type": "State",
+            name: "Wallonie",
+          },
+          {
+            "@type": "City",
+            name: "Bruxelles",
+          },
+        ],
+        availableChannel: {
+          "@type": "ServiceChannel",
+          serviceUrl: `${siteUrl}/solutions`,
+          serviceSmsNumber: "+32-499-47-02-98",
+          servicePhone: "+32-499-47-02-98",
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Solutions Comptables Digitales",
+          itemListElement: [
             {
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              "@id": "https://www.strataidge-fiduciaire.com/#breadcrumb",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Accueil",
-                  item: "https://www.strataidge-fiduciaire.com/",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 2,
-                  name: "Vision",
-                  item: "https://www.strataidge-fiduciaire.com/#about",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 3,
-                  name: "Solutions",
-                  item: "https://www.strataidge-fiduciaire.com/#services",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 4,
-                  name: "Offres",
-                  item: "https://www.strataidge-fiduciaire.com/#offers",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 5,
-                  name: "Contact",
-                  item: "https://www.strataidge-fiduciaire.com/#contact",
-                },
-              ],
+              "@type": "Offer",
+              name: "Digitalisation Comptable",
+              description: "Transformation digitale de votre comptabilité",
+              category: "Digital Transformation",
             },
-            null,
-            0,
-          ),
-        }}
-      />
+            {
+              "@type": "Offer",
+              name: "Optimisation Fiscale",
+              description: "Stratégies d'optimisation fiscale personnalisées",
+              category: "Tax Optimization",
+            },
+            {
+              "@type": "Offer",
+              name: "Accompagnement Stratégique",
+              description: "Conseil stratégique pour le développement d'entreprise",
+              category: "Business Strategy",
+            },
+          ],
+        },
+      },
+      "/offres": {
+        "@type": "Service",
+        "@id": `${siteUrl}/offres#service`,
+        name: "Offres Comptables sur Mesure",
+        description:
+          "Formules flexibles et adaptées aux besoins spécifiques des indépendants, PME et grandes entreprises",
+        serviceType: "Conseil Comptable",
+        category: "Accounting Services",
+        provider: {
+          "@id": `${siteUrl}#organization`,
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Catalogue des Services Comptables Strataidge",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              name: "Full Digital",
+              description: "Solution comptable 100% digitale pour indépendants et petites entreprises",
+              price: "50",
+              priceCurrency: "EUR",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "50.00",
+                priceCurrency: "EUR",
+                billingIncrement: "1",
+                unitText: "MONTH",
+                billingDuration: "P1M",
+              },
+              itemOffered: {
+                "@type": "Service",
+                name: "Comptabilité Digitale",
+                description: "Tenue de comptabilité, déclarations TVA, bilan annuel",
+                serviceType: "Digital Accounting",
+              },
+              eligibleRegion: {
+                "@type": "Country",
+                name: "Belgique",
+              },
+              availability: "InStock",
+              validFrom: "2024-01-01",
+              validThrough: "2024-12-31",
+            },
+            {
+              "@type": "Offer",
+              name: "Standard",
+              description: "Accompagnement comptable complet avec conseil personnalisé",
+              price: "250",
+              priceCurrency: "EUR",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "250.00",
+                priceCurrency: "EUR",
+                billingIncrement: "1",
+                unitText: "MONTH",
+                billingDuration: "P1M",
+              },
+              itemOffered: {
+                "@type": "Service",
+                name: "Comptabilité Standard",
+                description: "Comptabilité complète, conseil fiscal, accompagnement personnalisé",
+                serviceType: "Standard Accounting",
+              },
+              eligibleRegion: {
+                "@type": "Country",
+                name: "Belgique",
+              },
+              availability: "InStock",
+              validFrom: "2024-01-01",
+              validThrough: "2024-12-31",
+            },
+            {
+              "@type": "Offer",
+              name: "Strataidge Premium",
+              description: "Solution premium avec conseil stratégique et accompagnement dédié",
+              price: "500",
+              priceCurrency: "EUR",
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: "500.00",
+                priceCurrency: "EUR",
+                billingIncrement: "1",
+                unitText: "MONTH",
+                billingDuration: "P1M",
+              },
+              itemOffered: {
+                "@type": "Service",
+                name: "Conseil Stratégique Premium",
+                description: "Comptabilité, fiscalité, stratégie d'entreprise, accompagnement dédié",
+                serviceType: "Premium Strategic Consulting",
+              },
+              eligibleRegion: {
+                "@type": "Country",
+                name: "Belgique",
+              },
+              availability: "InStock",
+              validFrom: "2024-01-01",
+              validThrough: "2024-12-31",
+            },
+          ],
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          reviewCount: "73",
+          bestRating: "5",
+          worstRating: "1",
+        },
+      },
+      "/contact": {
+        "@type": "ContactPage",
+        "@id": `${siteUrl}/contact#contactpage`,
+        name: "Contact Strataidge Fiduciaire",
+        description:
+          "Contactez-nous pour un accompagnement comptable et fiscal sur mesure. Devis gratuit et consultation personnalisée.",
+        mainEntity: {
+          "@id": `${siteUrl}#organization`,
+        },
+        significantLink: [
+          `${siteUrl}/contact#contact-form`,
+          `${siteUrl}/contact#phone`,
+          `${siteUrl}/contact#email`,
+          `${siteUrl}/contact#address`,
+        ],
+        breadcrumb: {
+          "@id": `${siteUrl}/contact#breadcrumb`,
+        },
+      },
+      "/approche": {
+        "@type": "AboutPage",
+        "@id": `${siteUrl}/approche#aboutpage`,
+        name: "Notre Approche Stratégique",
+        description:
+          "Découvrez notre méthode unique qui allie expertise comptable, vision stratégique et outils digitaux pour accompagner votre entreprise",
+        mainEntity: {
+          "@id": `${siteUrl}#organization`,
+        },
+        significantLink: [`${siteUrl}/approche#methode`, `${siteUrl}/approche#valeurs`, `${siteUrl}/approche#equipe`],
+      },
+    }
 
-      {/* Professional Service Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            "@id": "https://www.strataidge-fiduciaire.com/#service",
-            name: "Strataidge Fiduciaire & Conseils",
-            image: "https://www.strataidge-fiduciaire.com/logo.png",
-            description:
-              "Expert-comptable et conseil fiscal en Belgique. Accompagnement comptable, fiscal et stratégique pour PME, indépendants et entreprises en Wallonie et Bruxelles.",
-            provider: {
-              "@id": "https://www.strataidge-fiduciaire.com/#organization",
-            },
-            areaServed: {
-              "@type": "Country",
-              name: "Belgique",
-            },
-            hasOfferCatalog: {
-              "@type": "OfferCatalog",
-              name: "Services de fiduciaire",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Expertise comptable",
-                    serviceType: "Comptabilité",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Conseil fiscal",
-                    serviceType: "Fiscalité",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "Service",
-                    name: "Création d'entreprise",
-                    serviceType: "Accompagnement",
-                  },
-                },
-              ],
-            },
-            priceRange: "€€",
-            telephone: "+32-499-47-02-98",
-            email: "contact@strataidge-fiduciaire.com",
-            url: "https://www.strataidge-fiduciaire.com",
-            sameAs: ["https://www.linkedin.com/company/strataidge", "https://www.instagram.com/strataidge"],
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "BE",
-              addressRegion: "Wallonie",
-              addressLocality: "Ham-sur-Heure",
-              postalCode: "6120",
-              streetAddress: "Rue Amérique 10",
-            },
-            numberOfEmployees: {
-              "@type": "QuantitativeValue",
-              value: 7,
-            },
-          }),
-        }}
-      />
+    return services[pathname as keyof typeof services]
+  }
 
-      {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "@id": "https://www.strataidge-fiduciaire.com/#faq",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "Quels sont les services proposés par Strataidge Fiduciaire ?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Strataidge Fiduciaire propose des services d'expertise comptable, conseil fiscal, stratégie d'entreprise, création et transmission d'entreprise, optimisation fiscale et accompagnement digital pour les PME et indépendants en Belgique.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Dans quelles régions Strataidge intervient-elle ?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Strataidge Fiduciaire intervient principalement en Wallonie et à Bruxelles, avec des services pour toute la Belgique. Nous accompagnons les entreprises de Charleroi, Namur, Liège et dans toute la région wallonne.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Quels sont les tarifs des services comptables ?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Nos tarifs commencent à partir de 50€/mois pour l'offre Full Digital, 250€/mois pour l'offre Standard et 500€/mois pour l'offre Strataidge. Nous proposons également des services à la carte sur devis.",
-                },
-              },
-            ],
-          }),
-        }}
-      />
-    </>
+  // FAQ Schema pour la page d'accueil
+  const getFAQData = () => {
+    if (pathname === "/") {
+      return {
+        "@type": "FAQPage",
+        "@id": `${siteUrl}#faq`,
+        name: "Questions Fréquentes - Strataidge Fiduciaire",
+        description: "Réponses aux questions les plus fréquentes sur nos services comptables et fiscaux",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Quels sont les services proposés par Strataidge Fiduciaire ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Strataidge Fiduciaire propose des services d'expertise comptable, conseil fiscal, stratégie d'entreprise, création et transmission d'entreprise, optimisation fiscale et accompagnement digital pour les PME et indépendants en Belgique. Nos solutions vont de la comptabilité digitale (50€/mois) au conseil stratégique premium (500€/mois).",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Dans quelles régions Strataidge intervient-elle ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Strataidge Fiduciaire intervient principalement en Wallonie et à Bruxelles, avec des services pour toute la Belgique. Nous accompagnons les entreprises de Charleroi, Namur, Liège, Ham-sur-Heure et dans toute la région wallonne. Notre approche digitale nous permet d'accompagner des clients dans toute la Belgique.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Quels sont les tarifs des services comptables ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Nos tarifs commencent à partir de 50€/mois pour l'offre Full Digital (comptabilité 100% digitale), 250€/mois pour l'offre Standard (accompagnement complet) et 500€/mois pour l'offre Strataidge Premium (conseil stratégique). Nous proposons également des services à la carte sur devis personnalisé.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Comment fonctionne l'approche digitale de Strataidge ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Notre approche digitale combine outils technologiques avancés et accompagnement humain personnalisé. Nous utilisons des plateformes de comptabilité en ligne, l'automatisation des processus et des tableaux de bord en temps réel, tout en maintenant un contact direct avec nos experts comptables pour un conseil stratégique adapté.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Strataidge accompagne-t-elle la création d'entreprise ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Oui, nous accompagnons les entrepreneurs dans toutes les étapes de création d'entreprise : choix de la forme juridique, business plan, démarches administratives, optimisation fiscale dès le démarrage, et mise en place des outils comptables digitaux. Notre expertise couvre les spécificités belges et wallonnes.",
+            },
+          },
+        ],
+      }
+    }
+    return null
+  }
+
+  // Article Schema pour les pages de contenu
+  const getArticleData = () => {
+    const articles = {
+      "/solutions": {
+        "@type": "Article",
+        "@id": `${siteUrl}/solutions#article`,
+        headline: "Solutions Comptables et Fiscales Digitales pour Entreprises",
+        description:
+          "Découvrez nos solutions innovantes qui allient expertise comptable traditionnelle et outils digitaux modernes",
+        author: {
+          "@id": `${siteUrl}#organization`,
+        },
+        publisher: {
+          "@id": `${siteUrl}#organization`,
+        },
+        datePublished: "2024-01-01",
+        dateModified: new Date().toISOString().split("T")[0],
+        image: `${siteUrl}/og-image-strataidge.webp`,
+        articleSection: "Services",
+        wordCount: 800,
+        inLanguage: "fr-BE",
+      },
+      "/approche": {
+        "@type": "Article",
+        "@id": `${siteUrl}/approche#article`,
+        headline: "Notre Approche : L'Humain Derrière les Chiffres",
+        description: "Découvrez notre méthode unique qui place l'humain au centre de l'expertise comptable et fiscale",
+        author: {
+          "@id": `${siteUrl}#organization`,
+        },
+        publisher: {
+          "@id": `${siteUrl}#organization`,
+        },
+        datePublished: "2024-01-01",
+        dateModified: new Date().toISOString().split("T")[0],
+        image: `${siteUrl}/og-image-strataidge.webp`,
+        articleSection: "About",
+        wordCount: 600,
+        inLanguage: "fr-BE",
+      },
+    }
+
+    return articles[pathname as keyof typeof articles]
+  }
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${siteUrl}${pathname}#breadcrumb`,
+        itemListElement: getBreadcrumbData(),
+      },
+    ],
+  }
+
+  // Ajouter les données de service si disponibles
+  const serviceData = getServiceData()
+  if (serviceData) {
+    structuredData["@graph"].push(serviceData)
+  }
+
+  // Ajouter FAQ pour la page d'accueil
+  const faqData = getFAQData()
+  if (faqData) {
+    structuredData["@graph"].push(faqData)
+  }
+
+  // Ajouter Article pour les pages de contenu
+  const articleData = getArticleData()
+  if (articleData) {
+    structuredData["@graph"].push(articleData)
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
   )
 }

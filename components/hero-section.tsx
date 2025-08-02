@@ -41,7 +41,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-8xl"
         >
-          L'humain derrière les chiffres.
+          Au-delà des chiffres, l'humain et la stratégie au cœur de vos finances
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -49,9 +49,8 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-6 max-w-3xl mx-auto text-lg text-gray-300 md:text-xl"
         >
-          {
-            "Strataidge Fiduciaire & Conseils : expertise comptable, fiscale et humaine au service d'une réussite sereine."
-          }
+          Expert-comptable digital et conseil fiscal stratégique : un accompagnement sur-mesure pour indépendants et
+          entreprises, alliant optimisation comptable et vision humaine.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
