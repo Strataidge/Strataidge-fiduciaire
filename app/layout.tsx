@@ -32,172 +32,104 @@ const siteConfig = {
   },
 }
 
-// Descriptions spécifiques par page pour le SEO dynamique (optimisées <155 caractères)
-const pageDescriptions = {
-  "/": "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire.",
-  "/solutions":
-    "Solutions humaines et digitales pour simplifier la comptabilité, optimiser la fiscalité et soutenir la croissance des entreprises et indépendants.",
-  "/approche":
-    "Méthode unique alliant expertise comptable, vision stratégique et outils digitaux pour accompagner entreprises et indépendants à chaque étape.",
-  "/offres":
-    "Formules flexibles adaptées à chaque besoin : comptabilité, fiscalité et conseil stratégique pour indépendants, PME et grandes entreprises.",
-  "/contact":
-    "Parlons de votre stratégie comptable et fiscale. Contactez Strataidge pour un accompagnement humain et digital adapté à votre entreprise.",
-}
-
-// Noms des pages pour le breadcrumb
-const pageNames = {
-  "/solutions": "Solutions Comptables & Fiscales",
-  "/approche": "Notre Approche Stratégique",
-  "/offres": "Nos Offres sur Mesure",
-  "/contact": "Contact & Devis",
-  "/about": "À Propos de Strataidge",
-  "/services": "Nos Services",
-  "/blog": "Blog & Actualités",
-  "/creation-entreprise": "Création d'Entreprise",
-  "/conseil-fiscal": "Conseil Fiscal",
-  "/expertise-comptable": "Expertise Comptable",
-}
-
-export async function generateMetadata({ params }: { params: { slug?: string } }): Promise<Metadata> {
-  const currentPath = params?.slug ? `/${params.slug}` : "/"
-  const cleanPath = currentPath.endsWith("/") && currentPath !== "/" ? currentPath.slice(0, -1) : currentPath
-  const pageDescription = pageDescriptions[cleanPath as keyof typeof pageDescriptions] || siteConfig.description
-
-  // Breadcrumb dynamique pour les métadonnées
-  const getBreadcrumbForMeta = () => {
-    const breadcrumbItems = [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Accueil",
-        item: siteConfig.url,
-      },
-    ]
-
-    if (cleanPath !== "/") {
-      const pageName =
-        pageNames[cleanPath as keyof typeof pageNames] ||
-        cleanPath
-          .replace("/", "")
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ")
-
-      breadcrumbItems.push({
-        "@type": "ListItem",
-        position: 2,
-        name: pageName,
-        item: `${siteConfig.url}${cleanPath}`,
-      })
-    }
-
-    return breadcrumbItems
-  }
-
-  return {
-    metadataBase: new URL(siteConfig.url),
-    title: {
-      default: siteConfig.name,
-      template: `%s | Strataidge Fiduciaire`,
-    },
-    description: pageDescription,
-    keywords: [
-      "expert-comptable digital",
-      "conseil fiscal",
-      "comptabilité stratégique",
-      "indépendants et entreprises",
-      "fiduciaire humaine et digitale",
-      "optimisation fiscale",
-      "gestion comptable en ligne",
-      "accompagnement sur-mesure",
-    ],
-    authors: [{ name: "Strataidge Fiduciaire & Conseils", url: siteConfig.url }],
-    creator: "Strataidge Fiduciaire & Conseils",
-    publisher: "Strataidge Fiduciaire & Conseils",
-    robots: {
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | Strataidge Fiduciaire`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "expert-comptable digital",
+    "conseil fiscal",
+    "comptabilité stratégique",
+    "indépendants et entreprises",
+    "fiduciaire humaine et digitale",
+    "optimisation fiscale",
+    "gestion comptable en ligne",
+    "accompagnement sur-mesure",
+  ],
+  authors: [{ name: "Strataidge Fiduciaire & Conseils", url: siteConfig.url }],
+  creator: "Strataidge Fiduciaire & Conseils",
+  publisher: "Strataidge Fiduciaire & Conseils",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
       index: true,
       follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    type: "website",
+    locale: "fr_BE",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: "Strataidge Fiduciaire & Conseils",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Strataidge Fiduciaire & Conseils - L'humain derrière les chiffres - Expert-comptable en Belgique",
+        type: "image/jpeg",
       },
-    },
-    alternates: {
-      canonical: `${siteConfig.url}${cleanPath}`,
-    },
-    openGraph: {
-      type: "website",
-      locale: "fr_BE",
-      url: `${siteConfig.url}${cleanPath}`,
-      title: siteConfig.name,
-      description: pageDescription,
-      siteName: "Strataidge Fiduciaire & Conseils",
-      images: [
-        {
-          url: siteConfig.ogImage,
-          width: 1200,
-          height: 630,
-          alt: "Strataidge Fiduciaire & Conseils - L'humain derrière les chiffres - Expert-comptable en Belgique",
-          type: "image/jpeg",
-        },
-        {
-          url: siteConfig.ogImageSquare,
-          width: 1200,
-          height: 1200,
-          alt: "Logo Strataidge Fiduciaire & Conseils – Expert-comptable et conseil fiscal en Belgique",
-          type: "image/jpeg",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: siteConfig.name,
-      description: pageDescription,
-      images: [siteConfig.ogImage],
-      creator: "@strataidge",
-      site: "@strataidge",
-    },
-    icons: {
-      icon: [
-        { url: "/favicon-optimized.svg", type: "image/svg+xml" },
-        { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
-        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
-      ],
-      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-      shortcut: "/favicon-optimized.svg",
-    },
-    manifest: "/site.webmanifest",
+      {
+        url: siteConfig.ogImageSquare,
+        width: 1200,
+        height: 1200,
+        alt: "Logo Strataidge Fiduciaire & Conseils – Expert-comptable et conseil fiscal en Belgique",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@strataidge",
+    site: "@strataidge",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon-optimized.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: "/favicon-optimized.svg",
+  },
+  manifest: "/site.webmanifest",
+  other: {
+    "msapplication-TileImage": "/favicon-96x96.png",
+    "msapplication-TileColor": "#0A192F",
+    "theme-color": "#00C9A7",
+    "format-detection": "telephone=no",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "Strataidge",
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+    yahoo: "your-yahoo-verification-code",
     other: {
-      "msapplication-TileImage": "/favicon-96x96.png",
-      "msapplication-TileColor": "#0A192F",
-      "theme-color": "#00C9A7",
-      "format-detection": "telephone=no",
-      "mobile-web-app-capable": "yes",
-      "apple-mobile-web-app-capable": "yes",
-      "apple-mobile-web-app-status-bar-style": "black-translucent",
-      "apple-mobile-web-app-title": "Strataidge",
-      breadcrumb: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: getBreadcrumbForMeta(),
-      }),
+      "msvalidate.01": "your-bing-verification-code",
     },
-    verification: {
-      google: "your-google-verification-code",
-      yandex: "your-yandex-verification-code",
-      yahoo: "your-yahoo-verification-code",
-      other: {
-        "msvalidate.01": "your-bing-verification-code",
-      },
-    },
-  }
+  },
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -528,7 +460,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-export const metadata = {
-      generator: 'v0.dev'
-    };
