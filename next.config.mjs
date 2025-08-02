@@ -149,7 +149,7 @@ const nextConfig = {
           },
         ],
       },
-      // Headers optimisés pour les icônes Apple
+      // Headers optimisés pour l'Apple Touch Icon - FORCER la qualité
       {
         source: '/apple-touch-icon.png',
         headers: [
@@ -160,6 +160,15 @@ const nextConfig = {
           {
             key: 'Content-Type',
             value: 'image/png',
+          },
+          {
+            key: 'Content-Length',
+            value: '180x180',
+          },
+          // Headers spécifiques iOS pour forcer la bonne résolution
+          {
+            key: 'X-Apple-Touch-Icon-Precomposed',
+            value: 'true',
           },
         ],
       },

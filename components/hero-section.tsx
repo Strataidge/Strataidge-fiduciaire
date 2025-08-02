@@ -69,6 +69,9 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-strataidge-blue-night">
+      {/* Fond de couleur uniforme pendant le chargement */}
+      <div className="absolute inset-0 bg-strataidge-blue-night z-0" />
+
       {/* Image LCP statique - priorité maximale pour le chargement */}
       <Image
         src="/hero-lcp.webp"
@@ -77,10 +80,11 @@ export function HeroSection() {
         priority
         quality={95}
         sizes="100vw"
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-[1]"
         style={{
           objectFit: "cover",
           objectPosition: getObjectPosition(),
+          backgroundColor: "#0A192F", // Couleur de fond pendant le chargement
         }}
         onLoad={() => {
           // Optimisation iOS - délai plus court pour éviter le sablier
@@ -95,6 +99,36 @@ export function HeroSection() {
             }
           }, delay)
         }}
+        onError={() => {
+          // Fallback si l'image WebP ne se charge pas sur iOS
+          console.log("Erreur de chargement de l'image hero-lcp.webp")
+        }}
+        unoptimized={false}
+      />
+
+      {/* Image de fallback pour iOS si WebP ne fonctionne pas */}
+      <Image
+        src="/vision-team-collaboration.webp"
+        alt="Équipe Strataidge Fiduciaire & Conseils - Expertise comptable et fiscale"
+        fill
+        priority={false}
+        quality={90}
+        sizes="100vw"
+        className="absolute inset-0 w-full h-full object-cover z-[1] opacity-0"
+        style={{
+          objectFit: "cover",
+          objectPosition: getObjectPosition(),
+          backgroundColor: "#0A192F", // Couleur de fond pendant le chargement
+        }}
+        onLoad={(e) => {
+          // Afficher cette image si la première ne se charge pas
+          const img = e.target as HTMLImageElement
+          const heroImg = img.parentElement?.querySelector('img[src*="hero-lcp"]') as HTMLImageElement
+          if (heroImg && heroImg.complete && heroImg.naturalWidth === 0) {
+            img.style.opacity = "1"
+            heroImg.style.display = "none"
+          }
+        }}
       />
 
       {/* Vidéo pour desktop ET mobile - chargement immédiat */}
@@ -105,12 +139,14 @@ export function HeroSection() {
           muted
           playsInline
           preload="auto"
-          className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
+          poster="/hero-lcp.webp"
+          className={`absolute inset-0 w-full h-full object-cover z-[2] transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{
             objectFit: "cover",
             objectPosition: getObjectPosition(),
+            backgroundColor: "#0A192F", // Couleur de fond pendant le chargement
           }}
           onCanPlay={() => {
             setVideoLoaded(true)
@@ -126,13 +162,13 @@ export function HeroSection() {
         </video>
       )}
 
-      <SparkleAnimation className="z-[2]" />
+      <SparkleAnimation className="z-[3]" />
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[3]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[4]" />
 
       {/* Contenu principal */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-[4] relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-[5] relative">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
