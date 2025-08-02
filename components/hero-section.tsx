@@ -32,7 +32,7 @@ export function HeroSection() {
           type="video/webm"
         />
         <source
-          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_3840x2160.mp4"
+          src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1).mp4"
           type="video/mp4"
         />
         Votre navigateur ne supporte pas la vidéo.
