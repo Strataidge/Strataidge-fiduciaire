@@ -33,10 +33,8 @@ export function HeroSection() {
     if (videoRef.current && isClient) {
       videoRef.current.playbackRate = 1.5
 
-      // Précharger la vidéo immédiatement sur desktop
-      if (!isMobile) {
-        videoRef.current.load()
-      }
+      // Précharger et lancer la vidéo sur desktop ET mobile
+      videoRef.current.load()
     }
   }, [isMobile, isClient])
 
@@ -68,8 +66,8 @@ export function HeroSection() {
           objectPosition: getObjectPosition(),
         }}
         onLoad={() => {
-          // Dès que l'image est chargée, on peut commencer la vidéo sur desktop
-          if (!isMobile && videoRef.current && isClient) {
+          // Dès que l'image est chargée, on peut commencer la vidéo sur desktop ET mobile
+          if (videoRef.current && isClient) {
             videoRef.current.play().catch(() => {
               // Ignore les erreurs de lecture automatique
             })
@@ -77,8 +75,8 @@ export function HeroSection() {
         }}
       />
 
-      {/* Vidéo seulement sur desktop - chargement immédiat */}
-      {!isMobile && isClient && (
+      {/* Vidéo pour desktop ET mobile - chargement immédiat */}
+      {isClient && (
         <video
           ref={videoRef}
           autoPlay
@@ -91,7 +89,7 @@ export function HeroSection() {
           }`}
           style={{
             objectFit: "cover",
-            objectPosition: "center 20%",
+            objectPosition: getObjectPosition(),
           }}
           onCanPlay={() => {
             setVideoLoaded(true)
@@ -100,10 +98,20 @@ export function HeroSection() {
             setVideoLoaded(true)
           }}
         >
-          {/* WebM pour les navigateurs modernes (meilleure compression) */}
-          <source src={videoSources.webm} type="video/webm" />
-          {/* MP4 pour Safari et fallback */}
-          <source src={videoSources.mp4} type="video/mp4" />
+          {/* Sources pour mobile */}
+          {isMobile && (
+            <>
+              <source src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/mobile-video.webm" type="video/webm" />
+              <source src="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/mobile-video.mp4" type="video/mp4" />
+            </>
+          )}
+          {/* Sources pour desktop */}
+          {!isMobile && (
+            <>
+              <source src={videoSources.webm} type="video/webm" />
+              <source src={videoSources.mp4} type="video/mp4" />
+            </>
+          )}
           Votre navigateur ne supporte pas la vidéo.
         </video>
       )}
