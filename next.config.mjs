@@ -214,9 +214,8 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Configuration expérimentale pour les performances
+  // Configuration expérimentale pour les performances (sans optimizeCss)
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
