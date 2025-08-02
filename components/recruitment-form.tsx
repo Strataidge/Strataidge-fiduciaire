@@ -4,7 +4,6 @@ import { useState, type FormEvent } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { User, Mail, MessageSquare, Loader, CheckCircle, ArrowLeft, Send } from "lucide-react"
 import { FileUpload } from "@/components/file-upload"
 
@@ -57,7 +56,7 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
       <div className="text-center py-8">
         <CheckCircle className="h-16 w-16 mx-auto text-strataidge-turquoise mb-4" />
         <h3 className="text-xl font-bold text-white">Candidature envoyée !</h3>
-        <p className="text-gray-300 mt-2">{formMessage}</p>
+        <p className="text-gray-300 mt-2 px-4">{formMessage}</p>
         <Button
           onClick={onBack}
           variant="outline"
@@ -71,7 +70,7 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
 
   return (
     <div>
-      <DialogHeader className="text-left mb-4">
+      <div className="text-left mb-4">
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
@@ -79,12 +78,10 @@ export function RecruitmentForm({ onBack }: RecruitmentFormProps) {
           >
             <ArrowLeft className="h-5 w-5 text-gray-300" />
           </button>
-          <DialogTitle className="text-2xl font-bold text-strataidge-turquoise">Votre candidature</DialogTitle>
+          <h2 className="text-2xl font-bold text-strataidge-turquoise">Votre candidature</h2>
         </div>
-        <DialogDescription className="text-gray-400 pt-2 pl-9">
-          Remplissez les champs ci-dessous pour nous rejoindre.
-        </DialogDescription>
-      </DialogHeader>
+        <p className="text-gray-400 pt-2 pl-9">Remplissez les champs ci-dessous pour nous rejoindre.</p>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="relative">
           <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />

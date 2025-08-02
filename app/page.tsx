@@ -126,7 +126,7 @@ function AboutSection() {
           <FadeIn>
             <p className="text-lg text-gray-700 text-center">
               {
-                "Avec plus de 14 années d'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu'à siéger aux conseils d'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu'en comprenant les personnes derrière chaque entreprise."
+                "Avec plus de 15 années d\'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu\'à siéger aux conseils d\'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu\'en comprenant les personnes derrière chaque entreprise."
               }
             </p>
             <p className="mt-4 text-gray-700 text-center">
