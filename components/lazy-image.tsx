@@ -1,7 +1,8 @@
 "use client"
 
-import Image from "next/image"
 import { useState, useRef, useEffect } from "react"
+import Image from "next/image"
+import { cn } from "@/lib/utils"
 
 interface LazyImageProps {
   src: string
@@ -20,7 +21,7 @@ export function LazyImage({
   alt,
   width,
   height,
-  className = "",
+  className,
   priority = false,
   fill = false,
   sizes,
@@ -56,11 +57,12 @@ export function LazyImage({
   return (
     <div
       ref={imgRef}
-      className={`relative overflow-hidden ${className}`}
-      style={{
-        width: fill ? "100%" : width,
-        height: fill ? "100%" : height,
-      }}
+      className={cn(
+        "relative overflow-hidden transition-opacity duration-300",
+        !isLoaded && "animate-pulse bg-gray-200",
+        className,
+      )}
+      style={!fill && width && height ? { width, height } : undefined}
     >
       {isInView && (
         <Image
@@ -70,17 +72,12 @@ export function LazyImage({
           height={fill ? undefined : height}
           fill={fill}
           sizes={sizes}
-          priority={priority}
           quality={quality}
-          className={`transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+          priority={priority}
+          className={cn("transition-opacity duration-300", isLoaded ? "opacity-100" : "opacity-0")}
           onLoad={() => setIsLoaded(true)}
-          style={{
-            objectFit: "cover",
-            contentVisibility: "auto",
-          }}
         />
       )}
-      {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
     </div>
   )
 }

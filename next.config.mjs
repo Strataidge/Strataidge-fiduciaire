@@ -3,9 +3,8 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Optimisations pour les performances mobile
+  // Désactiver l'optimisation CSS qui cause l'erreur
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'framer-motion'],
     webVitalsAttribution: ['CLS', 'LCP'],
   },

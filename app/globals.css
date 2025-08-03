@@ -3,131 +3,167 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --strataidge-turquoise: #00c9a7;
+  --strataidge-coral: #ff6b6b;
+  --strataidge-blue-night: #1a1a2e;
+  --strataidge-yellow: #ffd93d;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+@layer utilities {
+  .text-strataidge-turquoise {
+    color: var(--strataidge-turquoise);
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  .text-strataidge-coral {
+    color: var(--strataidge-coral);
+  }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-  font-display: swap;
+  .text-strataidge-blue-night {
+    color: var(--strataidge-blue-night);
+  }
+
+  .text-strataidge-yellow {
+    color: var(--strataidge-yellow);
+  }
+
+  .bg-strataidge-turquoise {
+    background-color: var(--strataidge-turquoise);
+  }
+
+  .bg-strataidge-coral {
+    background-color: var(--strataidge-coral);
+  }
+
+  .bg-strataidge-blue-night {
+    background-color: var(--strataidge-blue-night);
+  }
+
+  .bg-strataidge-yellow {
+    background-color: var(--strataidge-yellow);
+  }
+
+  .border-strataidge-turquoise {
+    border-color: var(--strataidge-turquoise);
+  }
+
+  .border-strataidge-coral {
+    border-color: var(--strataidge-coral);
+  }
+
+  .border-strataidge-blue-night {
+    border-color: var(--strataidge-blue-night);
+  }
+
+  .border-strataidge-yellow {
+    border-color: var(--strataidge-yellow);
+  }
 }
 
 /* Optimisations pour mobile */
 @media (max-width: 768px) {
-  /* Réduire les animations sur mobile */
-  * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.3s !important;
+  .section-optimized {
+    content-visibility: auto;
+    contain-intrinsic-size: 200px;
   }
 
-  /* Optimiser les ombres sur mobile */
-  .shadow-lg {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  .animate-pulse {
+    animation-duration: 1.5s;
+  }
+
+  .transition-all {
+    transition-duration: 0.2s;
+  }
+
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Scrollbar horizontal pour mobile */
+.horizontal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--strataidge-turquoise) transparent;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--strataidge-turquoise);
+  border-radius: 3px;
+}
+
+/* Animation pour les modales */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.2s ease-out;
+}
+
+/* Optimisations de performance */
+.lazy-load-placeholder {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Amélioration des performances de rendu */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Optimisation pour les images */
+img {
+  content-visibility: auto;
+}
+
+/* Réduction de la complexité des ombres sur mobile */
+@media (max-width: 768px) {
+  .shadow-2xl {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .shadow-xl {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  /* Optimiser les gradients sur mobile */
-  .bg-gradient-to-r,
-  .bg-gradient-to-l,
-  .bg-gradient-to-t,
-  .bg-gradient-to-b {
-    background-image: none !important;
-    background-color: theme("colors.blue.600") !important;
+  .shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
-}
-
-/* Optimisations générales */
-img {
-  content-visibility: auto;
-  contain-intrinsic-size: 300px 200px;
-}
-
-/* Optimiser le rendu des fonts */
-@font-face {
-  font-display: swap;
-}
-
-/* Optimisations pour les vidéos */
-video {
-  content-visibility: auto;
-  contain-intrinsic-size: 800px 450px;
-}
-
-/* Optimisations pour les iframes */
-iframe {
-  content-visibility: auto;
-  contain-intrinsic-size: 800px 450px;
-}
-
-/* Améliorer le rendu des composants lourds */
-.heavy-component {
-  content-visibility: auto;
-  contain-intrinsic-size: 100% 400px;
-}
-
-/* Optimiser les animations */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Optimisations pour le lazy loading */
-.lazy-loading {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.lazy-loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Optimiser les composants avec will-change */
-.animate-pulse,
-.animate-spin,
-.animate-bounce {
-  will-change: transform, opacity;
-}
-
-/* Optimisations pour les cartes */
-.card-optimized {
-  contain: layout style paint;
-}
-
-/* Optimisations pour les listes */
-.list-optimized {
-  contain: layout;
-}
-
-/* Optimisations pour les modals */
-.modal-optimized {
-  contain: layout style paint;
-  content-visibility: auto;
 }
