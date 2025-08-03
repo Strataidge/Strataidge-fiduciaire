@@ -84,7 +84,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
               <X className="h-5 w-5 text-gray-300" />
             </button>
 
-            <div className="relative p-6 flex flex-col max-h-[85vh]">
+            <div className="relative p-6 flex flex-col max-h-[85vh] overflow-hidden">
               <AnimatePresence mode="wait">
                 {view === "details" ? (
                   <motion.div
@@ -99,7 +99,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                     <div className="flex-shrink-0 text-left mb-4">
                       <h2 className="text-xl font-bold text-strataidge-turquoise">Rejoignez l'équipe Strataidge !</h2>
                     </div>
-                    <div className="flex-1 space-y-4 overflow-y-auto text-left">
+                    <div className="flex-1 space-y-4 overflow-hidden text-left">
                       <div className="space-y-3 text-gray-300 text-sm">
                         <p>Chez Strataidge, nous croyons que chaque profil peut apporter une valeur unique.</p>
                         <p>
@@ -143,7 +143,7 @@ export function RecruitmentPopup({ isOpen, onOpenChange }: RecruitmentPopupProps
                     animate="visible"
                     exit="exit"
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-y-auto"
+                    className="overflow-hidden"
                   >
                     <RecruitmentForm onBack={() => setView("details")} />
                   </motion.div>

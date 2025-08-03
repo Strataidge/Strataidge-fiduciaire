@@ -133,7 +133,7 @@ export function FileUpload({
         >
           <Upload
             className={cn(
-              "h-8 w-8 mx-auto mb-3 transition-colors",
+              "h-8 w-8 mx-auto mb-3 transition-colors flex-shrink-0",
               isDragOver ? "text-strataidge-turquoise" : "text-gray-400",
             )}
           />
@@ -150,10 +150,10 @@ export function FileUpload({
             type="button"
             variant="outline"
             size="sm"
-            className="border-white/20 text-gray-400 hover:text-white hover:bg-white/10 bg-transparent"
+            className="border-white/20 text-gray-400 hover:text-white hover:bg-white/10 bg-transparent flex items-center justify-center gap-2 w-fit mx-auto px-4 py-2"
           >
-            <Paperclip className="mr-2 h-4 w-4" />
-            {placeholder}
+            <Paperclip className="h-4 w-4 flex-shrink-0" />
+            <span className="whitespace-nowrap">{placeholder}</span>
           </Button>
           <p className="text-xs text-gray-500 mt-2">Formats acceptés: {accept.replace(/\./g, "").toUpperCase()}</p>
         </div>
