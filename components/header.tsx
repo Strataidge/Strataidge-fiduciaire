@@ -130,11 +130,11 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-strataidge-blue-night/90 backdrop-blur-md shadow-lg">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-start gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <Image src="/logo.png" alt="Strataidge Fiduciaire & Conseils Logo" width={40} height={40} />
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest my-[-4px]">
+                <span className="font-bold text-lg text-white text-left my-[-2px]">Strataidge</span>
+                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest">
                   FIDUCIAIRE & CONSEILS
                 </span>
               </div>

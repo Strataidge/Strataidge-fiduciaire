@@ -21,8 +21,8 @@ import {
   Handshake,
   Send,
   Loader,
-  X,
   Users,
+  Star,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -40,12 +40,11 @@ import { FadeIn } from "@/components/fade-in"
 import { AnimatedTitle } from "@/components/animated-title"
 import { LazyImage } from "@/components/lazy-image"
 import { HeroSection } from "@/components/hero-section"
-import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
-import { OptimizedSection } from "@/components/optimized-section"
 import { RecruitmentBanner } from "@/components/recruitment-banner"
 import { FileUpload } from "@/components/file-upload"
 import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
+import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
 
 // Lazy load des composants lourds
 const Chatbot = lazy(() => import("@/components/chatbot").then((m) => ({ default: m.Chatbot })))
@@ -82,30 +81,12 @@ export default function StrataidgeLandingPageV2() {
 
       <main role="main">
         <HeroSection />
-
-        <OptimizedSection>
-          <AboutSection />
-        </OptimizedSection>
-
-        <OptimizedSection>
-          <ServicesSection />
-        </OptimizedSection>
-
-        <OptimizedSection>
-          <MethodologySection />
-        </OptimizedSection>
-
-        <OptimizedSection>
-          <BlogSection />
-        </OptimizedSection>
-
-        <OptimizedSection>
-          <OffersSection />
-        </OptimizedSection>
-
-        <OptimizedSection>
-          <ContactSection />
-        </OptimizedSection>
+        <AboutSection />
+        <ServicesSection />
+        <MethodologySection />
+        <OffersSection />
+        <BlogSection />
+        <ContactSection />
       </main>
 
       <Footer />
@@ -119,7 +100,7 @@ export default function StrataidgeLandingPageV2() {
   )
 }
 
-// --- SECTIONS OPTIMISÉES ---
+// --- SECTIONS ---
 
 function AboutSection() {
   return (
@@ -518,6 +499,189 @@ function MethodologySection() {
   )
 }
 
+function OffersSection() {
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+
+  const plans = [
+    {
+      name: "Indépendant",
+      price: "À partir de",
+      amount: "150€",
+      description: "Pour les indépendants et freelances qui démarrent leur activité",
+      features: [
+        "Tenue de comptabilité simplifiée",
+        "Déclarations TVA trimestrielles",
+        "Déclaration fiscale annuelle",
+        "Conseils de base par email",
+        "Plateforme digitale incluse",
+      ],
+      popular: false,
+    },
+    {
+      name: "PME Essentiel",
+      price: "À partir de",
+      amount: "350€",
+      description: "Pour les petites entreprises en croissance",
+      features: [
+        "Comptabilité complète + bilan",
+        "Déclarations TVA mensuelles",
+        "Optimisation fiscale de base",
+        "Tableaux de bord mensuels",
+        "Support téléphonique prioritaire",
+        "Conseils stratégiques trimestriels",
+      ],
+      popular: true,
+    },
+    {
+      name: "PME Premium",
+      price: "À partir de",
+      amount: "650€",
+      description: "Pour les entreprises établies avec des besoins avancés",
+      features: [
+        "Tout PME Essentiel inclus",
+        "Analyses financières approfondies",
+        "Optimisation fiscale avancée",
+        "Reporting en temps réel",
+        "Accompagnement RH et social",
+        "Conseils stratégiques mensuels",
+      ],
+      popular: false,
+    },
+    {
+      name: "Enterprise",
+      price: "Sur mesure",
+      amount: null,
+      description: "Pour les grandes entreprises et groupes",
+      features: [
+        "Solution entièrement personnalisée",
+        "Équipe dédiée",
+        "Consolidation multi-entités",
+        "Audit et contrôle interne",
+        "Accompagnement M&A",
+        "Support 24/7",
+      ],
+      popular: false,
+    },
+    {
+      name: "À la carte",
+      price: "Tarification flexible",
+      amount: null,
+      description: "Services ponctuels selon vos besoins spécifiques",
+      features: [
+        "Missions ponctuelles",
+        "Tarification à l'heure ou au projet",
+        "Expertise spécialisée",
+        "Délais adaptés à vos urgences",
+      ],
+      popular: false,
+    },
+    {
+      name: "Création d'entreprise",
+      price: "Pack complet",
+      amount: null,
+      description: "Accompagnement complet pour créer votre entreprise",
+      features: [
+        "Étude de faisabilité",
+        "Choix de la structure juridique",
+        "Démarches administratives",
+        "Mise en place comptable",
+        "Formation aux obligations",
+      ],
+      popular: false,
+    },
+    {
+      name: "Transmission & Acquisition",
+      price: "Sur devis",
+      amount: null,
+      description: "Expertise pour vendre, acheter ou transmettre une entreprise",
+      features: [
+        "Valorisation d'entreprise",
+        "Due diligence",
+        "Optimisation fiscale de cession",
+        "Négociation et accompagnement",
+        "Structuration juridique",
+      ],
+      popular: false,
+    },
+  ]
+
+  const handlePlanSelect = (planName: string) => {
+    setSelectedPlan(planName)
+  }
+
+  return (
+    <>
+      <section id="offers" className="py-24 sm:py-32 bg-gray-50" aria-labelledby="offers-heading">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="font-semibold text-strataidge-turquoise">Offres</span>
+            <AnimatedTitle id="offers-heading">Des formules adaptées à chaque étape de votre croissance</AnimatedTitle>
+            <FadeIn>
+              <p className="mt-4 text-lg text-gray-600">
+                Tarifs transparents et flexibles pour accompagner votre entreprise, de la création à la transmission.
+                Chaque offre inclut notre approche humaine et nos outils digitaux.
+              </p>
+            </FadeIn>
+          </div>
+        </div>
+
+        <div className="mt-20">
+          <ModernOffersCarousel plans={plans} onPlanSelect={handlePlanSelect} />
+        </div>
+
+        <FadeIn>
+          <div className="mt-16 text-center">
+            <p className="text-gray-600 mb-6">
+              Tous nos tarifs sont indicatifs et personnalisables selon vos besoins spécifiques.
+            </p>
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-8 py-4 bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-white font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Demander un devis personnalisé
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </FadeIn>
+      </section>
+
+      <Dialog open={!!selectedPlan} onOpenChange={() => setSelectedPlan(null)}>
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8">
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-strataidge-turquoise">Intéressé par {selectedPlan} ?</DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
+                  Contactez-nous pour discuter de vos besoins spécifiques et obtenir un devis personnalisé.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 text-center">
+                <Star className="h-16 w-16 mx-auto text-strataidge-yellow" aria-hidden="true" />
+              </div>
+              <DialogFooter>
+                <Button
+                  onClick={() => setSelectedPlan(null)}
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                >
+                  Fermer
+                </Button>
+                <Button
+                  asChild
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                >
+                  <Link href="#contact">Nous contacter</Link>
+                </Button>
+              </DialogFooter>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  )
+}
+
 function BlogSection() {
   const blogPosts = [
     {
@@ -640,269 +804,6 @@ function BlogSection() {
         </DialogContent>
       </Dialog>
     </section>
-  )
-}
-
-function OffersSection() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
-  const [isStandardDetailsOpen, setIsStandardDetailsOpen] = useState(false)
-  const [isStrataidgeDetailsOpen, setIsStrataidgeDetailsOpen] = useState(false)
-  const [isCreationDetailsOpen, setIsCreationDetailsOpen] = useState(false)
-  const [isTransmissionDetailsOpen, setIsTransmissionDetailsOpen] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formMessage, setFormMessage] = useState<string | null>(null)
-  const [isCarteDetailsOpen, setIsCarteDetailsOpen] = useState(false)
-  const [isTalentsDetailsOpen, setIsTalentsDetailsOpen] = useState(false)
-
-  const handleSelectPlan = (plan: string) => {
-    setSelectedPlan(plan)
-    setFormMessage(null)
-  }
-
-  const openIaConfigurator = () => {
-    setIsDetailsOpen(false)
-    setIsStandardDetailsOpen(false)
-    setIsStrataidgeDetailsOpen(false)
-    handleSelectPlan("IA Strataidge")
-  }
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-    setFormMessage(null)
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setFormMessage("Votre demande d'offre a été envoyée. Nous vous contacterons très prochainement !")
-      ;(event.target as HTMLFormElement).reset()
-    } catch (error) {
-      console.error("Submission error:", error)
-      setFormMessage("Une erreur est survenue. Veuillez réessayer.")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const openCarteRequest = () => {
-    setIsCarteDetailsOpen(false)
-    handleSelectPlan("À la carte")
-  }
-
-  const openCreationRequest = () => {
-    setIsCreationDetailsOpen(false)
-    handleSelectPlan("Création d'entreprise")
-  }
-
-  const openTransmissionRequest = () => {
-    setIsTransmissionDetailsOpen(false)
-    handleSelectPlan("Transmission & Acquisition")
-  }
-
-  const openTalentsRequest = () => {
-    setIsTalentsDetailsOpen(false)
-    handleSelectPlan("Talents freelance")
-  }
-
-  const plans = [
-    {
-      name: "Full Digital",
-      price: "À partir de",
-      amount: "50€",
-      description: "La gestion comptable et fiscale complète, 100% en ligne.",
-      features: [
-        "Gestion comptable et déclarations fiscales",
-        "Optimisation fiscale et conformité légale belge",
-        "Suivi trimestriel des chiffres avec rapport",
-      ],
-      notIncluded: [
-        "Rendez-vous conseils (visio ou présentiel)",
-        "Assistance en cas de contrôle fiscal",
-        "Conseils stratégiques, business plans, ou management",
-        "Montages fiscaux complexes ou optimisations ciblées",
-        "Accompagnements spécifiques (création, transmission, financement)",
-      ],
-    },
-    {
-      name: "Standard",
-      price: "À partir de",
-      amount: "250€",
-      description: "L'équilibre entre autonomie digitale et accompagnement humain.",
-      features: [
-        "Tout le contenu de l'offre Full Digital",
-        "Rendez-vous de mise en place de la collaboration",
-        "4 rendez-vous conseils/an (un par trimestre, visio ou présentiel)",
-        "Accompagnement en cas de contrôle fiscal",
-        "Priorité dans le traitement de vos demandes",
-        "Conseils personnalisés sur les factures encodées",
-        "Permanence pour toutes vos questions",
-      ],
-      notIncluded: [
-        "Conseil stratégique avancé ou management d'entreprise",
-        "Élaboration de business plans ou plans stratégiques",
-        "Montages fiscaux complexes et optimisations poussées",
-        "Accompagnement spécifique (création, transmission, financement)",
-        "Audit et diagnostic complet de l'entreprise",
-      ],
-    },
-    {
-      name: "Strataidge",
-      price: "À partir de",
-      amount: "500€",
-      description: "Une immersion stratégique pour transformer votre business.",
-      features: [
-        "Diagnostic stratégique approfondi et analyse complète",
-        "Plan de développement sur mesure avec feuille de route",
-        "Accompagnement personnalisé et coaching stratégique",
-        "Accès à notre écosystème premium de partenaires",
-        "Mesure et optimisation continue des performances (KPIs)",
-      ],
-      notIncluded: [
-        "La gestion comptable et fiscale de base (Offre Full Digital) n'est pas incluse par défaut et peut être ajoutée.",
-        "Des missions très spécifiques comme la recherche de financement ou l'accompagnement à la transmission peuvent faire l'objet d'un devis séparé.",
-      ],
-    },
-    {
-      name: "À la carte",
-      price: "Sur demande",
-      amount: "",
-      description: "Des services ponctuels pour vos besoins spécifiques.",
-      features: [
-        "Rendez-vous conseils spécialisés",
-        "Montage de dossiers de crédit",
-        "Assistance contrôle fiscal",
-        "Business plans et audits",
-      ],
-    },
-  ]
-
-  const handlePlanClick = (planName: string) => {
-    switch (planName) {
-      case "Full Digital":
-        setIsDetailsOpen(true)
-        break
-      case "Standard":
-        setIsStandardDetailsOpen(true)
-        break
-      case "Strataidge":
-        setIsStrataidgeDetailsOpen(true)
-        break
-      case "À la carte":
-        setIsCarteDetailsOpen(true)
-        break
-      default:
-        handleSelectPlan(planName)
-        break
-    }
-  }
-
-  return (
-    <>
-      <section
-        id="offers"
-        className="py-24 sm:py-32 bg-strataidge-blue-night overflow-hidden"
-        aria-labelledby="offers-heading"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <span className="font-semibold text-strataidge-turquoise">Offres</span>
-            <AnimatedTitle className="text-white" id="offers-heading">
-              Des offres pensées pour chaque étape de votre développement
-            </AnimatedTitle>
-            <FadeIn>
-              <p className="mt-4 text-lg text-gray-300">
-                Packs comptables et fiscaux, solutions personnalisées et accompagnement stratégique : notre service
-                digitalisé offre un conseil sur-mesure pour chaque entreprise.
-              </p>
-            </FadeIn>
-          </div>
-        </div>
-
-        <div className="mt-20">
-          <ModernOffersCarousel plans={plans} onPlanSelect={handlePlanClick} />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="mt-12 text-center max-w-4xl mx-auto bg-white/5 rounded-2xl p-10 border border-white/20 shadow-xl backdrop-blur-sm">
-              <p className="text-xl text-gray-200 font-medium mb-8">
-                Vous n'êtes pas certain de l'offre qui vous correspond le mieux ? Chaque parcours est unique. C'est
-                pourquoi nous vous invitons à un échange personnalisé pour construire ensemble la solution qui servira
-                au mieux vos ambitions.
-              </p>
-              <Link
-                href="#contact"
-                className="group relative h-16 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_40px_rgba(139,92,246,0.4)] focus:outline-none focus:ring-0 inline-flex items-center justify-center px-8"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="relative flex items-center">
-                  <span className="text-white font-semibold text-xl tracking-wide">Prendre rendez-vous</span>
-                  <ArrowRight className="ml-4 h-6 w-6 text-strataidge-turquoise transition-all duration-300 group-hover:translate-x-1 group-hover:text-white" />
-                </div>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Dialogs pour les offres */}
-      <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
-          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
-            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
-            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
-              <DialogHeader className="flex-shrink-0 text-left">
-                <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise">
-                  Full Digital - Gestion 100% en ligne
-                </DialogTitle>
-                <DialogDescription className="text-gray-400 pt-2">
-                  La solution idéale pour une gestion comptable et fiscale entièrement digitalisée.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
-                <div>
-                  <h4 className="font-bold text-lg text-white mb-3">Inclus dans l'offre :</h4>
-                  <ul className="space-y-2">
-                    {plans[0].features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-strataidge-turquoise mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg text-white mb-3">Non inclus :</h4>
-                  <ul className="space-y-2">
-                    {plans[0].notIncluded?.map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <X className="h-5 w-5 text-gray-400 mr-3 mt-1 flex-shrink-0" />
-                        <span className="text-gray-400">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <DialogFooter className="mt-4 flex-shrink-0">
-                <Button
-                  onClick={() => setIsDetailsOpen(false)}
-                  variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
-                >
-                  Fermer
-                </Button>
-                <Button
-                  onClick={openIaConfigurator}
-                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
-                >
-                  Configurer mon offre
-                </Button>
-              </DialogFooter>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
   )
 }
 
@@ -1081,8 +982,8 @@ function Footer() {
     { name: "Vision", href: "#about" },
     { name: "Solutions", href: "#services" },
     { name: "Approche", href: "#methodology" },
-    { name: "Analyses", href: "#blog" },
     { name: "Offres", href: "#offers" },
+    { name: "Analyses", href: "#blog" },
     { name: "Contact", href: "#contact" },
   ]
 
@@ -1092,16 +993,23 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3 w-fit" aria-label="Retour à l'accueil">
-              <LazyImage src="/logo.png" alt="" width={40} height={40} priority={false} />
+              <img
+                src="/logo.png"
+                alt="Logo Strataidge Fiduciaire & Conseils"
+                width={40}
+                height={40}
+                className="object-contain flex-shrink-0"
+                style={{ minWidth: "40px", minHeight: "40px" }}
+              />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest my-[-4px]">
+                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest whitespace-nowrap my-[-2px]">
                   FIDUCIAIRE & CONSEILS
                 </span>
               </div>
             </Link>
-            <p className="mt-4 text-sm text-left ml-2.5 text-white">L'humain derrière les chiffres.</p>
-            <p className="mt-2 text-xs text-left ml-2.5 text-gray-400">
+            <p className="mt-4 text-sm text-left text-white">L'humain derrière les chiffres.</p>
+            <p className="mt-2 text-xs text-left text-gray-400">
               Strataidge, votre fiduciaire de confiance en Wallonie et à Bruxelles, vous accompagne dans le pilotage
               comptable, fiscal et stratégique de votre activité. Nous sommes également à vos côtés pour la création, la
               transmission ou l'acquisition de votre entreprise.
@@ -1161,20 +1069,20 @@ function Footer() {
               href="https://www.itaa.be/fr/accueil/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              className="flex items-center gap-4 hover:opacity-80 transition-opacity"
               aria-label="Visiter le site de l'ITAA - Institute for Tax Advisors & Accountants"
             >
-              <LazyImage
-                src="/itaa-logo-new.png"
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0bb4a2b9-cf21-4f7f-b0d2-b09d2341088c-YJcp6U8ka350SsYpniWI0e9uWcF7ID.png"
                 alt="Logo ITAA - Institute for Tax Advisors & Accountants"
-                width={40}
-                height={40}
-                className="object-contain"
-                priority={false}
+                width={50}
+                height={50}
+                className="object-contain flex-shrink-0"
+                style={{ minWidth: "50px", minHeight: "50px" }}
               />
-              <div className="text-right">
-                <p className="text-xs text-gray-300 font-medium">Entreprise agréée ITAA</p>
-                <p className="text-xs text-gray-400">N° 11.813.687</p>
+              <div className="text-left min-w-[180px]">
+                <p className="text-base text-gray-300 font-medium whitespace-nowrap">Entreprise agréée ITAA</p>
+                <p className="text-base text-gray-400 whitespace-nowrap">N° 11.813.687</p>
               </div>
             </a>
           </div>
