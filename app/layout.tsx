@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils"
 import { StructuredData } from "@/components/structured-data"
 
 const siteConfig = {
-  name: "Fiduciaire Digitale et Humaine – Conseil Fiscal & Comptabilité",
+  name: "Fiduciaire Digitale & Humaine | Conseil Fiscal & Comptabilité Stratégique pour Indépendants & Entreprises",
   description:
-    "Au-delà des chiffres : accompagnement fiscal et comptable digital et humain pour indépendants et entreprises de toutes tailles, avec vision claire.",
+    "Au-delà des chiffres, Strataidge Fiduciaire place l'humain et la stratégie au cœur de la comptabilité et du conseil fiscal. Des solutions digitales sur-mesure pour accompagner votre croissance en toute sérénité.",
   url: "https://www.strataidge-fiduciaire.com",
   ogImage: "https://www.strataidge-fiduciaire.com/og-image-strataidge.jpg",
   ogImageSquare: "https://www.strataidge-fiduciaire.com/og-image-square.jpg",
