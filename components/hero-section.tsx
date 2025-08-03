@@ -32,6 +32,7 @@ export function HeroSection() {
       video.playbackRate = 1.5
       video.muted = true
       video.playsInline = true
+      video.loop = false // SUPPRESSION DE LA BOUCLE
 
       // Commencer le chargement immédiatement
       video.load()
@@ -54,12 +55,20 @@ export function HeroSection() {
         playVideo()
       }
 
+      // Événement pour gérer la fin de la vidéo
+      const handleVideoEnded = () => {
+        // La vidéo reste sur la dernière frame (pas de boucle)
+        console.log("Vidéo terminée - reste sur la dernière frame")
+      }
+
       video.addEventListener("canplay", handleCanPlay)
       video.addEventListener("loadeddata", handleLoadedData)
+      video.addEventListener("ended", handleVideoEnded)
 
       return () => {
         video.removeEventListener("canplay", handleCanPlay)
         video.removeEventListener("loadeddata", handleLoadedData)
+        video.removeEventListener("ended", handleVideoEnded)
       }
     }
   }, [isClient, isMobile])
@@ -92,7 +101,6 @@ export function HeroSection() {
           ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
           className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
