@@ -27,26 +27,28 @@ export function HeroSection() {
     if (videoRef.current && isClient) {
       const video = videoRef.current
 
-      // Configuration optimisée pour iOS
-      video.preload = "auto"
+      // Configuration ultra-optimisée pour LCP
+      video.preload = "metadata" // Changé de "auto" à "metadata"
       video.playbackRate = 1.5
       video.muted = true
       video.playsInline = true
-      video.loop = false // SUPPRESSION DE LA BOUCLE
+      video.loop = false
 
-      // Charger seulement si nécessaire
-      if (video.readyState < 2) {
+      // Lazy loading de la vidéo après le LCP
+      const loadVideo = () => {
+        video.preload = "auto"
         video.load()
       }
 
-      // Fonction pour jouer la vidéo
+      // Délai pour ne pas bloquer le LCP
+      const timer = setTimeout(loadVideo, 100)
+
       const playVideo = () => {
         video.play().catch(() => {
           console.log("Autoplay bloqué")
         })
       }
 
-      // Événements pour détecter quand la vidéo est prête
       const handleCanPlay = () => {
         setVideoLoaded(true)
         playVideo()
@@ -57,9 +59,7 @@ export function HeroSection() {
         playVideo()
       }
 
-      // Événement pour gérer la fin de la vidéo
       const handleVideoEnded = () => {
-        // La vidéo reste sur la dernière frame (pas de boucle)
         console.log("Vidéo terminée - reste sur la dernière frame")
       }
 
@@ -68,6 +68,7 @@ export function HeroSection() {
       video.addEventListener("ended", handleVideoEnded)
 
       return () => {
+        clearTimeout(timer)
         video.removeEventListener("canplay", handleCanPlay)
         video.removeEventListener("loadeddata", handleLoadedData)
         video.removeEventListener("ended", handleVideoEnded)
@@ -75,7 +76,7 @@ export function HeroSection() {
     }
   }, [isClient, isMobile])
 
-  // URLs optimisées - chargement conditionnel
+  // URLs optimisées
   const videoSources = {
     desktop: {
       mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
@@ -87,61 +88,58 @@ export function HeroSection() {
     },
   }
 
-  // Utiliser seulement les sources nécessaires
   const currentSources = isMobile ? videoSources.mobile : videoSources.desktop
 
   const getObjectPosition = () => {
     if (!isClient) return "center 20%"
-    return isMobile ? "60% 20%" : "center 20%"
+    return isMobile ? "40% 20%" : "center 20%" // Changé vers la droite (40% au lieu de 60%)
   }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-strataidge-blue-night">
-      {/* FOND BLEU PERMANENT - PAS DE SABLIER */}
+      {/* FOND BLEU PERMANENT - OPTIMISÉ POUR LCP */}
       <div className="absolute inset-0 bg-strataidge-blue-night z-0" />
 
-      {/* Vidéo avec fond bleu pendant le chargement */}
+      {/* Vidéo avec chargement différé */}
       {isClient && (
         <video
           ref={videoRef}
           autoPlay
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{
             objectFit: "cover",
             objectPosition: getObjectPosition(),
-            backgroundColor: "#0A192F", // Fond bleu pendant le chargement
+            backgroundColor: "#0A192F",
           }}
         >
-          {/* Charger seulement la source appropriée */}
           <source src={currentSources.mp4} type="video/mp4" />
           <source src={currentSources.webm} type="video/webm" />
         </video>
       )}
 
-      <SparkleAnimation className="z-[2]" />
+      {/* SparkleAnimation différée pour ne pas bloquer le LCP */}
+      {isClient && <SparkleAnimation className="z-[2]" />}
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[3]" />
 
-      {/* Contenu principal */}
+      {/* Contenu principal - PRIORITÉ LCP */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-[4] relative">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-8xl"
-        >
+        {/* Titre principal - élément LCP critique */}
+        <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-8xl">
           L'humain derrière les chiffres.
-        </motion.h1>
+        </h1>
+
+        {/* Contenu secondaire avec animations différées */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-6 max-w-3xl mx-auto text-lg text-gray-300 md:text-xl"
         >
           {
@@ -151,7 +149,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-10 flex justify-center items-center gap-4"
         >
           <Link href="#about">

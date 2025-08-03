@@ -98,7 +98,6 @@ export const metadata: Metadata = {
     creator: "@strataidge",
     site: "@strataidge",
   },
-  // SUPPRESSION TOTALE DES ICONS DANS METADATA
   manifest: "/site.webmanifest",
   other: {
     "theme-color": "#00C9A7",
@@ -119,27 +118,11 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        <StructuredData />
+        {/* Préchargement critique pour LCP */}
+        <link rel="preconnect" href="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
+        <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
 
-        {/* SEULE DÉCLARATION D'ICÔNE - APPLE TOUCH ICON */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-
-        {/* Favicon basique */}
-        <link rel="icon" href="/favicon-32x32.png" type="image/png" />
-
-        {/* Meta tags iOS */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Strataidge" />
-
-        {/* Préchargement vidéo pour éviter le sablier */}
-        <link
-          rel="preload"
-          as="video"
-          href="https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4"
-          type="video/mp4"
-        />
-
+        {/* Préchargement des polices critiques */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -147,19 +130,35 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
+        <StructuredData />
+
+        {/* Icônes optimisées */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" />
+
+        {/* Meta tags iOS */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Strataidge" />
 
         <meta name="geo.region" content="BE-WAL" />
         <meta name="geo.placename" content="Ham-sur-Heure, Wallonie, Belgique" />
 
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}`}></script>
+        {/* Analytics différé pour ne pas bloquer le LCP */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${siteConfig.analytics.googleId}');
+            (function() {
+              var script = document.createElement('script');
+              script.async = true;
+              script.src = 'https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleId}';
+              document.head.appendChild(script);
+              
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${siteConfig.analytics.googleId}');
+            })();
           `,
           }}
         />
