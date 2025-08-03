@@ -47,16 +47,16 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Header } from "@/components/header"
-import { HeroSection } from "@/components/hero-section"
 import { FadeIn } from "@/components/fade-in"
 import { AnimatedTitle } from "@/components/animated-title"
-import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
-import { RecruitmentBanner } from "@/components/recruitment-banner"
 import { FileUpload } from "@/components/file-upload"
 import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
-import { OptimizedSection } from "@/components/optimized-section"
 import { LazyImage } from "@/components/lazy-image"
+import { HeroSection } from "@/components/hero-section"
+import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
+import { RecruitmentBanner } from "@/components/recruitment-banner"
+import { OptimizedSection } from "@/components/optimized-section"
 
 // Lazy loading des composants lourds
 const RecruitmentPopup = lazy(() =>

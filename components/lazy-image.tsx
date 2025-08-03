@@ -1,20 +1,18 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
+import { useState, useRef, useEffect } from "react"
 
 interface LazyImageProps {
   src: string
   alt: string
-  width: number
-  height: number
+  width?: number
+  height?: number
   className?: string
   priority?: boolean
+  fill?: boolean
   sizes?: string
   quality?: number
-  placeholder?: "blur" | "empty"
-  blurDataURL?: string
 }
 
 export function LazyImage({
@@ -22,12 +20,11 @@ export function LazyImage({
   alt,
   width,
   height,
-  className,
+  className = "",
   priority = false,
+  fill = false,
   sizes,
   quality = 85,
-  placeholder = "empty",
-  blurDataURL,
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(priority)
@@ -57,23 +54,33 @@ export function LazyImage({
   }, [priority])
 
   return (
-    <div ref={imgRef} className={cn("relative overflow-hidden", className)}>
+    <div
+      ref={imgRef}
+      className={`relative overflow-hidden ${className}`}
+      style={{
+        width: fill ? "100%" : width,
+        height: fill ? "100%" : height,
+      }}
+    >
       {isInView && (
         <Image
           src={src || "/placeholder.svg"}
           alt={alt}
-          width={width}
-          height={height}
-          className={cn("transition-opacity duration-300", isLoaded ? "opacity-100" : "opacity-0")}
-          onLoad={() => setIsLoaded(true)}
-          priority={priority}
+          width={fill ? undefined : width}
+          height={fill ? undefined : height}
+          fill={fill}
           sizes={sizes}
+          priority={priority}
           quality={quality}
-          placeholder={placeholder}
-          blurDataURL={blurDataURL}
+          className={`transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+          onLoad={() => setIsLoaded(true)}
+          style={{
+            objectFit: "cover",
+            contentVisibility: "auto",
+          }}
         />
       )}
-      {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" style={{ width, height }} />}
+      {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
     </div>
   )
 }

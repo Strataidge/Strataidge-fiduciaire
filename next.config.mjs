@@ -117,9 +117,6 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Optimisation pour mobile
-    loader: 'default',
-    quality: 85, // Réduire légèrement la qualité pour mobile
   },
 
   trailingSlash: false,

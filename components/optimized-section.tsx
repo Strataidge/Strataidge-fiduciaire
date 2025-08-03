@@ -1,25 +1,22 @@
 "use client"
 
-import { useRef, useEffect, useState, type ReactNode } from "react"
-import { cn } from "@/lib/utils"
+import { type ReactNode, useState, useRef, useEffect } from "react"
 
 interface OptimizedSectionProps {
   children: ReactNode
   className?: string
-  id?: string
   threshold?: number
   rootMargin?: string
 }
 
 export function OptimizedSection({
   children,
-  className,
-  id,
+  className = "",
   threshold = 0.1,
-  rootMargin = "50px",
+  rootMargin = "100px",
 }: OptimizedSectionProps) {
   const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,8 +27,8 @@ export function OptimizedSection({
         }
       },
       {
-        threshold,
         rootMargin,
+        threshold,
       },
     )
 
@@ -40,11 +37,11 @@ export function OptimizedSection({
     }
 
     return () => observer.disconnect()
-  }, [threshold, rootMargin])
+  }, [rootMargin, threshold])
 
   return (
-    <section ref={sectionRef} id={id} className={cn(className)}>
+    <div ref={sectionRef} className={className} style={{ contentVisibility: "auto" }}>
       {isVisible ? children : <div className="min-h-[200px]" />}
-    </section>
+    </div>
   )
 }

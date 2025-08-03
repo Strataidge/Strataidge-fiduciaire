@@ -2,140 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 217 91% 60%; /* A modern blue */
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 170 100% 39%; /* Turquoise */
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 217 91% 60%; /* Indigo moderne au lieu de Coral */
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 60%;
-
-    --radius: 0.75rem;
-  }
-
-  .dark {
-    --background: 224 71% 4%; /* Blue Night */
-    --foreground: 210 40% 98%;
-
-    --card: 224 71% 4%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 170 100% 39%; /* Turquoise */
-    --primary-foreground: 224 71% 4%;
-
-    --secondary: 217 91% 60%; /* Blue */
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 215 28% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 4 100% 69%; /* Coral */
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
-    --ring: 170 100% 39%;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    /* Optimisation pour mobile */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-/* Custom scrollbar for horizontal scroll sections */
-.horizontal-scrollbar::-webkit-scrollbar {
-  height: 8px;
+html {
+  scroll-behavior: smooth;
 }
 
-.horizontal-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.horizontal-scrollbar::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.5);
-  border-radius: 10px;
-}
-
-.horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary));
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  font-display: swap;
 }
 
 /* Optimisations pour mobile */
 @media (max-width: 768px) {
-  /* Réduire les animations sur mobile pour améliorer les performances */
+  /* Réduire les animations sur mobile */
   * {
     animation-duration: 0.3s !important;
-    transition-duration: 0.2s !important;
+    transition-duration: 0.3s !important;
   }
 
-  /* Optimiser le rendu des gradients sur mobile */
-  .bg-gradient-to-r,
-  .bg-gradient-to-b,
-  .bg-gradient-to-l,
-  .bg-gradient-to-t {
-    will-change: auto;
-  }
-
-  /* Optimiser les transformations */
-  .transform {
-    will-change: transform;
-  }
-
-  /* Réduire la complexité des ombres sur mobile */
-  .shadow-2xl {
-    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* Optimiser les ombres sur mobile */
+  .shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
   }
 
   .shadow-xl {
-    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Optimiser les gradients sur mobile */
+  .bg-gradient-to-r,
+  .bg-gradient-to-l,
+  .bg-gradient-to-t,
+  .bg-gradient-to-b {
+    background-image: none !important;
+    background-color: theme("colors.blue.600") !important;
   }
 }
 
-/* Optimisation pour les images */
+/* Optimisations générales */
 img {
   content-visibility: auto;
+  contain-intrinsic-size: 300px 200px;
 }
 
-/* Optimisation pour les sections hors écran */
-.section-offscreen {
+/* Optimiser le rendu des fonts */
+@font-face {
+  font-display: swap;
+}
+
+/* Optimisations pour les vidéos */
+video {
   content-visibility: auto;
-  contain-intrinsic-size: 0 500px;
+  contain-intrinsic-size: 800px 450px;
+}
+
+/* Optimisations pour les iframes */
+iframe {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px 450px;
+}
+
+/* Améliorer le rendu des composants lourds */
+.heavy-component {
+  content-visibility: auto;
+  contain-intrinsic-size: 100% 400px;
+}
+
+/* Optimiser les animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimisations pour le lazy loading */
+.lazy-loading {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.lazy-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optimiser les composants avec will-change */
+.animate-pulse,
+.animate-spin,
+.animate-bounce {
+  will-change: transform, opacity;
+}
+
+/* Optimisations pour les cartes */
+.card-optimized {
+  contain: layout style paint;
+}
+
+/* Optimisations pour les listes */
+.list-optimized {
+  contain: layout;
+}
+
+/* Optimisations pour les modals */
+.modal-optimized {
+  contain: layout style paint;
+  content-visibility: auto;
 }
