@@ -58,23 +58,20 @@ export function LazyImage({
     <div
       ref={imgRef}
       className={cn(
-        "relative overflow-hidden transition-opacity duration-300",
+        "relative overflow-hidden transition-opacity duration-300 w-full aspect-[4/3]",
         !isLoaded && "animate-pulse bg-gray-200",
         className,
       )}
-      style={!fill && width && height ? { width, height } : undefined}
     >
       {isInView && (
         <Image
           src={src || "/placeholder.svg"}
           alt={alt}
-          width={fill ? undefined : width}
-          height={fill ? undefined : height}
-          fill={fill}
+          fill={true}
           sizes={sizes}
           quality={quality}
           priority={priority}
-          className={cn("transition-opacity duration-300", isLoaded ? "opacity-100" : "opacity-0")}
+          className={cn("transition-opacity duration-300 object-cover", isLoaded ? "opacity-100" : "opacity-0")}
           onLoad={() => setIsLoaded(true)}
         />
       )}
