@@ -34,8 +34,10 @@ export function HeroSection() {
       video.playsInline = true
       video.loop = false // SUPPRESSION DE LA BOUCLE
 
-      // Commencer le chargement immédiatement
-      video.load()
+      // Charger seulement si nécessaire
+      if (video.readyState < 2) {
+        video.load()
+      }
 
       // Fonction pour jouer la vidéo
       const playVideo = () => {
@@ -73,7 +75,7 @@ export function HeroSection() {
     }
   }, [isClient, isMobile])
 
-  // URLs optimisées
+  // URLs optimisées - chargement conditionnel
   const videoSources = {
     desktop: {
       mp4: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com).mp4",
@@ -84,6 +86,9 @@ export function HeroSection() {
       webm: "https://pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev/5433700_Coll_wavebreak_People_1280x720%20(1)%20(online-video-cutter.com)%20(3).webm",
     },
   }
+
+  // Utiliser seulement les sources nécessaires
+  const currentSources = isMobile ? videoSources.mobile : videoSources.desktop
 
   const getObjectPosition = () => {
     if (!isClient) return "center 20%"
@@ -112,9 +117,9 @@ export function HeroSection() {
             backgroundColor: "#0A192F", // Fond bleu pendant le chargement
           }}
         >
-          {/* MP4 en premier pour iOS */}
-          <source src={isMobile ? videoSources.mobile.mp4 : videoSources.desktop.mp4} type="video/mp4" />
-          <source src={isMobile ? videoSources.mobile.webm : videoSources.desktop.webm} type="video/webm" />
+          {/* Charger seulement la source appropriée */}
+          <source src={currentSources.mp4} type="video/mp4" />
+          <source src={currentSources.webm} type="video/webm" />
         </video>
       )}
 
