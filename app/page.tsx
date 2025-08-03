@@ -1,9 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
-import Image from "next/image"
+import { useState, lazy, Suspense } from "react"
 import Link from "next/link"
 import {
   TrendingUp,
@@ -48,53 +46,91 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
-import { SparkleAnimation } from "@/components/sparkle-animation"
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { FadeIn } from "@/components/fade-in"
 import { AnimatedTitle } from "@/components/animated-title"
 import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
 import { RecruitmentBanner } from "@/components/recruitment-banner"
-import { RecruitmentPopup } from "@/components/recruitment-popup"
 import { FileUpload } from "@/components/file-upload"
-import { Chatbot } from "@/components/chatbot"
 import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
+import { OptimizedSection } from "@/components/optimized-section"
+import { LazyImage } from "@/components/lazy-image"
+
+// Lazy loading des composants lourds
+const RecruitmentPopup = lazy(() =>
+  import("@/components/recruitment-popup").then((m) => ({ default: m.RecruitmentPopup })),
+)
+const Chatbot = lazy(() => import("@/components/chatbot").then((m) => ({ default: m.Chatbot })))
+const SparkleAnimation = lazy(() =>
+  import("@/components/sparkle-animation").then((m) => ({ default: m.SparkleAnimation })),
+)
+
+// Loading fallbacks optimisés
+const ComponentLoader = () => <div className="min-h-[50px]" />
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
   const [isBannerVisible, setIsBannerVisible] = useState(true)
   const [isRecruitmentPopupOpen, setIsRecruitmentPopupOpen] = useState(false)
-  const [isChatOpen, setIsChatOpen] = useState(false) // Nouvel état
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
-      {/* Schema.org structured data for the page */}
       <RecruitmentBanner
         isVisible={isBannerVisible}
         onClose={() => setIsBannerVisible(false)}
         onOpenPopup={() => setIsRecruitmentPopupOpen(true)}
-        isChatOpen={isChatOpen} // Passer l'état du chat
+        isChatOpen={isChatOpen}
       />
-      <RecruitmentPopup isOpen={isRecruitmentPopupOpen} onOpenChange={setIsRecruitmentPopupOpen} />
+
+      <Suspense fallback={<ComponentLoader />}>
+        <RecruitmentPopup isOpen={isRecruitmentPopupOpen} onOpenChange={setIsRecruitmentPopupOpen} />
+      </Suspense>
+
       <Header />
+
       <main role="main">
         <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <MethodologySection />
-        <BlogSection />
-        <OffersSection />
-        <ContactSection />
+
+        <OptimizedSection>
+          <AboutSection />
+        </OptimizedSection>
+
+        <OptimizedSection>
+          <ServicesSection />
+        </OptimizedSection>
+
+        <OptimizedSection>
+          <MethodologySection />
+        </OptimizedSection>
+
+        <OptimizedSection>
+          <BlogSection />
+        </OptimizedSection>
+
+        <OptimizedSection>
+          <OffersSection />
+        </OptimizedSection>
+
+        <OptimizedSection>
+          <ContactSection />
+        </OptimizedSection>
       </main>
+
       <Footer />
-      <Chatbot onChatStateChange={setIsChatOpen} /> {/* Passer le callback */}
+
+      <Suspense fallback={null}>
+        <Chatbot onChatStateChange={setIsChatOpen} />
+      </Suspense>
+
       <CookieBanner />
     </div>
   )
 }
 
-// --- SECTIONS ---
+// --- SECTIONS OPTIMISÉES ---
 
 function AboutSection() {
   return (
@@ -104,14 +140,15 @@ function AboutSection() {
           <FadeIn>
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-strataidge-turquoise to-strataidge-coral rounded-2xl blur-xl opacity-20"></div>
-              <Image
+              <LazyImage
                 src="/vision-team-collaboration.webp"
                 alt="Équipe Strataidge célébrant une collaboration réussie dans un bureau moderne avec vue sur la nature"
                 width={500}
                 height={600}
                 className="relative rounded-2xl object-cover w-full h-full shadow-2xl"
-                priority
+                priority={false}
                 sizes="(max-width: 768px) 100vw, 50vw"
+                quality={80}
               />
             </div>
           </FadeIn>
@@ -126,7 +163,7 @@ function AboutSection() {
           <FadeIn>
             <p className="text-lg text-gray-700 text-center">
               {
-                "Avec plus de 15 années d\'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu\'à siéger aux conseils d\'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu\'en comprenant les personnes derrière chaque entreprise."
+                "Avec plus de 15 années d'expérience en expertise comptable et fiscale, les fondateurs de Strataidge Fiduciaire & Conseils ont accompagné des indépendants, des petites, moyennes et grandes entreprises, jusqu'à siéger aux conseils d'administration. Cette immersion à tous les échelons leur a révélé une évidence : une stratégie réellement efficace ne peut naître qu'en comprenant les personnes derrière chaque entreprise."
               }
             </p>
             <p className="mt-4 text-gray-700 text-center">
@@ -313,7 +350,9 @@ function ServicesSection() {
         className="relative py-24 sm:py-32 bg-strataidge-blue-night"
         aria-labelledby="services-heading"
       >
-        <SparkleAnimation className="opacity-50" />
+        <Suspense fallback={null}>
+          <SparkleAnimation className="opacity-50" />
+        </Suspense>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Solutions</span>
@@ -553,14 +592,15 @@ function BlogSection() {
                 >
                   <div className="h-full flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-strataidge-turquoise/50 transition-all duration-300 shadow-lg">
                     <div className="overflow-hidden">
-                      <Image
+                      <LazyImage
                         src={post.img || "/placeholder.svg"}
                         alt={`Illustration pour l'article : ${post.title}`}
                         width={400}
                         height={250}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading={index < 3 ? "eager" : "lazy"}
+                        priority={index < 3}
                         sizes="(max-width: 640px) 90vw, 350px"
+                        quality={75}
                       />
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
@@ -1711,7 +1751,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3 w-fit" aria-label="Retour à l'accueil">
-              <Image src="/logo.png" alt="" width={40} height={40} />
+              <LazyImage src="/logo.png" alt="" width={40} height={40} priority={false} />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg text-white text-left">Strataidge</span>
                 <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest my-[-4px]">
@@ -1783,12 +1823,13 @@ function Footer() {
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
               aria-label="Visiter le site de l'ITAA - Institute for Tax Advisors & Accountants"
             >
-              <Image
+              <LazyImage
                 src="/itaa-logo-new.png"
                 alt="Logo ITAA - Institute for Tax Advisors & Accountants"
                 width={40}
                 height={40}
                 className="object-contain"
+                priority={false}
               />
               <div className="text-right">
                 <p className="text-xs text-gray-300 font-medium">Entreprise agréée ITAA</p>

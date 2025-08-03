@@ -72,6 +72,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Optimisation pour mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 
@@ -92,4 +96,46 @@
 
 .horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
+}
+
+/* Optimisations pour mobile */
+@media (max-width: 768px) {
+  /* Réduire les animations sur mobile pour améliorer les performances */
+  * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Optimiser le rendu des gradients sur mobile */
+  .bg-gradient-to-r,
+  .bg-gradient-to-b,
+  .bg-gradient-to-l,
+  .bg-gradient-to-t {
+    will-change: auto;
+  }
+
+  /* Optimiser les transformations */
+  .transform {
+    will-change: transform;
+  }
+
+  /* Réduire la complexité des ombres sur mobile */
+  .shadow-2xl {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-xl {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Optimisation pour les images */
+img {
+  content-visibility: auto;
+}
+
+/* Optimisation pour les sections hors écran */
+.section-offscreen {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }

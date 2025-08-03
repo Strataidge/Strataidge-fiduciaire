@@ -3,10 +3,35 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Optimisations pour LCP
+  // Optimisations pour les performances mobile
   experimental: {
-    optimizeCss: false, // Désactiver temporairement
-    optimizePackageImports: [], // Supprimer les imports optimisés
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    webVitalsAttribution: ['CLS', 'LCP'],
+  },
+  
+  // Optimisation des bundles
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      // Optimisation pour mobile
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      }
+    }
+    return config
   },
   
   async redirects() {
@@ -47,9 +72,13 @@ const nextConfig = {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
         ],
       },
-      // Cache pour les vidéos
+      // Cache agressif pour les assets statiques
       {
         source: '/:path*.(mp4|webm)',
         headers: [
@@ -59,9 +88,18 @@ const nextConfig = {
           },
         ],
       },
-      // Cache pour les images
       {
-        source: '/:path*.(jpg|jpeg|png|webp|avif)',
+        source: '/:path*.(jpg|jpeg|png|webp|avif|svg)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache pour les fonts
+      {
+        source: '/:path*.(woff|woff2|eot|ttf|otf)',
         headers: [
           {
             key: 'Cache-Control',
@@ -75,9 +113,13 @@ const nextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Optimisation pour mobile
+    loader: 'default',
+    quality: 85, // Réduire légèrement la qualité pour mobile
   },
 
   trailingSlash: false,

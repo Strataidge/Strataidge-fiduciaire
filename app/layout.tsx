@@ -61,9 +61,24 @@ export default function RootLayout({
   return (
     <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
       <head>
+        {/* Préchargement DNS pour les domaines externes */}
+        <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
+        <link rel="dns-prefetch" href="//buck-able-curiously.ngrok-free.app" />
+
+        {/* Préchargement des ressources critiques */}
+        <link rel="preload" href="/logo.png" as="image" type="image/png" />
+
+        {/* Optimisation viewport pour mobile */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+        {/* Optimisation pour PWA */}
+        <meta name="theme-color" content="#00C9A7" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
         <StructuredData />
       </head>
-      <body>{children}</body>
+      <body className="overflow-x-hidden">{children}</body>
     </html>
   )
 }
