@@ -181,24 +181,34 @@ export function ConstructionBanner() {
                           href="https://www.strataidge-communication.com"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+                          className="relative flex items-center gap-2 hover:opacity-80 transition-all duration-300 cursor-pointer group"
                           aria-label="Visiter le site de Strataidge Communication"
                         >
-                          <Image
-                            src="/strataidge-communication-logo.png"
-                            alt="Strataidge Communication Logo"
-                            width={32}
-                            height={32}
-                            className="object-contain sm:w-10 sm:h-10"
-                          />
-                          <div className="text-left">
-                            <span className="text-white font-bold text-sm sm:text-base block">Strataidge</span>
-                            <span
-                              className="text-[#ff0066] text-xs font-medium block my-[-1px] sm:my-[-2px]"
-                              style={{ letterSpacing: "0.1em" }}
-                            >
-                              COMMUNICATION
-                            </span>
+                          {/* Halo bleu autour du logo */}
+                          <div className="relative">
+                            <div className="absolute -inset-2 bg-blue-500/30 rounded-full blur-md opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                            <Image
+                              src="/strataidge-communication-logo.png"
+                              alt="Strataidge Communication Logo"
+                              width={32}
+                              height={32}
+                              className="relative object-contain sm:w-10 sm:h-10 z-10"
+                            />
+                          </div>
+
+                          {/* Texte avec halo bleu */}
+                          <div className="relative text-left">
+                            {/* Halo bleu autour du texte */}
+                            <div className="absolute -inset-2 bg-blue-500/30 rounded-lg blur-md opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                            <div className="relative z-10">
+                              <span className="text-white font-bold text-sm sm:text-base block">Strataidge</span>
+                              <span
+                                className="text-[#ff0066] text-xs font-medium block my-[-1px] sm:my-[-2px]"
+                                style={{ letterSpacing: "0.1em" }}
+                              >
+                                COMMUNICATION
+                              </span>
+                            </div>
                           </div>
                         </a>
                       </div>
