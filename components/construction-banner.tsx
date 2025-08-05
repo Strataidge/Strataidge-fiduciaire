@@ -177,7 +177,13 @@ export function ConstructionBanner() {
                     <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10">
                       <p className="text-xs sm:text-sm text-gray-400 mb-2">Site construit par notre partenaire :</p>
                       <div className="flex items-center justify-center">
-                        <div className="flex items-center gap-2">
+                        <a
+                          href="https://www.strataidge-communication.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+                          aria-label="Visiter le site de Strataidge Communication"
+                        >
                           <Image
                             src="/strataidge-communication-logo.png"
                             alt="Strataidge Communication Logo"
@@ -194,7 +200,7 @@ export function ConstructionBanner() {
                               COMMUNICATION
                             </span>
                           </div>
-                        </div>
+                        </a>
                       </div>
                     </div>
                   </div>
