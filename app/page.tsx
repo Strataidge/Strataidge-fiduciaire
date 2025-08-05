@@ -45,6 +45,7 @@ import { FileUpload } from "@/components/file-upload"
 import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
 import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
+import { ConstructionBanner } from "@/components/construction-banner"
 
 // Lazy load des composants lourds
 const Chatbot = lazy(() => import("@/components/chatbot").then((m) => ({ default: m.Chatbot })))
@@ -66,6 +67,8 @@ export default function StrataidgeLandingPageV2() {
 
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
+      <ConstructionBanner />
+
       <RecruitmentBanner
         isVisible={isBannerVisible}
         onClose={() => setIsBannerVisible(false)}
@@ -504,46 +507,40 @@ function OffersSection() {
 
   const plans = [
     {
-      name: "Indépendant",
+      name: "Full Digital",
       price: "À partir de",
-      amount: "150€",
-      description: "Pour les indépendants et freelances qui démarrent leur activité",
+      amount: "50€",
+      description: "La gestion comptable et fiscale complète, 100% en ligne.",
       features: [
-        "Tenue de comptabilité simplifiée",
-        "Déclarations TVA trimestrielles",
-        "Déclaration fiscale annuelle",
-        "Conseils de base par email",
-        "Plateforme digitale incluse",
+        "Gestion comptable et déclarations fiscales",
+        "Optimisation fiscale et conformité légale belge",
+        "Suivi trimestriel des chiffres avec rapport",
       ],
       popular: false,
     },
     {
-      name: "PME Essentiel",
+      name: "Standard",
       price: "À partir de",
-      amount: "350€",
-      description: "Pour les petites entreprises en croissance",
+      amount: "250€",
+      description: "L'équilibre entre autonomie digitale et accompagnement humain.",
       features: [
-        "Comptabilité complète + bilan",
-        "Déclarations TVA mensuelles",
-        "Optimisation fiscale de base",
-        "Tableaux de bord mensuels",
-        "Support téléphonique prioritaire",
-        "Conseils stratégiques trimestriels",
+        "Tout le contenu de l'offre Full Digital",
+        "Rendez-vous de mise en place de la collaboration",
+        "4 rendez-vous conseils/an (un par trimestre, visio ou présentiel)",
+        "Accompagnement en cas de contrôle fiscal",
       ],
       popular: true,
     },
     {
-      name: "PME Premium",
+      name: "Strataidge",
       price: "À partir de",
-      amount: "650€",
-      description: "Pour les entreprises établies avec des besoins avancés",
+      amount: "500€",
+      description: "Une immersion stratégique pour transformer votre business.",
       features: [
-        "Tout PME Essentiel inclus",
-        "Analyses financières approfondies",
-        "Optimisation fiscale avancée",
-        "Reporting en temps réel",
-        "Accompagnement RH et social",
-        "Conseils stratégiques mensuels",
+        "Diagnostic stratégique approfondi et analyse complète",
+        "Plan de développement sur mesure avec feuille de route",
+        "Accompagnement personnalisé et coaching stratégique",
+        "Accès à notre écosystème premium de partenaires",
       ],
       popular: false,
     },
@@ -551,14 +548,15 @@ function OffersSection() {
       name: "Enterprise",
       price: "Sur mesure",
       amount: null,
-      description: "Pour les grandes entreprises et groupes",
+      description:
+        "Solution entièrement personnalisée pour les grandes entreprises et groupes avec des besoins complexes",
       features: [
-        "Solution entièrement personnalisée",
-        "Équipe dédiée",
-        "Consolidation multi-entités",
-        "Audit et contrôle interne",
-        "Accompagnement M&A",
-        "Support 24/7",
+        "Solution entièrement personnalisée selon vos besoins",
+        "Équipe dédiée avec expert-comptable attitré",
+        "Consolidation multi-entités et reporting groupe",
+        "Audit et contrôle interne renforcés",
+        "Accompagnement M&A et restructurations",
+        "Support 24/7 avec SLA garantis",
       ],
       popular: false,
     },
@@ -566,14 +564,14 @@ function OffersSection() {
       name: "Talents Freelance",
       price: "Sur mesure",
       amount: null,
-      description: "Experts comptables et assistants en freelance pour renforcer votre équipe",
+      description: "Renforcez votre équipe avec nos experts comptables et assistants qualifiés en freelance",
       features: [
-        "Comptables expérimentés disponibles",
-        "Contrôleurs de gestion qualifiés",
-        "Assistants administratifs formés",
-        "Flexibilité temps partiel/temps plein",
-        "Supervision qualité Strataidge",
-        "Intégration rapide dans vos outils",
+        "Comptables expérimentés immédiatement disponibles",
+        "Contrôleurs de gestion spécialisés et qualifiés",
+        "Assistants administratifs formés aux outils modernes",
+        "Flexibilité totale : temps partiel ou temps plein",
+        "Supervision qualité par nos experts Strataidge",
+        "Intégration rapide dans vos outils et processus",
       ],
       popular: false,
     },
@@ -581,12 +579,14 @@ function OffersSection() {
       name: "À la carte",
       price: "Tarification flexible",
       amount: null,
-      description: "Services ponctuels selon vos besoins spécifiques",
+      description: "Services ponctuels et expertise spécialisée selon vos besoins spécifiques du moment",
       features: [
-        "Missions ponctuelles",
-        "Tarification à l'heure ou au projet",
-        "Expertise spécialisée",
+        "Missions ponctuelles sur mesure",
+        "Tarification transparente à l'heure ou au projet",
+        "Expertise spécialisée selon vos besoins",
         "Délais adaptés à vos urgences",
+        "Pas d'engagement long terme",
+        "Facturation claire et détaillée",
       ],
       popular: false,
     },
@@ -594,13 +594,14 @@ function OffersSection() {
       name: "Création d'entreprise",
       price: "Pack complet",
       amount: null,
-      description: "Accompagnement complet pour créer votre entreprise",
+      description: "Accompagnement complet de A à Z pour créer votre entreprise sur des bases solides et optimisées",
       features: [
-        "Étude de faisabilité",
-        "Choix de la structure juridique",
-        "Démarches administratives",
-        "Mise en place comptable",
-        "Formation aux obligations",
+        "Étude de faisabilité et validation du projet",
+        "Choix optimal de la structure juridique",
+        "Gestion complète des démarches administratives",
+        "Mise en place de votre système comptable",
+        "Formation personnalisée aux obligations légales",
+        "Accompagnement post-création (6 mois)",
       ],
       popular: false,
     },
@@ -608,13 +609,15 @@ function OffersSection() {
       name: "Transmission & Acquisition",
       price: "Sur devis",
       amount: null,
-      description: "Expertise pour vendre, acheter ou transmettre une entreprise",
+      description:
+        "Expertise spécialisée pour sécuriser et optimiser la vente, l'achat ou la transmission d'entreprise",
       features: [
-        "Valorisation d'entreprise",
-        "Due diligence",
-        "Optimisation fiscale de cession",
-        "Négociation et accompagnement",
-        "Structuration juridique",
+        "Valorisation d'entreprise par méthodes multiples",
+        "Due diligence complète et sécurisée",
+        "Optimisation fiscale de la cession",
+        "Négociation et accompagnement aux rendez-vous",
+        "Structuration juridique et financière optimale",
+        "Gestion des aspects sociaux et RH",
       ],
       popular: false,
     },
@@ -626,7 +629,64 @@ function OffersSection() {
 
   return (
     <>
-      <section id="offers" className="py-24 sm:py-32 bg-gray-50" aria-labelledby="offers-heading">
+      <section id="offers" className="py-24 sm:py-32 bg-gray-50 relative" aria-labelledby="offers-heading">
+        {/* Overlay de construction avec pitch */}
+        <div className="absolute inset-0 bg-strataidge-blue-night/80 backdrop-blur-sm z-10 flex items-center justify-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
+                <h3 className="text-2xl md:text-3xl font-bold text-strataidge-turquoise mb-6">
+                  Des offres digitales, modulables et prêtes à évoluer avec vous.
+                </h3>
+
+                <div className="space-y-4 text-white text-left md:text-center">
+                  <p className="text-lg">
+                    Chez Strataidge Fiduciaire, nous repensons la manière d'accéder aux services comptables et fiscaux.
+                  </p>
+
+                  <p className="text-gray-300">
+                    Cette page est encore en construction : nous finalisons une expérience 100 % digitale qui vous
+                    permettra, dès le <strong className="text-strataidge-turquoise">1er septembre 2025</strong>, de :
+                  </p>
+
+                  <ul className="space-y-3 text-gray-300 max-w-2xl mx-auto">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-strataidge-turquoise mt-1 flex-shrink-0" />
+                      <span>Créer et paramétrer votre offre en quelques clics,</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-strataidge-turquoise mt-1 flex-shrink-0" />
+                      <span>Ajuster vos services en temps réel selon vos besoins et votre budget,</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-strataidge-turquoise mt-1 flex-shrink-0" />
+                      <span>
+                        Profiter d'une fluidité totale grâce à une plateforme pensée pour évoluer avec vous, tout en
+                        conservant un accompagnement humain et stratégique.
+                      </span>
+                    </li>
+                  </ul>
+
+                  <p className="text-lg text-strataidge-turquoise/90 italic pt-4 border-t border-white/20">
+                    Bientôt, vos offres ne seront plus figées : elles seront vivantes et connectées à votre croissance.
+                  </p>
+                </div>
+
+                <div className="mt-8">
+                  <Link
+                    href="#contact"
+                    className="inline-flex items-center px-8 py-4 bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Être informé du lancement
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Contenu original des offres (maintenant en arrière-plan) */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Offres</span>
@@ -660,6 +720,7 @@ function OffersSection() {
         </FadeIn>
       </section>
 
+      {/* Dialog reste identique */}
       <Dialog open={!!selectedPlan} onOpenChange={() => setSelectedPlan(null)}>
         <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
           <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
