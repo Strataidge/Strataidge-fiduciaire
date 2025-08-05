@@ -153,7 +153,7 @@ export function ConstructionBanner() {
                           </span>
                           <span className="text-xs text-gray-400">min</span>
                         </div>
-                        <span className="text-white text-sm sm:text-base">:</span>
+                        <span className="text-white text-sm:text-base">:</span>
                         <div className="flex flex-col">
                           <span className="text-lg sm:text-2xl font-bold text-white">
                             {timeLeft.seconds.toString().padStart(2, "0")}
@@ -203,7 +203,7 @@ export function ConstructionBanner() {
                             <div className="relative z-10">
                               <span className="text-white font-bold text-sm sm:text-base block">Strataidge</span>
                               <span
-                                className="text-[#ff0066] text-xs font-medium block my-[-1px] sm:my-[-2px]"
+                                className="text-[#ff0066] text-xs font-medium block my-[-3px] sm:my-[-4px]"
                                 style={{ letterSpacing: "0.1em" }}
                               >
                                 COMMUNICATION
