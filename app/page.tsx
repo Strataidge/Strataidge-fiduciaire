@@ -563,6 +563,21 @@ function OffersSection() {
       popular: false,
     },
     {
+      name: "Talents Freelance",
+      price: "Sur mesure",
+      amount: null,
+      description: "Experts comptables et assistants en freelance pour renforcer votre équipe",
+      features: [
+        "Comptables expérimentés disponibles",
+        "Contrôleurs de gestion qualifiés",
+        "Assistants administratifs formés",
+        "Flexibilité temps partiel/temps plein",
+        "Supervision qualité Strataidge",
+        "Intégration rapide dans vos outils",
+      ],
+      popular: false,
+    },
+    {
       name: "À la carte",
       price: "Tarification flexible",
       amount: null,
