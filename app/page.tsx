@@ -3,27 +3,7 @@
 import type React from "react"
 import { useState, lazy, Suspense } from "react"
 import Link from "next/link"
-import {
-  TrendingUp,
-  Shield,
-  LineChart,
-  Combine,
-  ArrowRight,
-  Mail,
-  Phone,
-  CheckCircle,
-  Linkedin,
-  Instagram,
-  Lock,
-  Network,
-  HandCoins,
-  Briefcase,
-  Handshake,
-  Send,
-  Loader,
-  Users,
-  Star,
-} from "lucide-react"
+import { TrendingUp, Shield, LineChart, Combine, ArrowRight, Mail, Phone, CheckCircle, Linkedin, Instagram, Lock, Network, HandCoins, Briefcase, Handshake, Send, Loader, Users, Star } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -408,13 +388,13 @@ function ServicesSection() {
                   <DialogFooter className="mt-4 flex-shrink-0">
                     <button
                       onClick={() => setSelectedService(null)}
-                      className="relative h-14 bg-transparent backdrop-blur-sm border border-white/20 rounded-2xl transition-all duration-300 hover:bg-white/10 hover:border-white/30 focus:outline-none focus:ring-0 px-6 text-white font-semibold text-lg tracking-wide"
+                      className="relative h-14 bg-transparent backdrop-blur-sm border border-white/20 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white/30 focus:outline-none focus:ring-0 px-6 text-white font-semibold text-lg tracking-wide"
                     >
                       Fermer
                     </button>
                     <Link
                       href="#contact"
-                      className="group relative h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] focus:outline-none focus:ring-0 px-6 inline-flex items-center justify-center"
+                      className="group relative h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] focus:outline-none focus:ring-0 px-6 inline-flex items-center justify-center"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       <div className="relative flex items-center justify-center h-full">
@@ -423,7 +403,7 @@ function ServicesSection() {
                         </span>
                         <ArrowRight className="ml-3 h-5 w-5 text-strataidge-turquoise transition-all duration-300 group-hover:translate-x-1 group-hover:text-white" />
                       </div>
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </Link>
                   </DialogFooter>
                 </>
@@ -739,13 +719,13 @@ function OffersSection() {
                 <Button
                   onClick={() => setSelectedPlan(null)}
                   variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0 rounded-full"
                 >
                   Fermer
                 </Button>
                 <Button
                   asChild
-                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0"
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0 rounded-full"
                 >
                   <Link href="#contact">Nous contacter</Link>
                 </Button>
@@ -867,11 +847,11 @@ function BlogSection() {
                 <Button
                   onClick={() => setSelectedPost(null)}
                   variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0 rounded-full"
                 >
                   Fermer
                 </Button>
-                <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0">
+                <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0 rounded-full">
                   Se connecter
                 </Button>
               </DialogFooter>
@@ -1013,7 +993,7 @@ function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-0"
+                className="group relative w-full h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-0"
                 aria-describedby={formMessage ? "form-message" : undefined}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -1033,7 +1013,7 @@ function ContactSection() {
                     </>
                   )}
                 </div>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </button>
               {formMessage && (
                 <p

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CheckCircle, ArrowRight } from "lucide-react"
+import { CheckCircle, ArrowRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 function ModernOfferCard({ plan, onPlanSelect }: { plan: any; onPlanSelect: (planName: string) => void }) {
@@ -60,7 +60,7 @@ function ModernOfferCard({ plan, onPlanSelect }: { plan: any; onPlanSelect: (pla
         <div className="h-[60px] flex flex-col justify-end">
           <Button
             onClick={() => onPlanSelect(plan.name)}
-            className="w-full font-bold py-3 text-base bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night transition-all duration-300 rounded-2xl group-hover:shadow-lg group-hover:shadow-strataidge-turquoise/30 group-hover:scale-105"
+            className="w-full font-bold py-3 text-base bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night transition-all duration-300 rounded-full group-hover:shadow-lg group-hover:shadow-strataidge-turquoise/30 group-hover:scale-105"
           >
             Découvrir l'offre
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
