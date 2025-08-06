@@ -184,9 +184,9 @@ export function ConstructionBanner() {
                             <Image
                               src="/strataidge-communication-logo.png"
                               alt="Strataidge Communication Logo"
-                              width={32}
-                              height={32}
-                              className="relative object-contain sm:w-10 sm:h-10 z-10"
+                              width={24}
+                              height={24}
+                              className="relative object-contain sm:w-8 sm:h-8 z-10"
                             />
                           </div>
 
@@ -195,9 +195,9 @@ export function ConstructionBanner() {
                             {/* Halo bleu autour du texte */}
                             <div className="absolute -inset-2 bg-blue-500/30 rounded-lg blur-md opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
                             <div className="relative z-10">
-                              <span className="text-white font-bold text-sm sm:text-base block">Strataidge</span>
+                              <span className="text-white font-bold text-xs sm:text-sm block">Strataidge</span>
                               <span
-                                className="text-[#ff0066] text-xs font-medium block my-[-3px] sm:my-[-4px]"
+                                className="text-[#ff0066] text-[10px] font-medium block my-[-2px] sm:my-[-3px]"
                                 style={{ letterSpacing: "0.1em" }}
                               >
                                 COMMUNICATION
