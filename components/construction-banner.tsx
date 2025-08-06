@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Clock, Wrench } from "lucide-react"
+import { X, Clock, Wrench } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
@@ -17,19 +17,13 @@ export function ConstructionBanner() {
   })
 
   useEffect(() => {
-    // Vérifier si la bannière a déjà été affichée dans cette session
-    const bannerShown = sessionStorage.getItem("construction-banner-shown")
+    // Afficher la bannière après un court délai à chaque visite
+    const timer = setTimeout(() => {
+      setIsVisible(true)
+      setHasBeenShown(true)
+    }, 1500)
 
-    if (!bannerShown) {
-      // Afficher la bannière après un court délai
-      const timer = setTimeout(() => {
-        setIsVisible(true)
-        setHasBeenShown(true)
-        sessionStorage.setItem("construction-banner-shown", "true")
-      }, 1500)
-
-      return () => clearTimeout(timer)
-    }
+    return () => clearTimeout(timer)
   }, [])
 
   // Calculer le temps restant jusqu'au 1er septembre 2025

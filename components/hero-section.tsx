@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { SparkleAnimation } from "@/components/sparkle-animation"
 
@@ -123,7 +123,7 @@ export function HeroSection() {
       )}
 
       {/* SparkleAnimation différée pour ne pas bloquer le LCP */}
-      {isClient && <SparkleAnimation className="z-[2]" />}
+      <SparkleAnimation className="z-[2]" />
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-strataidge-blue-night/20 via-strataidge-blue-night/40 to-strataidge-blue-night/90 z-[3]" />
