@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Menu, X, Mail, Lock } from "lucide-react"
+import { Menu, X, Mail, Lock } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -154,13 +154,13 @@ export function Header() {
               <Button
                 onClick={() => setIsLoginOpen(true)}
                 variant="ghost"
-                className="text-white hover:bg-white/10 hover:text-white"
+                className="text-white hover:bg-white/10 hover:text-white rounded-full px-6"
               >
                 Connexion
               </Button>
               <Button
                 asChild
-                className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold shadow-lg shadow-strataidge-turquoise/20"
+                className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold shadow-lg shadow-strataidge-turquoise/20 rounded-full px-6"
               >
                 <Link href="#offers">Offres</Link>
               </Button>
@@ -220,13 +220,13 @@ export function Header() {
                 setIsMenuOpen(false)
               }}
               variant="outline"
-              className="w-full border-white/20 text-white hover:bg-white/10 bg-transparent py-6 text-base"
+              className="w-full border-white/20 text-white hover:bg-white/10 bg-transparent py-6 text-base rounded-full"
             >
               Connexion
             </Button>
             <Button
               asChild
-              className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-6 text-base"
+              className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-6 text-base rounded-full"
             >
               <Link href="#offers" onClick={() => setIsMenuOpen(false)}>
                 Offres
@@ -276,7 +276,7 @@ export function Header() {
                   <Button
                     type="submit"
                     disabled={isLoginSubmitting}
-                    className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3 disabled:opacity-50"
+                    className="w-full bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold py-3 disabled:opacity-50 rounded-full"
                   >
                     {isLoginSubmitting ? "Connexion en cours..." : "Se connecter"}
                   </Button>

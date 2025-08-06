@@ -27,20 +27,19 @@ export function HeroSection() {
     if (videoRef.current && isClient) {
       const video = videoRef.current
 
-      // Configuration ultra-optimisée pour LCP
-      video.preload = "metadata" // Changé de "auto" à "metadata"
+      // Configuration optimisée pour tous les appareils
+      video.preload = "metadata"
       video.playbackRate = 1.5
       video.muted = true
       video.playsInline = true
       video.loop = false
 
-      // Lazy loading de la vidéo après le LCP
+      // Chargement de la vidéo
       const loadVideo = () => {
         video.preload = "auto"
         video.load()
       }
 
-      // Délai pour ne pas bloquer le LCP
       const timer = setTimeout(loadVideo, 100)
 
       const playVideo = () => {
@@ -74,7 +73,7 @@ export function HeroSection() {
         video.removeEventListener("ended", handleVideoEnded)
       }
     }
-  }, [isClient, isMobile])
+  }, [isClient])
 
   // URLs optimisées
   const videoSources = {
@@ -92,7 +91,7 @@ export function HeroSection() {
 
   const getObjectPosition = () => {
     if (!isClient) return "center 20%"
-    return isMobile ? "40% 20%" : "center 20%" // Changé vers la droite (40% au lieu de 60%)
+    return isMobile ? "40% 20%" : "center 20%"
   }
 
   return (
@@ -100,29 +99,27 @@ export function HeroSection() {
       {/* FOND BLEU PERMANENT - OPTIMISÉ POUR LCP */}
       <div className="absolute inset-0 bg-strataidge-blue-night z-0" />
 
-      {/* Vidéo avec chargement différé */}
-      {isClient && (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          preload="metadata"
-          className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
-            videoLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            objectFit: "cover",
-            objectPosition: getObjectPosition(),
-            backgroundColor: "#0A192F",
-          }}
-        >
-          <source src={currentSources.mp4} type="video/mp4" />
-          <source src={currentSources.webm} type="video/webm" />
-        </video>
-      )}
+      {/* Vidéo pour tous les appareils */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        playsInline
+        preload="metadata"
+        className={`absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-1000 ${
+          videoLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          objectFit: "cover",
+          objectPosition: getObjectPosition(),
+          backgroundColor: "#0A192F",
+        }}
+      >
+        <source src={currentSources.mp4} type="video/mp4" />
+        <source src={currentSources.webm} type="video/webm" />
+      </video>
 
-      {/* SparkleAnimation différée pour ne pas bloquer le LCP */}
+      {/* SparkleAnimation */}
       <SparkleAnimation className="z-[2]" />
 
       {/* Overlay gradient */}
