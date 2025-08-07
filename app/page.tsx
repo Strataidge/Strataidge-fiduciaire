@@ -359,11 +359,11 @@ function ServicesSection() {
                     className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer shimmer-subtle"
                     onClick={() => setSelectedService(services[0])}
                   >
-                    {/* Badge Produit Phare */}
-                    <div className="absolute top-6 right-6 z-10">
-                      <div className="flex items-center gap-2 bg-strataidge-turquoise text-white px-4 py-2 rounded-full font-bold text-sm shadow-professional">
-                        <Zap className="h-4 w-4" />
-                        ADN STRATAIDGE
+                    {/* Badge ADN Strataidge - Version responsive avec remontée sur mobile */}
+                    <div className="absolute top-2 right-4 sm:top-6 sm:right-6 z-10">
+                      <div className="flex items-center gap-1.5 sm:gap-2 bg-strataidge-turquoise text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-professional">
+                        <Zap className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                        <span className="whitespace-nowrap">ADN STRATAIDGE</span>
                       </div>
                     </div>
 
