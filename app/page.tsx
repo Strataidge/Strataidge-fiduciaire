@@ -351,22 +351,22 @@ function ServicesSection() {
           
           <div className="mt-20 max-w-7xl mx-auto">
             {/* Multivision - Produit phare en vedette */}
-            <div className="mb-20">
+            <div className="mb-20 relative">
               <FadeIn>
                 <div className="relative max-w-6xl mx-auto">
+                  {/* Badge ADN Strataidge - Positionné à cheval sur l'encart avec z-index élevé */}
+                  <div className="absolute -top-4 right-4 sm:-top-4 sm:right-6 z-20">
+                    <div className="flex items-center gap-1.5 sm:gap-2 bg-strataidge-turquoise text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-professional">
+                      <Zap className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                      <span className="whitespace-nowrap">ADN STRATAIDGE</span>
+                    </div>
+                  </div>
+
                   {/* Carte Multivision redesignée avec style bleu */}
                   <div 
-                    className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer shimmer-subtle"
+                    className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer shimmer-subtle z-10"
                     onClick={() => setSelectedService(services[0])}
                   >
-                    {/* Badge ADN Strataidge - Version responsive avec remontée sur mobile */}
-                    <div className="absolute top-2 right-4 sm:top-6 sm:right-6 z-10">
-                      <div className="flex items-center gap-1.5 sm:gap-2 bg-strataidge-turquoise text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-professional">
-                        <Zap className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                        <span className="whitespace-nowrap">ADN STRATAIDGE</span>
-                      </div>
-                    </div>
-
                     <div className="w-full p-8 md:p-12 text-left group transition-all duration-300 hover:bg-strataidge-blue-night/95">
                       <div className="flex flex-col lg:flex-row items-center gap-8">
                         {/* Section gauche - Logo et titre */}
