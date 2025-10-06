@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { StructuredData } from "@/components/structured-data"
@@ -59,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
+    <html lang="fr-BE" className={cn("antialiased", GeistSans.variable, GeistMono.variable)}>
       <head>
         {/* Préchargement DNS pour les domaines externes */}
         <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
