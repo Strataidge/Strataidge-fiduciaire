@@ -3,7 +3,28 @@
 import type React from "react"
 import { useState, lazy, Suspense } from "react"
 import Link from "next/link"
-import { TrendingUp, Shield, LineChart, Combine, ArrowRight, Mail, Phone, CheckCircle, Linkedin, Instagram, Lock, Network, HandCoins, Briefcase, Handshake, Send, Loader, Users, Star, Eye, Crown, Sparkles, Zap } from 'lucide-react'
+import {
+  TrendingUp,
+  Shield,
+  LineChart,
+  Combine,
+  ArrowRight,
+  Mail,
+  Phone,
+  CheckCircle,
+  Linkedin,
+  Instagram,
+  Lock,
+  Network,
+  HandCoins,
+  Briefcase,
+  Handshake,
+  Send,
+  Loader,
+  Users,
+  Star,
+  Zap,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -142,15 +163,10 @@ function AboutSection() {
 
 const services = [
   {
-    icon: () => (
-      <img 
-        src="/logo.png" 
-        alt="Logo Strataidge Multivision" 
-        className="h-8 w-8 object-contain"
-      />
-    ),
+    icon: () => <img src="/logo.png" alt="Logo Strataidge Multivision" className="h-8 w-8 object-contain" />,
     title: "Multivision – Révélez les opportunités qui ne vous sont pas encore visibles",
-    description: "Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.",
+    description:
+      "Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.",
     isFlagship: true,
     details: {
       intro:
@@ -163,7 +179,8 @@ const services = [
         "**Accompagnement personnalisé :** Un référent dédié coordonne l'ensemble des expertises pour une expérience fluide et cohérente.",
         "**Livrables concrets :** Rapport de synthèse, plan d'action priorisé et recommandations stratégiques opérationnelles.",
       ],
-      conclusion: "Une vision élargie et pragmatique. Une prise de décision renforcée par la diversité d'expertises. Un avantage compétitif : voir là où les autres ne regardent pas.",
+      conclusion:
+        "Une vision élargie et pragmatique. Une prise de décision renforcée par la diversité d'expertises. Un avantage compétitif : voir là où les autres ne regardent pas.",
     },
   },
   {
@@ -327,11 +344,7 @@ function ServicesSection() {
 
   return (
     <>
-      <section
-        id="services"
-        className="relative py-24 sm:py-32 bg-slate-50"
-        aria-labelledby="services-heading"
-      >
+      <section id="services" className="relative py-24 sm:py-32 bg-slate-50" aria-labelledby="services-heading">
         <Suspense fallback={null}>
           <SparkleAnimation className="opacity-20" />
         </Suspense>
@@ -348,7 +361,7 @@ function ServicesSection() {
               </p>
             </FadeIn>
           </div>
-          
+
           <div className="mt-20 max-w-7xl mx-auto">
             {/* Multivision - Produit phare en vedette */}
             <div className="mb-20 relative">
@@ -363,7 +376,7 @@ function ServicesSection() {
                   </div>
 
                   {/* Carte Multivision redesignée avec style bleu */}
-                  <div 
+                  <div
                     className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer shimmer-subtle z-10"
                     onClick={() => setSelectedService(services[0])}
                   >
@@ -374,9 +387,9 @@ function ServicesSection() {
                           <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
                             <div className="relative">
                               <div className="w-16 h-16 bg-strataidge-turquoise/20 rounded-2xl flex items-center justify-center border-2 border-strataidge-turquoise/50 group-hover:border-strataidge-turquoise transition-colors">
-                                <img 
-                                  src="/logo.png" 
-                                  alt="Logo Strataidge Multivision" 
+                                <img
+                                  src="/logo.png"
+                                  alt="Logo Strataidge Multivision"
                                   className="h-10 w-10 object-contain"
                                 />
                               </div>
@@ -385,18 +398,17 @@ function ServicesSection() {
                               <h3 className="text-3xl lg:text-4xl font-bold text-white group-hover:text-strataidge-turquoise transition-colors">
                                 Multivision
                               </h3>
-                              <p className="text-strataidge-turquoise/80 font-medium">
-                                L'expertise à 360°
-                              </p>
+                              <p className="text-strataidge-turquoise/80 font-medium">L'expertise à 360°</p>
                             </div>
                           </div>
-                          
+
                           <p className="text-xl text-gray-200 group-hover:text-white transition-colors leading-relaxed mb-6">
                             Révélez les opportunités qui ne vous sont pas encore visibles
                           </p>
-                          
+
                           <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
-                            Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.
+                            Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour
+                            découvrir ce que vous ne voyez pas encore.
                           </p>
                         </div>
 
@@ -405,7 +417,6 @@ function ServicesSection() {
                           <div className="flex items-center gap-4 bg-strataidge-turquoise/10 border-2 border-strataidge-turquoise/30 rounded-2xl p-6 group-hover:bg-strataidge-turquoise/20 group-hover:border-strataidge-turquoise/50 transition-all backdrop-blur-professional">
                             <div className="text-center">
                               <p className="text-white font-semibold mb-1">Découvrir</p>
-                              
                             </div>
                             <ArrowRight className="h-8 w-8 text-strataidge-turquoise group-hover:translate-x-2 transition-transform" />
                           </div>
@@ -458,7 +469,7 @@ function ServicesSection() {
                 <>
                   <DialogHeader className="flex-shrink-0 text-left">
                     <DialogTitle className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-4">
-                      {typeof selectedService.icon !== 'function' && (
+                      {typeof selectedService.icon !== "function" && (
                         <selectedService.icon className="h-8 w-8 text-strataidge-turquoise" aria-hidden="true" />
                       )}
                       {selectedService.title}
@@ -546,11 +557,7 @@ function MethodologySection() {
   ]
 
   return (
-    <section
-      id="methodology"
-      className="relative py-24 sm:py-32 bg-gray-100"
-      aria-labelledby="methodology-heading"
-    >
+    <section id="methodology" className="relative py-24 sm:py-32 bg-gray-100" aria-labelledby="methodology-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Approche</span>
@@ -566,7 +573,10 @@ function MethodologySection() {
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
           <div className="relative">
-            <div className="absolute left-4 top-4 h-full w-0.5 bg-gradient-to-b from-strataidge-turquoise to-strataidge-coral opacity-40" aria-hidden="true" />
+            <div
+              className="absolute left-4 top-4 h-full w-0.5 bg-gradient-to-b from-strataidge-turquoise to-strataidge-coral opacity-40"
+              aria-hidden="true"
+            />
             {steps.map((step, index) => (
               <FadeIn key={step.title}>
                 <div className="relative pl-12 pb-12">
@@ -731,7 +741,7 @@ function OffersSection() {
 
                   <p className="text-gray-200">
                     Cette page est encore en construction : nous finalisons une expérience 100 % digitale qui vous
-                    permettra, dès le <strong className="text-strataidge-turquoise">1er septembre 2025</strong>, de :
+                    permettra, dès le <strong className="text-strataidge-turquoise">16 octobre 2025</strong>, de :
                   </p>
 
                   <ul className="space-y-3 text-gray-200 max-w-2xl mx-auto">
