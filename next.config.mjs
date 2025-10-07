@@ -1,31 +1,42 @@
 /** @type {import('next').NextConfig} */
+// Force rebuild - 2025-01-10-12:00
 const nextConfig = {
   compress: true,
   poweredByHeader: false,
   
-  // Désactiver l'optimisation CSS qui cause l'erreur
+  // Force la génération complète du CSS
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
+  
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
     webVitalsAttribution: ['CLS', 'LCP'],
   },
   
-  // Optimisation des bundles
   webpack: (config, { dev, isServer }) => {
+    // Configuration optimisée pour la production
     if (!dev && !isServer) {
-      // Optimisation pour mobile
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'all',
-            enforce: true,
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+              priority: 10,
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 5,
+              reuseExistingChunk: true,
+              enforce: true,
+            },
           },
         },
       }
@@ -77,7 +88,6 @@ const nextConfig = {
           },
         ],
       },
-      // Cache agressif pour les assets statiques
       {
         source: '/:path*.(mp4|webm)',
         headers: [
@@ -96,7 +106,6 @@ const nextConfig = {
           },
         ],
       },
-      // Cache pour les fonts
       {
         source: '/:path*.(woff|woff2|eot|ttf|otf)',
         headers: [
