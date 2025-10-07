@@ -1,9 +1,30 @@
 "use client"
 
 import type React from "react"
-import { useState, lazy, Suspense } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { TrendingUp, Shield, LineChart, Combine, ArrowRight, Mail, Phone, CheckCircle, Linkedin, Instagram, Lock, Network, HandCoins, Briefcase, Handshake, Send, Loader, Users, Star, Eye, Crown, Sparkles, Zap } from 'lucide-react'
+import {
+  TrendingUp,
+  Shield,
+  LineChart,
+  Combine,
+  ArrowRight,
+  Mail,
+  Phone,
+  CheckCircle,
+  Linkedin,
+  Instagram,
+  Lock,
+  Network,
+  HandCoins,
+  Briefcase,
+  Handshake,
+  Send,
+  Loader,
+  Users,
+  Star,
+  Zap,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -26,18 +47,9 @@ import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
 import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
 import { ConstructionBanner } from "@/components/construction-banner"
-
-// Lazy load des composants lourds
-const Chatbot = lazy(() => import("@/components/chatbot").then((m) => ({ default: m.Chatbot })))
-const RecruitmentPopup = lazy(() =>
-  import("@/components/recruitment-popup").then((m) => ({ default: m.RecruitmentPopup })),
-)
-const SparkleAnimation = lazy(() =>
-  import("@/components/sparkle-animation").then((m) => ({ default: m.SparkleAnimation })),
-)
-
-// Loading fallbacks optimisés
-const ComponentLoader = () => <div className="min-h-[50px]" />
+import { Chatbot } from "@/components/chatbot"
+import { RecruitmentPopup } from "@/components/recruitment-popup"
+import { SparkleAnimation } from "@/components/sparkle-animation"
 
 // Main Component
 export default function StrataidgeLandingPageV2() {
@@ -56,9 +68,7 @@ export default function StrataidgeLandingPageV2() {
         isChatOpen={isChatOpen}
       />
 
-      <Suspense fallback={<ComponentLoader />}>
-        <RecruitmentPopup isOpen={isRecruitmentPopupOpen} onOpenChange={setIsRecruitmentPopupOpen} />
-      </Suspense>
+      <RecruitmentPopup isOpen={isRecruitmentPopupOpen} onOpenChange={setIsRecruitmentPopupOpen} />
 
       <Header />
 
@@ -74,9 +84,7 @@ export default function StrataidgeLandingPageV2() {
 
       <Footer />
 
-      <Suspense fallback={null}>
-        <Chatbot onChatStateChange={setIsChatOpen} />
-      </Suspense>
+      <Chatbot onChatStateChange={setIsChatOpen} />
 
       <CookieBanner />
     </div>
@@ -88,7 +96,7 @@ export default function StrataidgeLandingPageV2() {
 function AboutSection() {
   return (
     <section id="about" className="py-24 sm:py-32 bg-white" aria-labelledby="about-heading">
-      <div className="container mx-auto px-4 sm:px:6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="relative">
@@ -99,7 +107,7 @@ function AboutSection() {
                 width={500}
                 height={600}
                 className="relative rounded-2xl object-cover w-full h-full shadow-professional-xl"
-                priority={false}
+                priority={true}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 quality={80}
               />
@@ -128,7 +136,7 @@ function AboutSection() {
               complexité en opportunité et bâtir une réussite durable. Le digital vient soutenir cette vision en
               apportant fluidité, simplicité d'exécution et clarté dans chaque étape de votre accompagnement.
             </p>
-            <div className="mt-8 border-strataidge-turquoise border-t-0 text-right pr-0 pl-2 ml-0 border-l-4 border-r-[px]">
+            <div className="mt-8 border-strataidge-turquoise border-t-0 text-right pr-0 pl-2 ml-0 border-l-4">
               <p className="text-lg italic text-gray-700 text-center">
                 Chaque optimisation est pensée pour votre réalité. Chaque conseil est conçu pour votre avenir.
               </p>
@@ -142,15 +150,10 @@ function AboutSection() {
 
 const services = [
   {
-    icon: () => (
-      <img 
-        src="/logo.png" 
-        alt="Logo Strataidge Multivision" 
-        className="h-8 w-8 object-contain"
-      />
-    ),
+    icon: () => <img src="/logo.png" alt="Logo Strataidge Multivision" className="h-8 w-8 object-contain" />,
     title: "Multivision – Révélez les opportunités qui ne vous sont pas encore visibles",
-    description: "Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.",
+    description:
+      "Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.",
     isFlagship: true,
     details: {
       intro:
@@ -163,7 +166,8 @@ const services = [
         "**Accompagnement personnalisé :** Un référent dédié coordonne l'ensemble des expertises pour une expérience fluide et cohérente.",
         "**Livrables concrets :** Rapport de synthèse, plan d'action priorisé et recommandations stratégiques opérationnelles.",
       ],
-      conclusion: "Une vision élargie et pragmatique. Une prise de décision renforcée par la diversité d'expertises. Un avantage compétitif : voir là où les autres ne regardent pas.",
+      conclusion:
+        "Une vision élargie et pragmatique. Une prise de décision renforcée par la diversité d'expertises. Un avantage compétitif : voir là où les autres ne regardent pas.",
     },
   },
   {
@@ -327,14 +331,8 @@ function ServicesSection() {
 
   return (
     <>
-      <section
-        id="services"
-        className="relative py-24 sm:py-32 bg-slate-50"
-        aria-labelledby="services-heading"
-      >
-        <Suspense fallback={null}>
-          <SparkleAnimation className="opacity-20" />
-        </Suspense>
+      <section id="services" className="relative py-24 sm:py-32 bg-slate-50" aria-labelledby="services-heading">
+        <SparkleAnimation className="opacity-20" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Solutions</span>
@@ -348,13 +346,13 @@ function ServicesSection() {
               </p>
             </FadeIn>
           </div>
-          
+
           <div className="mt-20 max-w-7xl mx-auto">
             {/* Multivision - Produit phare en vedette */}
             <div className="mb-20 relative">
               <FadeIn>
                 <div className="relative max-w-6xl mx-auto">
-                  {/* Badge ADN Strataidge - Positionné à cheval sur l'encart avec z-index élevé */}
+                  {/* Badge ADN Strataidge */}
                   <div className="absolute -top-4 right-4 sm:-top-4 sm:right-6 z-20">
                     <div className="flex items-center gap-1.5 sm:gap-2 bg-strataidge-turquoise text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-professional">
                       <Zap className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
@@ -362,21 +360,20 @@ function ServicesSection() {
                     </div>
                   </div>
 
-                  {/* Carte Multivision redesignée avec style bleu */}
-                  <div 
-                    className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer shimmer-subtle z-10"
+                  {/* Carte Multivision */}
+                  <div
+                    className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer z-10"
                     onClick={() => setSelectedService(services[0])}
                   >
                     <div className="w-full p-8 md:p-12 text-left group transition-all duration-300 hover:bg-strataidge-blue-night/95">
                       <div className="flex flex-col lg:flex-row items-center gap-8">
-                        {/* Section gauche - Logo et titre */}
                         <div className="flex-1 text-center lg:text-left">
                           <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
                             <div className="relative">
                               <div className="w-16 h-16 bg-strataidge-turquoise/20 rounded-2xl flex items-center justify-center border-2 border-strataidge-turquoise/50 group-hover:border-strataidge-turquoise transition-colors">
-                                <img 
-                                  src="/logo.png" 
-                                  alt="Logo Strataidge Multivision" 
+                                <img
+                                  src="/logo.png"
+                                  alt="Logo Strataidge Multivision"
                                   className="h-10 w-10 object-contain"
                                 />
                               </div>
@@ -385,27 +382,24 @@ function ServicesSection() {
                               <h3 className="text-3xl lg:text-4xl font-bold text-white group-hover:text-strataidge-turquoise transition-colors">
                                 Multivision
                               </h3>
-                              <p className="text-strataidge-turquoise/80 font-medium">
-                                L'expertise à 360°
-                              </p>
+                              <p className="text-strataidge-turquoise/80 font-medium">L'expertise à 360°</p>
                             </div>
                           </div>
-                          
+
                           <p className="text-xl text-gray-200 group-hover:text-white transition-colors leading-relaxed mb-6">
                             Révélez les opportunités qui ne vous sont pas encore visibles
                           </p>
-                          
+
                           <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
-                            Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.
+                            Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour
+                            découvrir ce que vous ne voyez pas encore.
                           </p>
                         </div>
 
-                        {/* Section droite - Call to action */}
                         <div className="flex-shrink-0">
                           <div className="flex items-center gap-4 bg-strataidge-turquoise/10 border-2 border-strataidge-turquoise/30 rounded-2xl p-6 group-hover:bg-strataidge-turquoise/20 group-hover:border-strataidge-turquoise/50 transition-all backdrop-blur-professional">
                             <div className="text-center">
                               <p className="text-white font-semibold mb-1">Découvrir</p>
-                              
                             </div>
                             <ArrowRight className="h-8 w-8 text-strataidge-turquoise group-hover:translate-x-2 transition-transform" />
                           </div>
@@ -417,9 +411,9 @@ function ServicesSection() {
               </FadeIn>
             </div>
 
-            {/* Autres solutions organisées en grille */}
+            {/* Autres solutions */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
-              {services.slice(1).map((service, index) => (
+              {services.slice(1).map((service) => (
                 <FadeIn key={service.title}>
                   <button
                     onClick={() => setSelectedService(service)}
@@ -458,7 +452,7 @@ function ServicesSection() {
                 <>
                   <DialogHeader className="flex-shrink-0 text-left">
                     <DialogTitle className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-4">
-                      {typeof selectedService.icon !== 'function' && (
+                      {typeof selectedService.icon !== "function" && (
                         <selectedService.icon className="h-8 w-8 text-strataidge-turquoise" aria-hidden="true" />
                       )}
                       {selectedService.title}
@@ -546,11 +540,7 @@ function MethodologySection() {
   ]
 
   return (
-    <section
-      id="methodology"
-      className="relative py-24 sm:py-32 bg-gray-100"
-      aria-labelledby="methodology-heading"
-    >
+    <section id="methodology" className="relative py-24 sm:py-32 bg-gray-100" aria-labelledby="methodology-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Approche</span>
@@ -566,8 +556,11 @@ function MethodologySection() {
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
           <div className="relative">
-            <div className="absolute left-4 top-4 h-full w-0.5 bg-gradient-to-b from-strataidge-turquoise to-strataidge-coral opacity-40" aria-hidden="true" />
-            {steps.map((step, index) => (
+            <div
+              className="absolute left-4 top-4 h-full w-0.5 bg-gradient-to-b from-strataidge-turquoise to-strataidge-coral opacity-40"
+              aria-hidden="true"
+            />
+            {steps.map((step) => (
               <FadeIn key={step.title}>
                 <div className="relative pl-12 pb-12">
                   <div className="absolute left-0 top-4">
@@ -715,7 +708,6 @@ function OffersSection() {
   return (
     <>
       <section id="offers" className="py-24 sm:py-32 bg-gray-50 relative" aria-labelledby="offers-heading">
-        {/* Overlay de construction avec pitch */}
         <div className="absolute inset-0 bg-strataidge-blue-night/90 backdrop-blur-professional z-10 flex items-center justify-center">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
@@ -771,7 +763,6 @@ function OffersSection() {
           </div>
         </div>
 
-        {/* Contenu original des offres (maintenant en arrière-plan) */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Offres</span>
@@ -805,7 +796,6 @@ function OffersSection() {
         </FadeIn>
       </section>
 
-      {/* Dialog reste identique */}
       <Dialog open={!!selectedPlan} onOpenChange={() => setSelectedPlan(null)}>
         <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
           <div className="bg-white/95 backdrop-blur-professional rounded-2xl border border-gray-200 shadow-professional-xl">
@@ -980,7 +970,6 @@ function ContactSection() {
 
     const formData = new FormData(event.currentTarget)
 
-    // Ajouter le fichier sélectionné au FormData
     if (selectedFile) {
       formData.set("file", selectedFile)
     }
