@@ -3,28 +3,7 @@
 import type React from "react"
 import { useState, lazy, Suspense } from "react"
 import Link from "next/link"
-import {
-  TrendingUp,
-  Shield,
-  LineChart,
-  Combine,
-  ArrowRight,
-  Mail,
-  Phone,
-  CheckCircle,
-  Linkedin,
-  Instagram,
-  Lock,
-  Network,
-  HandCoins,
-  Briefcase,
-  Handshake,
-  Send,
-  Loader,
-  Users,
-  Star,
-  Zap,
-} from "lucide-react"
+import { TrendingUp, Shield, LineChart, Combine, ArrowRight, Mail, Phone, CheckCircle, Linkedin, Instagram, Lock, Network, HandCoins, Briefcase, Handshake, Send, Loader, Users, Star, Eye, Crown } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -113,13 +92,13 @@ function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-strataidge-turquoise/20 to-strataidge-coral/20 rounded-2xl blur-xl opacity-30"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-strataidge-turquoise to-strataidge-coral rounded-2xl blur-xl opacity-20"></div>
               <LazyImage
                 src="/vision-team-collaboration.webp"
                 alt="Équipe Strataidge célébrant une collaboration réussie dans un bureau moderne avec vue sur la nature"
                 width={500}
                 height={600}
-                className="relative rounded-2xl object-cover w-full h-full shadow-professional-xl"
+                className="relative rounded-2xl object-cover w-full h-full shadow-2xl"
                 priority={false}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 quality={80}
@@ -163,24 +142,26 @@ function AboutSection() {
 
 const services = [
   {
-    icon: () => <img src="/logo.png" alt="Logo Strataidge Multivision" className="h-8 w-8 object-contain" />,
+    icon: () => (
+      <img 
+        src="/logo.png" 
+        alt="Logo Strataidge Multivision" 
+        className="h-8 w-8 object-contain"
+      />
+    ),
     title: "Multivision – Révélez les opportunités qui ne vous sont pas encore visibles",
-    description:
-      "Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.",
-    isFlagship: true,
+    description: "Notre offre phare premium : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.",
+    isPremium: true,
     details: {
       intro:
-        "Chez Strataidge Fiduciaire, nous savons que la comptabilité n'est pas qu'une suite de chiffres : c'est une histoire qui cache des possibilités insoupçonnées. Avec Multivision, notre produit phare, nous mettons plusieurs regards d'experts sur votre dossier pour révéler ce qui échappe à une analyse unique.",
+        "Chez Strataidge Fiduciaire, nous savons que la comptabilité n'est pas qu'une suite de chiffres : c'est une histoire qui cache des possibilités insoupçonnées. Avec Multivision, notre offre phare, nous mettons plusieurs regards d'experts sur votre dossier pour révéler ce qui échappe à une analyse unique.",
       points: [
         "**Analyse indépendante par plusieurs experts :** Fiscalité, stratégie, optimisation, gestion des risques... Chaque spécialiste apporte son regard unique.",
         "**Vision croisée et synthèse Strataidge :** Nous relions les analyses pour vous livrer une feuille de route claire et priorisée.",
         "**Perspective élargie :** Vous bénéficiez d'une compréhension globale et d'angles inédits pour vos décisions stratégiques.",
         "**Approche inspirée des fentes de Young :** Quand on observe, on croit voir une trajectoire définie. Quand on élargit l'observation, on découvre un champ d'ondes infinies, des potentiels multiples.",
-        "**Accompagnement personnalisé :** Un référent dédié coordonne l'ensemble des expertises pour une expérience fluide et cohérente.",
-        "**Livrables concrets :** Rapport de synthèse, plan d'action priorisé et recommandations stratégiques opérationnelles.",
       ],
-      conclusion:
-        "Une vision élargie et pragmatique. Une prise de décision renforcée par la diversité d'expertises. Un avantage compétitif : voir là où les autres ne regardent pas.",
+      conclusion: "Une vision élargie et pragmatique. Une prise de décision renforcée par la diversité d'expertises. Un avantage compétitif : voir là où les autres ne regardent pas.",
     },
   },
   {
@@ -344,85 +325,90 @@ function ServicesSection() {
 
   return (
     <>
-      <section id="services" className="relative py-24 sm:py-32 bg-slate-50" aria-labelledby="services-heading">
+      <section
+        id="services"
+        className="relative py-24 sm:py-32 bg-strataidge-blue-night"
+        aria-labelledby="services-heading"
+      >
         <Suspense fallback={null}>
-          <SparkleAnimation className="opacity-20" />
+          <SparkleAnimation className="opacity-50" />
         </Suspense>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <span className="font-semibold text-strataidge-turquoise">Solutions</span>
-            <AnimatedTitle className="text-gray-900" id="services-heading">
+            <AnimatedTitle className="text-white" id="services-heading">
               Des solutions digitales et humaines adaptées à vos enjeux
             </AnimatedTitle>
             <FadeIn>
-              <p className="mt-4 text-lg text-gray-600">
+              <p className="mt-4 text-lg text-gray-300">
                 Gestion comptable en ligne, optimisation fiscale et automatisation comptabilité : notre reporting
                 digital soutient la croissance entreprises avec une approche humaine.
               </p>
             </FadeIn>
           </div>
-
+          
           <div className="mt-20 max-w-7xl mx-auto">
-            {/* Multivision - Produit phare en vedette */}
-            <div className="mb-20 relative">
+            {/* Multivision - Offre Premium en vedette */}
+            <div className="mb-20">
               <FadeIn>
-                <div className="relative max-w-6xl mx-auto">
-                  {/* Badge ADN Strataidge - Positionné à cheval sur l'encart avec z-index élevé */}
-                  <div className="absolute -top-4 right-4 sm:-top-4 sm:right-6 z-20">
-                    <div className="flex items-center gap-1.5 sm:gap-2 bg-strataidge-turquoise text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-professional">
-                      <Zap className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                      <span className="whitespace-nowrap">ADN STRATAIDGE</span>
+                <div className="relative max-w-5xl mx-auto">
+                  {/* Effet de halo premium */}
+                  <div className="absolute -inset-8 bg-gradient-to-r from-strataidge-turquoise/20 via-strataidge-coral/20 to-strataidge-turquoise/20 rounded-3xl blur-3xl opacity-60 animate-pulse"></div>
+                  
+                  <div className="relative bg-gradient-to-br from-strataidge-blue-night/95 via-strataidge-blue-night/90 to-strataidge-blue-night/95 backdrop-blur-xl rounded-3xl border-2 border-strataidge-turquoise/40 overflow-hidden shadow-2xl">
+                    {/* Badge premium flottant */}
+                    <div className="absolute -top-4 right-8 z-20">
+                      <div className="bg-gradient-to-r from-strataidge-turquoise to-strataidge-coral text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg flex items-center gap-2 border-2 border-white/20">
+                        <Crown className="h-4 w-4" />
+                        SOLUTION PREMIUM
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Carte Multivision redesignée avec style bleu */}
-                  <div
-                    className="relative overflow-hidden rounded-3xl bg-strataidge-blue-night/90 border border-strataidge-turquoise/30 shadow-professional-xl hover:shadow-2xl transition-all duration-300 cursor-pointer shimmer-subtle z-10"
-                    onClick={() => setSelectedService(services[0])}
-                  >
-                    <div className="w-full p-8 md:p-12 text-left group transition-all duration-300 hover:bg-strataidge-blue-night/95">
-                      <div className="flex flex-col lg:flex-row items-center gap-8">
-                        {/* Section gauche - Logo et titre */}
-                        <div className="flex-1 text-center lg:text-left">
-                          <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
-                            <div className="relative">
-                              <div className="w-16 h-16 bg-strataidge-turquoise/20 rounded-2xl flex items-center justify-center border-2 border-strataidge-turquoise/50 group-hover:border-strataidge-turquoise transition-colors">
-                                <img
-                                  src="/logo.png"
-                                  alt="Logo Strataidge Multivision"
-                                  className="h-10 w-10 object-contain"
-                                />
-                              </div>
-                            </div>
-                            <div>
-                              <h3 className="text-3xl lg:text-4xl font-bold text-white group-hover:text-strataidge-turquoise transition-colors">
-                                Multivision
-                              </h3>
-                              <p className="text-strataidge-turquoise/80 font-medium">L'expertise à 360°</p>
+                    {/* Contenu principal */}
+                    <button
+                      onClick={() => setSelectedService(services[0])}
+                      className="w-full p-12 text-left group transition-all duration-500 hover:bg-gradient-to-br hover:from-strataidge-turquoise/10 hover:to-strataidge-coral/10 focus:outline-none focus:ring-0"
+                      aria-label={`En savoir plus sur ${services[0].title}`}
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        {/* Logo et icône à gauche */}
+                        <div className="lg:col-span-2 flex justify-center lg:justify-start">
+                          <div className="relative">
+                            <div className="absolute -inset-4 bg-strataidge-turquoise/30 rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-strataidge-turquoise/20 to-strataidge-coral/20 border border-strataidge-turquoise/30 flex items-center justify-center group-hover:scale-110 group-hover:border-strataidge-turquoise/60 transition-all duration-500">
+                              <img 
+                                src="/logo.png" 
+                                alt="Logo Strataidge Multivision" 
+                                className="h-12 w-12 object-contain group-hover:scale-110 transition-transform duration-300"
+                              />
                             </div>
                           </div>
-
-                          <p className="text-xl text-gray-200 group-hover:text-white transition-colors leading-relaxed mb-6">
+                        </div>
+                        
+                        {/* Contenu central */}
+                        <div className="lg:col-span-8 text-center lg:text-left">
+                          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-strataidge-turquoise transition-colors duration-300">
+                            Multivision
+                          </h3>
+                          <p className="text-lg text-strataidge-turquoise/90 font-medium mb-3">
                             Révélez les opportunités qui ne vous sont pas encore visibles
                           </p>
-
-                          <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
-                            Notre produit phare : plusieurs experts, plusieurs visions, une stratégie éclairée pour
-                            découvrir ce que vous ne voyez pas encore.
+                          <p className="text-gray-300 group-hover:text-white transition-colors duration-300 leading-relaxed max-w-3xl">
+                            Notre offre phare premium : plusieurs experts, plusieurs visions, une stratégie éclairée pour découvrir ce que vous ne voyez pas encore.
                           </p>
                         </div>
-
-                        {/* Section droite - Call to action */}
-                        <div className="flex-shrink-0">
-                          <div className="flex items-center gap-4 bg-strataidge-turquoise/10 border-2 border-strataidge-turquoise/30 rounded-2xl p-6 group-hover:bg-strataidge-turquoise/20 group-hover:border-strataidge-turquoise/50 transition-all backdrop-blur-professional">
-                            <div className="text-center">
-                              <p className="text-white font-semibold mb-1">Découvrir</p>
-                            </div>
-                            <ArrowRight className="h-8 w-8 text-strataidge-turquoise group-hover:translate-x-2 transition-transform" />
+                        
+                        {/* Flèche à droite */}
+                        <div className="lg:col-span-2 flex justify-center lg:justify-end">
+                          <div className="w-16 h-16 rounded-full bg-strataidge-turquoise/10 border border-strataidge-turquoise/30 flex items-center justify-center group-hover:bg-strataidge-turquoise/20 group-hover:border-strataidge-turquoise/60 group-hover:scale-110 transition-all duration-500">
+                            <ArrowRight className="h-8 w-8 text-strataidge-turquoise group-hover:translate-x-1 transition-transform duration-300" />
                           </div>
                         </div>
                       </div>
-                    </div>
+
+                      {/* Ligne décorative en bas */}
+                      <div className="mt-8 h-px bg-gradient-to-r from-transparent via-strataidge-turquoise/50 to-transparent group-hover:via-strataidge-turquoise transition-colors duration-500"></div>
+                    </button>
                   </div>
                 </div>
               </FadeIn>
@@ -434,18 +420,22 @@ function ServicesSection() {
                 <FadeIn key={service.title}>
                   <button
                     onClick={() => setSelectedService(service)}
-                    className="text-left h-full w-full max-w-sm p-8 rounded-2xl bg-strataidge-blue-night/80 border border-strataidge-turquoise/20 hover:border-strataidge-turquoise/50 hover:shadow-professional-lg group transition-all duration-300 cursor-pointer focus:outline-none focus:ring-0 backdrop-blur-professional"
+                    className="text-left h-full w-full max-w-sm p-8 rounded-2xl backdrop-blur-md border bg-white/5 border-white/10 hover:border-strataidge-turquoise/50 hover:bg-white/[.08] group transition-all duration-300 cursor-pointer focus:outline-none focus:ring-0"
                     aria-label={`En savoir plus sur ${service.title}`}
                   >
                     <div className="flex flex-col h-full">
-                      <div className="mb-6 w-14 h-14 rounded-xl bg-strataidge-turquoise/20 flex items-center justify-center flex-shrink-0 group-hover:bg-strataidge-turquoise/30 transition-colors duration-300">
-                        <service.icon className="h-7 w-7 text-strataidge-turquoise" aria-hidden="true" />
+                      <div className="mb-6 w-14 h-14 rounded-xl bg-strataidge-turquoise/10 flex items-center justify-center flex-shrink-0 group-hover:bg-strataidge-turquoise/20 transition-colors duration-300">
+                        {typeof service.icon === 'function' ? (
+                          <service.icon className="h-7 w-7 text-strataidge-turquoise" aria-hidden="true" />
+                        ) : (
+                          <service.icon className="h-7 w-7 text-strataidge-turquoise" aria-hidden="true" />
+                        )}
                       </div>
                       <div className="flex-grow">
                         <h3 className="text-xl font-bold text-white mb-3 group-hover:text-strataidge-turquoise transition-colors duration-300">
                           {service.title}
                         </h3>
-                        <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                        <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed">
                           {service.description}
                         </p>
                       </div>
@@ -462,26 +452,37 @@ function ServicesSection() {
       </section>
 
       <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)}>
-        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-4xl">
-          <div className="bg-white/95 backdrop-blur-professional rounded-2xl border border-gray-200 shadow-professional-xl">
-            <div className="p-6 sm:p-8 flex flex-col max-h-[90vh]">
+        <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl sm:max-w-2xl">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8 flex flex-col max-h-[90vh]">
               {selectedService && (
                 <>
                   <DialogHeader className="flex-shrink-0 text-left">
-                    <DialogTitle className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-4">
-                      {typeof selectedService.icon !== "function" && (
-                        <selectedService.icon className="h-8 w-8 text-strataidge-turquoise" aria-hidden="true" />
+                    <DialogTitle className="text-2xl sm:text-3xl font-bold text-strataidge-turquoise flex items-center gap-4">
+                      {typeof selectedService.icon === 'function' ? (
+                        <div className="w-10 h-10 flex items-center justify-center">
+                          <selectedService.icon />
+                        </div>
+                      ) : (
+                        <selectedService.icon className="h-8 w-8" aria-hidden="true" />
                       )}
                       {selectedService.title}
+                      {selectedService.isPremium && (
+                        <div className="bg-gradient-to-r from-strataidge-turquoise to-strataidge-coral text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                          <Crown className="h-3 w-3" />
+                          PREMIUM
+                        </div>
+                      )}
                     </DialogTitle>
                   </DialogHeader>
                   <div className="flex-1 py-4 space-y-6 overflow-y-auto pr-4 text-left">
-                    <p className="text-gray-700 text-lg leading-relaxed">{selectedService.details.intro}</p>
+                    <p className="text-gray-300">{selectedService.details.intro}</p>
                     <div>
-                      <h4 className="font-bold text-xl text-gray-900 mb-4">
-                        {selectedService.isFlagship ? "L'expérience Multivision :" : "Nos engagements :"}
+                      <h4 className="font-bold text-lg text-white mb-3">
+                        {selectedService.isPremium ? "L'expérience premium :" : "Nos engagements :"}
                       </h4>
-                      <ul className="space-y-4">
+                      <ul className="space-y-3">
                         {selectedService.details.points.map((item, index) => (
                           <li key={index} className="flex items-start">
                             <CheckCircle
@@ -489,37 +490,38 @@ function ServicesSection() {
                               aria-hidden="true"
                             />
                             <span
-                              className="text-gray-700 leading-relaxed"
+                              className="text-gray-300"
                               dangerouslySetInnerHTML={{
-                                __html: item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900">$1</strong>'),
+                                __html: item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>'),
                               }}
                             />
                           </li>
                         ))}
                       </ul>
                     </div>
-                    <div className="pt-4 border-t border-gray-200">
-                      <p className="text-strataidge-turquoise italic text-lg leading-relaxed">
-                        {selectedService.details.conclusion}
-                      </p>
-                    </div>
+                    <p className="text-strataidge-turquoise/80 italic pt-2 border-t border-white/10">
+                      {selectedService.details.conclusion}
+                    </p>
                   </div>
-                  <DialogFooter className="mt-6 flex-shrink-0 gap-4">
+                  <DialogFooter className="mt-4 flex-shrink-0">
                     <button
                       onClick={() => setSelectedService(null)}
-                      className="h-14 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-0 px-6 text-gray-700 font-semibold text-lg tracking-wide"
+                      className="relative h-14 bg-transparent backdrop-blur-sm border border-white/20 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white/30 focus:outline-none focus:ring-0 px-6 text-white font-semibold text-lg tracking-wide"
                     >
                       Fermer
                     </button>
                     <Link
                       href="#contact"
-                      onClick={() => setSelectedService(null)}
-                      className="group h-14 bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 rounded-full transition-all duration-300 shadow-professional hover:shadow-professional-lg focus:outline-none focus:ring-0 px-6 inline-flex items-center justify-center"
+                      className="group relative h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] focus:outline-none focus:ring-0 px-6 inline-flex items-center justify-center"
                     >
-                      <span className="text-white font-semibold text-lg tracking-wide">
-                        {selectedService.isFlagship ? "Découvrir Multivision" : "Discutons de cette solution"}
-                      </span>
-                      <ArrowRight className="ml-3 h-5 w-5 text-white transition-all duration-300 group-hover:translate-x-1" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      <div className="relative flex items-center justify-center h-full">
+                        <span className="text-white font-semibold text-lg tracking-wide">
+                          {selectedService.isPremium ? "Découvrir Multivision" : "Discutons de cette solution"}
+                        </span>
+                        <ArrowRight className="ml-3 h-5 w-5 text-strataidge-turquoise transition-all duration-300 group-hover:translate-x-1 group-hover:text-white" />
+                      </div>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </Link>
                   </DialogFooter>
                 </>
@@ -557,15 +559,19 @@ function MethodologySection() {
   ]
 
   return (
-    <section id="methodology" className="relative py-24 sm:py-32 bg-gray-100" aria-labelledby="methodology-heading">
+    <section
+      id="methodology"
+      className="relative py-24 sm:py-32 bg-slate-800 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 to-transparent"
+      aria-labelledby="methodology-heading"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Approche</span>
-          <AnimatedTitle className="text-gray-900" id="methodology-heading">
+          <AnimatedTitle className="text-white" id="methodology-heading">
             Notre approche : l'humain derrière les chiffres, la stratégie au premier plan
           </AnimatedTitle>
           <FadeIn>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-300">
               Une approche comptable innovante qui allie vision stratégique et fiduciaire moderne, avec digitalisation
               comptabilité et accompagnement humain personnalisé.
             </p>
@@ -573,20 +579,17 @@ function MethodologySection() {
         </div>
         <div className="mt-20 max-w-2xl mx-auto">
           <div className="relative">
-            <div
-              className="absolute left-4 top-4 h-full w-0.5 bg-gradient-to-b from-strataidge-turquoise to-strataidge-coral opacity-40"
-              aria-hidden="true"
-            />
+            <div className="absolute left-4 top-4 h-full w-0.5 bg-white/20" aria-hidden="true" />
             {steps.map((step, index) => (
               <FadeIn key={step.title}>
                 <div className="relative pl-12 pb-12">
                   <div className="absolute left-0 top-4">
-                    <div className="w-8 h-8 bg-white rounded-full border-2 border-strataidge-turquoise flex items-center justify-center shadow-professional">
+                    <div className="w-8 h-8 bg-slate-800 rounded-full border-2 border-strataidge-turquoise flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 text-strataidge-turquoise" aria-hidden="true" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
-                  <p className="mt-2 text-gray-700">{step.description}</p>
+                  <h3 className="text-xl font-bold text-white">{step.title}</h3>
+                  <p className="mt-2 text-gray-300">{step.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -726,10 +729,10 @@ function OffersSection() {
     <>
       <section id="offers" className="py-24 sm:py-32 bg-gray-50 relative" aria-labelledby="offers-heading">
         {/* Overlay de construction avec pitch */}
-        <div className="absolute inset-0 bg-strataidge-blue-night/90 backdrop-blur-professional z-10 flex items-center justify-center">
+        <div className="absolute inset-0 bg-strataidge-blue-night/80 backdrop-blur-sm z-10 flex items-center justify-center">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="bg-white/10 backdrop-blur-premium rounded-3xl p-8 md:p-12 border border-white/20 shadow-professional-xl">
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
                 <h3 className="text-2xl md:text-3xl font-bold text-strataidge-turquoise mb-6">
                   Des offres digitales, modulables et prêtes à évoluer avec vous.
                 </h3>
@@ -739,12 +742,12 @@ function OffersSection() {
                     Chez Strataidge Fiduciaire, nous repensons la manière d'accéder aux services comptables et fiscaux.
                   </p>
 
-                  <p className="text-gray-200">
+                  <p className="text-gray-300">
                     Cette page est encore en construction : nous finalisons une expérience 100 % digitale qui vous
                     permettra, dès le <strong className="text-strataidge-turquoise">1er septembre 2025</strong>, de :
                   </p>
 
-                  <ul className="space-y-3 text-gray-200 max-w-2xl mx-auto">
+                  <ul className="space-y-3 text-gray-300 max-w-2xl mx-auto">
                     <li className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-strataidge-turquoise mt-1 flex-shrink-0" />
                       <span>Créer et paramétrer votre offre en quelques clics,</span>
@@ -770,7 +773,7 @@ function OffersSection() {
                 <div className="mt-8">
                   <Link
                     href="#contact"
-                    className="inline-flex items-center px-8 py-4 bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-white font-bold rounded-full transition-all duration-300 shadow-professional hover:shadow-professional-lg"
+                    className="inline-flex items-center px-8 py-4 bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     Être informé du lancement
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -818,28 +821,29 @@ function OffersSection() {
       {/* Dialog reste identique */}
       <Dialog open={!!selectedPlan} onOpenChange={() => setSelectedPlan(null)}>
         <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
-          <div className="bg-white/95 backdrop-blur-professional rounded-2xl border border-gray-200 shadow-professional-xl">
-            <div className="p-6 sm:p-8">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8">
               <DialogHeader>
-                <DialogTitle className="text-2xl text-gray-900">Intéressé par {selectedPlan} ?</DialogTitle>
-                <DialogDescription className="text-gray-600 pt-2">
+                <DialogTitle className="text-2xl text-strataidge-turquoise">Intéressé par {selectedPlan} ?</DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
                   Contactez-nous pour discuter de vos besoins spécifiques et obtenir un devis personnalisé.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 text-center">
-                <Star className="h-16 w-16 mx-auto text-strataidge-turquoise" aria-hidden="true" />
+                <Star className="h-16 w-16 mx-auto text-strataidge-yellow" aria-hidden="true" />
               </div>
               <DialogFooter>
                 <Button
                   onClick={() => setSelectedPlan(null)}
                   variant="outline"
-                  className="border-gray-300 text-gray-700 hover:bg-gray-100 bg-transparent focus:outline-none focus:ring-0 rounded-full"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0 rounded-full"
                 >
                   Fermer
                 </Button>
                 <Button
                   asChild
-                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-white font-bold focus:outline-none focus:ring-0 rounded-full shadow-professional"
+                  className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0 rounded-full"
                 >
                   <Link href="#contact">Nous contacter</Link>
                 </Button>
@@ -889,7 +893,7 @@ function BlogSection() {
   const [selectedPost, setSelectedPost] = useState<(typeof blogPosts)[0] | null>(null)
 
   return (
-    <section id="blog" className="py-24 sm:py-32 bg-white" aria-labelledby="blog-heading">
+    <section id="blog" className="py-24 sm:py-32 bg-gray-200" aria-labelledby="blog-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto">
           <span className="font-semibold text-strataidge-turquoise">Analyses</span>
@@ -915,7 +919,7 @@ function BlogSection() {
                   className="w-full h-full"
                   aria-label={`Lire l'article : ${post.title}`}
                 >
-                  <div className="h-full flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-strataidge-turquoise/30 transition-all duration-300 shadow-professional hover:shadow-professional-lg">
+                  <div className="h-full flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-strataidge-turquoise/50 transition-all duration-300 shadow-lg">
                     <div className="overflow-hidden">
                       <LazyImage
                         src={post.img || "/placeholder.svg"}
@@ -944,27 +948,28 @@ function BlogSection() {
 
       <Dialog open={!!selectedPost} onOpenChange={(isOpen) => !isOpen && setSelectedPost(null)}>
         <DialogContent className="bg-transparent data-[state=open]:animate-modal-in border-0 p-0 w-[95vw] rounded-2xl max-w-md">
-          <div className="bg-white/95 backdrop-blur-professional rounded-2xl border border-gray-200 shadow-professional-xl">
-            <div className="p-6 sm:p-8">
+          <div className="relative bg-strataidge-blue-night/80 backdrop-blur-2xl text-white rounded-2xl ring-1 ring-inset ring-white/10">
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-strataidge-turquoise/30 to-strataidge-coral/30 opacity-50 blur-lg -z-10" />
+            <div className="relative p-6 sm:p-8">
               <DialogHeader>
-                <DialogTitle className="text-2xl text-gray-900">{selectedPost?.title}</DialogTitle>
-                <DialogDescription className="text-gray-600 pt-2">
+                <DialogTitle className="text-2xl text-strataidge-turquoise">{selectedPost?.title}</DialogTitle>
+                <DialogDescription className="text-gray-400 pt-2">
                   Cet article est réservé à nos membres. Connectez-vous pour accéder à l'analyse complète de nos
                   experts.
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4 text-center">
-                <Lock className="h-16 w-16 mx-auto text-strataidge-turquoise opacity-50" aria-hidden="true" />
+                <Lock className="h-16 w-16 mx-auto text-strataidge-yellow/50" aria-hidden="true" />
               </div>
               <DialogFooter>
                 <Button
                   onClick={() => setSelectedPost(null)}
                   variant="outline"
-                  className="border-gray-300 text-gray-700 hover:bg-gray-100 bg-transparent focus:outline-none focus:ring-0 rounded-full"
+                  className="border-white/20 text-white hover:bg-white/10 bg-transparent focus:outline-none focus:ring-0 rounded-full"
                 >
                   Fermer
                 </Button>
-                <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-white font-bold focus:outline-none focus:ring-0 rounded-full shadow-professional">
+                <Button className="bg-strataidge-turquoise hover:bg-strataidge-turquoise/90 text-strataidge-blue-night font-bold focus:outline-none focus:ring-0 rounded-full">
                   Se connecter
                 </Button>
               </DialogFooter>
@@ -1024,20 +1029,20 @@ function ContactSection() {
   return (
     <section id="contact" className="py-24 sm:py-32 bg-strataidge-blue-night" aria-labelledby="contact-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-premium rounded-2xl p-8 md:p-12 shadow-professional-xl border border-white/20">
+        <div className="max-w-4xl mx-auto bg-white/5 rounded-2xl p-8 md:p-12 shadow-lg border border-white/10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="text-center lg:text-left">
               <h2 id="contact-heading" className="text-3xl font-bold text-white sm:text-4xl">
                 Contactez-nous et faisons évoluer votre vision financière
               </h2>
-              <p className="mt-4 text-gray-200">
+              <p className="mt-4 text-gray-300">
                 Prendre rendez-vous fiduciaire pour un expert-comptable digital et conseil fiscal indépendant. Contact
                 entreprise avec accompagnement humain personnalisé.
               </p>
               <div className="mt-8 space-y-4">
                 <a
                   href="mailto:contact@strataidge-fiduciaire.com"
-                  className="flex items-center gap-3 text-gray-200 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
+                  className="flex items-center gap-3 text-gray-300 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
                   aria-label="Envoyer un email à Strataidge Fiduciaire"
                 >
                   <Mail className="h-5 w-5 text-strataidge-turquoise" aria-hidden="true" />
@@ -1045,7 +1050,7 @@ function ContactSection() {
                 </a>
                 <a
                   href="tel:+32499470298"
-                  className="flex items-center gap-3 text-gray-200 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
+                  className="flex items-center gap-3 text-gray-300 hover:text-strataidge-turquoise transition-colors justify-center lg:justify-start"
                   aria-label="Appeler Strataidge Fiduciaire"
                 >
                   <Phone className="h-5 w-5 text-strataidge-turquoise" aria-hidden="true" />
@@ -1065,7 +1070,7 @@ function ContactSection() {
                   placeholder="Votre nom"
                   required
                   autoComplete="name"
-                  className="bg-white/10 border-white/20 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white backdrop-blur-professional"
+                  className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
                 />
               </div>
               <div>
@@ -1079,7 +1084,7 @@ function ContactSection() {
                   placeholder="Votre email"
                   required
                   autoComplete="email"
-                  className="bg-white/10 border-white/20 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white backdrop-blur-professional"
+                  className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
                 />
               </div>
               <div>
@@ -1092,7 +1097,7 @@ function ContactSection() {
                   placeholder="Votre message"
                   rows={4}
                   required
-                  className="bg-white/10 border-white/20 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white backdrop-blur-professional"
+                  className="bg-white/5 border-white/10 placeholder:text-gray-400 focus:border-strataidge-turquoise focus:ring-strataidge-turquoise text-white"
                 />
               </div>
 
@@ -1106,10 +1111,10 @@ function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full h-14 bg-white/10 backdrop-blur-professional border border-white/20 rounded-full overflow-hidden transition-all duration-500 hover:bg-white/15 hover:border-strataidge-turquoise/50 shadow-professional hover:shadow-professional-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-0"
+                className="group relative w-full h-14 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-strataidge-turquoise/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-0"
                 aria-describedby={formMessage ? "form-message" : undefined}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 <div className="relative flex items-center justify-center h-full px-6">
                   {isSubmitting ? (
                     <>
@@ -1126,7 +1131,7 @@ function ContactSection() {
                     </>
                   )}
                 </div>
-                <div className="absolute inset-0 rounded-full gradient-subtle opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-strataidge-coral/20 to-strataidge-turquoise/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </button>
               {formMessage && (
                 <p

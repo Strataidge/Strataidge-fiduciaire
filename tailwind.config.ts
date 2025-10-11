@@ -7,7 +7,6 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./*.{js,ts,jsx,tsx,mdx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",
@@ -54,9 +53,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Custom Colors for Strataidge
         "strataidge-blue-night": "#0A192F",
         "strataidge-turquoise": "#00C9A7",
-        "strataidge-coral": "#8B5CF6",
+        "strataidge-coral": "#8B5CF6", // Violet moderne et élégant
         "strataidge-yellow": "#FFD166",
         "strataidge-light-gray": "#F0F2F5",
       },
