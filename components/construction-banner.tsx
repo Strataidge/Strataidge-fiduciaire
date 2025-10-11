@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Clock, Wrench } from 'lucide-react'
+import { X, Clock, Wrench } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
@@ -26,9 +26,9 @@ export function ConstructionBanner() {
     return () => clearTimeout(timer)
   }, [])
 
-  // Calculer le temps restant jusqu'au 1er septembre 2025
+  // Calculer le temps restant jusqu'au 16 octobre 2025
   useEffect(() => {
-    const targetDate = new Date("2025-09-01T00:00:00").getTime()
+    const targetDate = new Date("2025-10-16T00:00:00").getTime()
 
     const updateCountdown = () => {
       const now = new Date().getTime()
@@ -116,7 +116,7 @@ export function ConstructionBanner() {
 
                       <p className="text-xs sm:text-sm text-strataidge-turquoise/80 bg-white/5 rounded-lg p-2 sm:p-3">
                         Cette version est une prévisualisation : la plateforme complète et tous nos services seront
-                        opérationnels dès le <strong className="text-strataidge-turquoise">1er septembre 2025</strong>.
+                        opérationnels dès le <strong className="text-strataidge-turquoise">16 octobre 2025</strong>.
                       </p>
 
                       <p className="text-xs sm:text-sm text-gray-400 italic">

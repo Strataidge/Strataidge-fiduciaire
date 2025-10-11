@@ -1,9 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { StructuredData } from "@/components/structured-data"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
 
 const siteConfig = {
   name: "Fiduciaire Digitale & Humaine | Conseil Fiscal & Comptabilité Stratégique pour Indépendants & Entreprises",
@@ -59,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr-BE" className={cn("antialiased", GeistSans.className)}>
+    <html lang="fr-BE" className={cn("antialiased", inter.variable)}>
       <head>
         {/* Préchargement DNS pour les domaines externes */}
         <link rel="dns-prefetch" href="//pub-ead16aaaa6fa455b8f9314d15969a567.r2.dev" />
@@ -78,7 +84,7 @@ export default function RootLayout({
 
         <StructuredData />
       </head>
-      <body className="overflow-x-hidden">{children}</body>
+      <body className="overflow-x-hidden font-sans">{children}</body>
     </html>
   )
 }

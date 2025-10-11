@@ -66,6 +66,36 @@
   .border-strataidge-yellow {
     border-color: var(--strataidge-yellow);
   }
+
+  /* Ombres professionnelles subtiles */
+  .shadow-professional {
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .shadow-professional-lg {
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-professional-xl {
+    box-shadow: 
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Backdrop blur professionnel */
+  .backdrop-blur-professional {
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+  }
+
+  .backdrop-blur-premium {
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+  }
 }
 
 /* Optimisations pour mobile */
@@ -107,11 +137,11 @@
   border-radius: 3px;
 }
 
-/* Animation pour les modales */
+/* Animation pour les modales professionnelles */
 @keyframes modal-in {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(-10px);
+    transform: scale(0.97) translateY(-4px);
   }
   to {
     opacity: 1;
@@ -120,7 +150,7 @@
 }
 
 .animate-modal-in {
-  animation: modal-in 0.2s ease-out;
+  animation: modal-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Optimisations de performance */
@@ -165,5 +195,51 @@ img {
 
   .shadow-lg {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Gradients subtils et professionnels */
+.gradient-subtle {
+  background: linear-gradient(135deg, 
+    rgba(0, 201, 167, 0.05) 0%, 
+    rgba(139, 92, 246, 0.05) 50%, 
+    rgba(0, 201, 167, 0.05) 100%);
+}
+
+.gradient-border-subtle {
+  background: linear-gradient(135deg, 
+    rgba(0, 201, 167, 0.3) 0%, 
+    rgba(139, 92, 246, 0.3) 50%, 
+    rgba(0, 201, 167, 0.3) 100%);
+}
+
+/* Effets de brillance subtils */
+.shimmer-subtle {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-subtle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
   }
 }
