@@ -26,9 +26,9 @@ export function ConstructionBanner() {
     return () => clearTimeout(timer)
   }, [])
 
-  // Calculer le temps restant jusqu'au 16 octobre 2025
+  // Calculer le temps restant jusqu'au 5 novembre 2025
   useEffect(() => {
-    const targetDate = new Date("2025-10-16T00:00:00").getTime()
+    const targetDate = new Date("2025-11-05T00:00:00").getTime()
 
     const updateCountdown = () => {
       const now = new Date().getTime()
@@ -104,9 +104,19 @@ export function ConstructionBanner() {
 
                   {/* Content */}
                   <div className="text-center space-y-3 sm:space-y-4">
-                    <h2 className="text-xl sm:text-2xl font-bold text-strataidge-turquoise leading-tight">
+                    <div className="flex justify-center mb-2">
+                      <Image
+                        src="/logo-banner.png"
+                        alt="Strataidge Fiduciaire & Conseils"
+                        width={400}
+                        height={80}
+                        className="h-12 sm:h-16 w-auto"
+                      />
+                    </div>
+
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                       L'humain derrière les chiffres… bientôt en ligne.
-                    </h2>
+                    </p>
 
                     <div className="space-y-2 sm:space-y-3 text-gray-300">
                       <p className="text-sm sm:text-base leading-relaxed">
@@ -116,7 +126,7 @@ export function ConstructionBanner() {
 
                       <p className="text-xs sm:text-sm text-strataidge-turquoise/80 bg-white/5 rounded-lg p-2 sm:p-3">
                         Cette version est une prévisualisation : la plateforme complète et tous nos services seront
-                        opérationnels dès le <strong className="text-strataidge-turquoise">16 octobre 2025</strong>.
+                        opérationnels dès le <strong className="text-strataidge-turquoise">5 novembre 2025</strong>.
                       </p>
 
                       <p className="text-xs sm:text-sm text-gray-400 italic">
@@ -140,7 +150,7 @@ export function ConstructionBanner() {
                           </span>
                           <span className="text-xs text-gray-400">heures</span>
                         </div>
-                        <span className="text-white text-sm sm:text-base">:</span>
+                        <span className="text-white text-sm:text-base">:</span>
                         <div className="flex flex-col">
                           <span className="text-lg sm:text-2xl font-bold text-white">
                             {timeLeft.minutes.toString().padStart(2, "0")}

@@ -1157,27 +1157,21 @@ function Footer() {
   ]
 
   return (
-    <footer className="bg-strataidge-blue-night border-t border-white/10" role="contentinfo">
+    <footer className="bg-strataidge-blue-night" role="contentinfo">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="md:col-span-4">
-            <Link href="/" className="flex items-center gap-3 w-fit" aria-label="Retour à l'accueil">
+            <Link href="/" className="block w-fit" aria-label="Retour à l'accueil">
               <img
-                src="/logo.png"
-                alt="Logo Strataidge Fiduciaire & Conseils"
-                width={40}
-                height={40}
-                className="object-contain flex-shrink-0"
-                style={{ minWidth: "40px", minHeight: "40px" }}
+                src="/logo-banner.png"
+                alt="Strataidge Fiduciaire & Conseils - L'humain derrière les chiffres"
+                width={220}
+                height={70}
+                className="object-contain"
               />
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-lg text-white text-left">Strataidge</span>
-                <span className="text-[10px] text-strataidge-turquoise font-medium tracking-widest whitespace-nowrap my-[-2px]">
-                  FIDUCIAIRE & CONSEILS
-                </span>
-              </div>
             </Link>
-            <p className="mt-4 text-sm text-left text-white">L'humain derrière les chiffres.</p>
+            {/* CHANGE: Reduced title size and changed to normal case */}
+            <h3 className="mt-4 text-sm font-medium text-white">L'humain derrière les chiffres</h3>
             <p className="mt-2 text-xs text-left text-gray-400">
               Strataidge, votre fiduciaire de confiance en Wallonie et à Bruxelles, vous accompagne dans le pilotage
               comptable, fiscal et stratégique de votre activité. Nous sommes également à vos côtés pour la création, la
@@ -1251,7 +1245,7 @@ function Footer() {
               />
               <div className="text-left min-w-[180px]">
                 <p className="text-base text-gray-300 font-medium whitespace-nowrap">Entreprise agréée ITAA</p>
-                <p className="text-base text-gray-400 whitespace-nowrap">N° 11.813.687</p>
+                <p className="text-base text-gray-400 whitespace-nowrap">N° 53.462.861</p>
               </div>
             </a>
           </div>
