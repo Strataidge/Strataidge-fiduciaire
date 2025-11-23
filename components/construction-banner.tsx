@@ -26,9 +26,9 @@ export function ConstructionBanner() {
     return () => clearTimeout(timer)
   }, [])
 
-  // Calculer le temps restant jusqu'au 5 novembre 2025
+  // Calculer le temps restant jusqu'au 10 janvier 2026
   useEffect(() => {
-    const targetDate = new Date("2025-11-05T00:00:00").getTime()
+    const targetDate = new Date("2026-01-10T00:00:00").getTime()
 
     const updateCountdown = () => {
       const now = new Date().getTime()
@@ -126,7 +126,7 @@ export function ConstructionBanner() {
 
                       <p className="text-xs sm:text-sm text-strataidge-turquoise/80 bg-white/5 rounded-lg p-2 sm:p-3">
                         Cette version est une prévisualisation : la plateforme complète et tous nos services seront
-                        opérationnels dès le <strong className="text-strataidge-turquoise">5 novembre 2025</strong>.
+                        opérationnels dès le <strong className="text-strataidge-turquoise">10 janvier 2026</strong>.
                       </p>
 
                       <p className="text-xs sm:text-sm text-gray-400 italic">

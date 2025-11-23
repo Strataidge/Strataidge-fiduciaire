@@ -741,7 +741,7 @@ function OffersSection() {
 
                   <p className="text-gray-200">
                     Cette page est encore en construction : nous finalisons une expérience 100 % digitale qui vous
-                    permettra, dès le <strong className="text-strataidge-turquoise">16 octobre 2025</strong>, de :
+                    permettra, dès le <strong className="text-strataidge-turquoise">10 janvier 2026</strong>, de :
                   </p>
 
                   <ul className="space-y-3 text-gray-200 max-w-2xl mx-auto">
@@ -1236,7 +1236,7 @@ function Footer() {
               aria-label="Visiter le site de l'ITAA - Institute for Tax Advisors & Accountants"
             >
               <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0bb4a2b9-cf21-4f7f-b0d2-b09d2341088c-YJcp6U8ka350SsYpniWI0e9uWcF7ID.png"
+                src="/images/0bb4a2b9-cf21-4f7f-b0d2-b09d2341088c.png"
                 alt="Logo ITAA - Institute for Tax Advisors & Accountants"
                 width={50}
                 height={50}
