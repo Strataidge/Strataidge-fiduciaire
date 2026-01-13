@@ -741,7 +741,7 @@ function OffersSection() {
 
                   <p className="text-gray-200">
                     Cette page est encore en construction : nous finalisons une expérience 100 % digitale qui vous
-                    permettra, dès le <strong className="text-strataidge-turquoise">10 janvier 2026</strong>, de :
+                    permettra, dès le <strong className="text-strataidge-turquoise">31 janvier 2026</strong>, de :
                   </p>
 
                   <ul className="space-y-3 text-gray-200 max-w-2xl mx-auto">
