@@ -35,10 +35,26 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
   const [showWelcomeBubble, setShowWelcomeBubble] = useState(false)
   const [isNearEdge, setIsNearEdge] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [chatId, setChatId] = useState<string>("")
 
   const chatbotRef = useRef<HTMLDivElement>(null)
   const inactivityTimerRef = useRef<NodeJS.Timeout>()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Générer ou récupérer un chat_id unique pour cette session
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let existingChatId = sessionStorage.getItem("strataidge_chat_id")
+      
+      if (!existingChatId) {
+        // Générer un nouvel ID unique
+        existingChatId = `chat_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
+        sessionStorage.setItem("strataidge_chat_id", existingChatId)
+      }
+      
+      setChatId(existingChatId)
+    }
+  }, [])
 
   // Gestion du bouton retour pour le chatbot
   useEffect(() => {
@@ -218,6 +234,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
       const formData = new FormData()
       formData.append("message", text.trim())
       formData.append("timestamp", new Date().toISOString())
+      formData.append("chat_id", chatId)
 
       const response = await fetch(
         "https://buck-able-curiously.ngrok-free.app/webhook/61aeaee3-dc42-4652-8612-cb6cc32bb757",
@@ -293,7 +310,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
     if (messages.length === 0) {
       const welcomeMessage: Message = {
         id: "welcome",
-        text: "Bonjour ! Je suis Charlie, votre assistant virtuel Strataidge. Comment puis-je vous aider aujourd'hui ?",
+        text: "Bonjour ! Je suis Charlie, votre assistant virtuel Strataidge. Je suis là pour vous accompagner et paramétrer ensemble une offre qui se calque au mieux à vos besoins, en toute transparence et sincérité. On commence quand vous voulez ! Pour débuter, pourriez-vous me donner votre nom et prénom ?",
         isUser: false,
         timestamp: new Date(),
       }
@@ -363,13 +380,13 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
   const getBubblePosition = () => {
     if (typeof window === "undefined") return { x: 0, y: 0 }
 
-    const bubbleWidth = 200 // Estimation de la largeur de la bulle
-    const bubbleHeight = 60 // Augmenté pour plus d'espace
+    const bubbleWidth = 240 // Estimation de la largeur de la bulle
+    const bubbleHeight = 80 // Augmenté pour plus d'espace
     const iconSize = isMobile ? 48 : 64
 
     // Position par défaut : au-dessus et centrée par rapport au centre de Charlie
     let bubbleX = position.x + iconSize / 2 - bubbleWidth / 2 // Centrer par rapport au centre de Charlie
-    let bubbleY = position.y - bubbleHeight - 15 // Au-dessus avec 15px d'espace
+    let bubbleY = position.y - bubbleHeight - 20 // Au-dessus avec 20px d'espace, juste au-dessus de la tête de Charlie
 
     // Ajustements pour rester dans l'écran
     bubbleX = Math.max(10, Math.min(window.innerWidth - bubbleWidth - 10, bubbleX))
@@ -473,17 +490,16 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
             }}
           >
             <div className="relative">
-              <div className="bg-white/10 backdrop-blur-md text-strataidge-turquoise px-4 py-3 rounded-2xl shadow-2xl border border-strataidge-turquoise/50 text-sm max-w-[200px]">
-                <p className="leading-relaxed font-medium">Bonjour, je suis Charlie ton assistant IA !</p>
+              <div className="bg-white/10 backdrop-blur-md text-strataidge-turquoise px-4 py-3 rounded-2xl shadow-2xl border border-strataidge-turquoise/50 text-sm max-w-[240px]">
+                <p className="leading-relaxed font-medium">Besoin d'une offre sur-mesure ? Je configure avec vous l'offre parfaite !</p>
               </div>
 
               {/* Arrow pointing to Charlie */}
               <div
                 className="absolute w-0 h-0 border-l-4 border-r-4 border-transparent"
                 style={{
-                  left: `${position.x + (isMobile ? 24 : 32) - bubblePosition.x}px`, // Position exacte au centre de Charlie
+                  left: `${position.x + (isMobile ? 24 : 32) - bubblePosition.x}px`,
                   transform: "translateX(-50%)",
-                  // Toujours pointer vers le bas (bulle au-dessus)
                   bottom: "-8px",
                   borderTopWidth: "8px",
                   borderTopColor: "#00C9A7",

@@ -24,6 +24,7 @@ import {
   Users,
   Star,
   Zap,
+  MessageCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -46,7 +47,6 @@ import { FileUpload } from "@/components/file-upload"
 import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
 import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
-import { ConstructionBanner } from "@/components/construction-banner"
 
 // Lazy load des composants lourds
 const Chatbot = lazy(() => import("@/components/chatbot").then((m) => ({ default: m.Chatbot })))
@@ -68,8 +68,6 @@ export default function StrataidgeLandingPageV2() {
 
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
-      <ConstructionBanner />
-
       <RecruitmentBanner
         isVisible={isBannerVisible}
         onClose={() => setIsBannerVisible(false)}
@@ -86,7 +84,7 @@ export default function StrataidgeLandingPageV2() {
       <main role="main">
         <HeroSection />
         <AboutSection />
-        <ServicesSection />
+        <ServicesSection setIsChatOpen={setIsChatOpen} />
         <MethodologySection />
         <OffersSection />
         <BlogSection />
@@ -339,7 +337,7 @@ const services = [
 
 type Service = (typeof services)[0]
 
-function ServicesSection() {
+function ServicesSection({ setIsChatOpen }: { setIsChatOpen: (open: boolean) => void }) {
   const [selectedService, setSelectedService] = useState<Service | null>(null)
 
   return (
@@ -504,12 +502,24 @@ function ServicesSection() {
                       </p>
                     </div>
                   </div>
-                  <DialogFooter className="mt-6 flex-shrink-0 gap-4">
+                  <DialogFooter className="mt-6 flex-shrink-0 gap-3 flex-col sm:flex-row">
                     <button
                       onClick={() => setSelectedService(null)}
                       className="h-14 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-0 px-6 text-gray-700 font-semibold text-lg tracking-wide"
                     >
                       Fermer
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedService(null)
+                        setIsChatOpen(true)
+                      }}
+                      className="group h-14 bg-strataidge-turquoise/10 hover:bg-strataidge-turquoise/20 border-2 border-strataidge-turquoise rounded-full transition-all duration-300 focus:outline-none focus:ring-0 px-6 inline-flex items-center justify-center"
+                    >
+                      <span className="text-strataidge-turquoise font-semibold text-lg tracking-wide">
+                        Configurer mon offre avec Charlie
+                      </span>
+                      <MessageCircle className="ml-3 h-5 w-5 text-strataidge-turquoise transition-all duration-300 group-hover:scale-110" />
                     </button>
                     <Link
                       href="#contact"
@@ -741,7 +751,7 @@ function OffersSection() {
 
                   <p className="text-gray-200">
                     Cette page est encore en construction : nous finalisons une expérience 100 % digitale qui vous
-                    permettra, dès le <strong className="text-strataidge-turquoise">31 janvier 2026</strong>, de :
+                    permettra <strong className="text-strataidge-turquoise">bientôt</strong> de :
                   </p>
 
                   <ul className="space-y-3 text-gray-200 max-w-2xl mx-auto">
