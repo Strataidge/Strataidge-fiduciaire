@@ -474,7 +474,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
           >
             <div className="relative">
               <div className="bg-white/10 backdrop-blur-md text-strataidge-turquoise px-4 py-3 rounded-2xl shadow-2xl border border-strataidge-turquoise/50 text-sm max-w-[200px]">
-                <p className="leading-relaxed font-medium">Bonjour, je suis Charlie ton assistant IA !</p>
+                <p className="leading-relaxed font-medium">Besoin d'une offre sur-mesure ? Je configure avec vous l'offre parfaite ! 💡</p>
               </div>
 
               {/* Arrow pointing to Charlie */}
