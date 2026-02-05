@@ -46,7 +46,6 @@ import { FileUpload } from "@/components/file-upload"
 import { CookieBanner } from "@/components/cookie-banner"
 import { CookiePolicyLink } from "@/components/cookie-policy-link"
 import { ModernOffersCarousel } from "@/components/modern-offers-carousel"
-import { ConstructionBanner } from "@/components/construction-banner"
 
 // Lazy load des composants lourds
 const Chatbot = lazy(() => import("@/components/chatbot").then((m) => ({ default: m.Chatbot })))
@@ -68,8 +67,6 @@ export default function StrataidgeLandingPageV2() {
 
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
-      <ConstructionBanner />
-
       <RecruitmentBanner
         isVisible={isBannerVisible}
         onClose={() => setIsBannerVisible(false)}
