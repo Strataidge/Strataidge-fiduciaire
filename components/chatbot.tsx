@@ -472,20 +472,20 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
               top: bubblePosition.y,
             }}
           >
-            <div className="relative">
-              <div className="bg-white text-gray-800 px-4 py-3 rounded-2xl shadow-2xl border border-strataidge-turquoise/30 text-sm max-w-[240px]">
+            <div className="relative mb-4">
+              <div className="bg-white/10 backdrop-blur-md text-strataidge-turquoise px-4 py-3 rounded-2xl shadow-2xl border border-strataidge-turquoise/50 text-sm max-w-[240px]">
                 <p className="leading-relaxed font-medium">Besoin d'une offre sur-mesure ? Je configure avec vous l'offre parfaite !</p>
               </div>
 
               {/* Arrow pointing to Charlie */}
               <div
-                className="absolute w-0 h-0 border-l-8 border-r-8 border-transparent"
+                className="absolute w-0 h-0 border-l-4 border-r-4 border-transparent"
                 style={{
                   left: `${position.x + (isMobile ? 24 : 32) - bubblePosition.x}px`,
                   transform: "translateX(-50%)",
-                  bottom: "-10px",
-                  borderTopWidth: "10px",
-                  borderTopColor: "#ffffff",
+                  bottom: "-8px",
+                  borderTopWidth: "8px",
+                  borderTopColor: "#00C9A7",
                 }}
               />
             </div>
