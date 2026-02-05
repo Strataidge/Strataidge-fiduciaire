@@ -293,7 +293,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
     if (messages.length === 0) {
       const welcomeMessage: Message = {
         id: "welcome",
-        text: "Bonjour ! Je suis Charlie, votre assistant virtuel Strataidge. Je suis là pour vous accompagner et paramétrer ensemble une offre qui se calque au mieux à vos besoins, en toute transparence et sincérité. Parlons de votre projet !",
+        text: "Bonjour ! Je suis Charlie, votre assistant virtuel Strataidge. Je suis là pour vous accompagner et paramétrer ensemble une offre qui se calque au mieux à vos besoins, en toute transparence et sincérité. On commence quand vous voulez ! Pour débuter, pourriez-vous me donner votre nom et prénom ?",
         isUser: false,
         timestamp: new Date(),
       }
