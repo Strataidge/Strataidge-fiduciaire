@@ -363,13 +363,13 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
   const getBubblePosition = () => {
     if (typeof window === "undefined") return { x: 0, y: 0 }
 
-    const bubbleWidth = 200 // Estimation de la largeur de la bulle
-    const bubbleHeight = 60 // Augmenté pour plus d'espace
+    const bubbleWidth = 240 // Estimation de la largeur de la bulle
+    const bubbleHeight = 80 // Augmenté pour plus d'espace
     const iconSize = isMobile ? 48 : 64
 
     // Position par défaut : au-dessus et centrée par rapport au centre de Charlie
     let bubbleX = position.x + iconSize / 2 - bubbleWidth / 2 // Centrer par rapport au centre de Charlie
-    let bubbleY = position.y - bubbleHeight - 15 // Au-dessus avec 15px d'espace
+    let bubbleY = position.y - bubbleHeight - 50 // Au-dessus avec 50px d'espace pour éviter de chevaucher Charlie
 
     // Ajustements pour rester dans l'écran
     bubbleX = Math.max(10, Math.min(window.innerWidth - bubbleWidth - 10, bubbleX))
@@ -472,7 +472,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
               top: bubblePosition.y,
             }}
           >
-            <div className="relative mb-20">
+            <div className="relative">
               <div className="bg-white/10 backdrop-blur-md text-strataidge-turquoise px-4 py-3 rounded-2xl shadow-2xl border border-strataidge-turquoise/50 text-sm max-w-[240px]">
                 <p className="leading-relaxed font-medium">Besoin d'une offre sur-mesure ? Je configure avec vous l'offre parfaite !</p>
               </div>
