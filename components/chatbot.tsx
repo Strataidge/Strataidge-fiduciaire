@@ -35,10 +35,26 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
   const [showWelcomeBubble, setShowWelcomeBubble] = useState(false)
   const [isNearEdge, setIsNearEdge] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [chatId, setChatId] = useState<string>("")
 
   const chatbotRef = useRef<HTMLDivElement>(null)
   const inactivityTimerRef = useRef<NodeJS.Timeout>()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Générer ou récupérer un chat_id unique pour cette session
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let existingChatId = sessionStorage.getItem("strataidge_chat_id")
+      
+      if (!existingChatId) {
+        // Générer un nouvel ID unique
+        existingChatId = `chat_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
+        sessionStorage.setItem("strataidge_chat_id", existingChatId)
+      }
+      
+      setChatId(existingChatId)
+    }
+  }, [])
 
   // Gestion du bouton retour pour le chatbot
   useEffect(() => {
@@ -218,6 +234,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
       const formData = new FormData()
       formData.append("message", text.trim())
       formData.append("timestamp", new Date().toISOString())
+      formData.append("chat_id", chatId)
 
       const response = await fetch(
         "https://buck-able-curiously.ngrok-free.app/webhook/61aeaee3-dc42-4652-8612-cb6cc32bb757",
