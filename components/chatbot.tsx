@@ -369,7 +369,7 @@ export function Chatbot({ onChatStateChange }: ChatbotProps = {}) {
 
     // Position par défaut : au-dessus et centrée par rapport au centre de Charlie
     let bubbleX = position.x + iconSize / 2 - bubbleWidth / 2 // Centrer par rapport au centre de Charlie
-    let bubbleY = position.y - bubbleHeight - 10 // Au-dessus avec 10px d'espace, juste au-dessus de la tête de Charlie
+    let bubbleY = position.y - bubbleHeight - 20 // Au-dessus avec 20px d'espace, juste au-dessus de la tête de Charlie
 
     // Ajustements pour rester dans l'écran
     bubbleX = Math.max(10, Math.min(window.innerWidth - bubbleWidth - 10, bubbleX))
