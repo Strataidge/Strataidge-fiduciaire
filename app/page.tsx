@@ -24,6 +24,7 @@ import {
   Users,
   Star,
   Zap,
+  MessageCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -83,7 +84,7 @@ export default function StrataidgeLandingPageV2() {
       <main role="main">
         <HeroSection />
         <AboutSection />
-        <ServicesSection />
+        <ServicesSection setIsChatOpen={setIsChatOpen} />
         <MethodologySection />
         <OffersSection />
         <BlogSection />
@@ -336,7 +337,7 @@ const services = [
 
 type Service = (typeof services)[0]
 
-function ServicesSection() {
+function ServicesSection({ setIsChatOpen }: { setIsChatOpen: (open: boolean) => void }) {
   const [selectedService, setSelectedService] = useState<Service | null>(null)
 
   return (
@@ -501,12 +502,24 @@ function ServicesSection() {
                       </p>
                     </div>
                   </div>
-                  <DialogFooter className="mt-6 flex-shrink-0 gap-4">
+                  <DialogFooter className="mt-6 flex-shrink-0 gap-3 flex-col sm:flex-row">
                     <button
                       onClick={() => setSelectedService(null)}
                       className="h-14 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-full transition-all duration-300 focus:outline-none focus:ring-0 px-6 text-gray-700 font-semibold text-lg tracking-wide"
                     >
                       Fermer
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedService(null)
+                        setIsChatOpen(true)
+                      }}
+                      className="group h-14 bg-strataidge-turquoise/10 hover:bg-strataidge-turquoise/20 border-2 border-strataidge-turquoise rounded-full transition-all duration-300 focus:outline-none focus:ring-0 px-6 inline-flex items-center justify-center"
+                    >
+                      <span className="text-strataidge-turquoise font-semibold text-lg tracking-wide">
+                        Configurer mon offre avec Charlie
+                      </span>
+                      <MessageCircle className="ml-3 h-5 w-5 text-strataidge-turquoise transition-all duration-300 group-hover:scale-110" />
                     </button>
                     <Link
                       href="#contact"
